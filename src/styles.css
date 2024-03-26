@@ -1,0 +1,191 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sail&display=swap');
+
+body{
+    height: 100vh;
+    font-family: 'Poppins';
+    display: flex;
+    overflow: hidden;
+    margin: 0;
+}
+
+.side-bar{
+    width: 30vh;
+    height: 100vh;
+    box-shadow: 0.3vh 0 0 #2babe2;
+    align-items: center;
+    justify-content: center; 
+}
+
+.side-bar .logo {
+    align-items: center;
+    justify-content: center; 
+    padding: 1vh 0 0 2vh;
+}
+
+.side-bar .logo .escrita1{
+    font-size: 3.5vh;
+    line-height: 80%;
+    padding-left: 1vh;
+}
+
+.side-bar .logo .escrita2{
+    line-height: 70%;
+    background: #2BABE2;
+    border-radius: 1vh;
+    font-family: 'Sail';
+    font-style: normal;
+    font-size: 6vh;
+    width: fit-content;
+    height: fit-content;    
+    padding: 0.3vh 1vh 0.3vh 0;
+}
+
+
+.side-bar .logo .escrita1 img{
+    width: 3.5vh;
+    height: auto;
+    padding-left: 0.7vh;
+}
+
+.side-bar > ul{
+    list-style-type: none;
+    position: relative;
+    padding: 3vh 0 0 5vh;
+    font-family: 'Poppins';
+}
+
+.side-bar > ul > .side-bar-item{
+    padding: 3vh 0 3vh;
+}
+
+
+.side-bar > ul > .side-bar-item .aba{
+    text-decoration: none;
+    font-size: 3vh;
+    background-color:white;
+    transition: background-color 1s ease;
+    border-radius: 1vh;
+    padding: 0.5vh 1vh 0.5vh 1vh;
+    border: 0vh;
+}
+
+.side-bar > ul > .side-bar-item .aba:hover{
+    background-color: #2BABE2;
+    cursor: pointer;
+}
+
+.side-bar > ul > .side-bar-item .selecionada{  
+    background-color: #2BABE2;
+}
+
+.ladoD{
+    height: 100%;
+    width: 100%;
+}
+
+.ladoD .frame-principal{
+    border: 0vh;
+    height: 100%;
+    width: 100%;
+}
+
+.corpo{
+    padding: 3vh 0 0 3vh;
+    height: 100%;
+    width: 100%;
+}
+
+.corpo .juncao{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.corpo .calendar{
+    align-items: center;
+    justify-content: center;
+    display: inline-block;
+    height: 80%;
+    border-radius: 1vh;
+}
+
+.corpo .calendar .cabeca{
+    display: flex;
+    font-size: 5vh;
+    align-items: center;
+    justify-content: center;   
+    border-radius: 2vh;
+}
+
+.corpo .calendar .cabeca .btn-mes{
+    background-color: #2BABE2;
+    border: none;
+    border-radius: 1vh;
+}
+
+.corpo .calendar .dia{
+    font-size: 4vh;
+    display: grid;
+    grid-template-columns: repeat(7, 10vh);
+    box-shadow: #2BABE2;
+    cursor: pointer;
+    text-align: center;
+}
+
+.corpo .calendar .daSemana{
+    background-color: #00609C88;
+    border-radius: 2vh;
+}
+
+.corpo .calendar .diaSelecionado{
+    background-color: #00609C;
+    border-radius: 1vh;
+}
+
+.corpo .agenda{
+    width: 40%;
+    height: 80%;
+    padding-left: 5vh;
+}
+
+.corpo .calendar .mes{
+    width: 40vh;
+    text-align: center;
+}
+
+.corpo .calendar .diaVazio{
+    background-color: #2babe258;
+    border-top: 1vh solid #2babe2;
+    border-radius: 0 1vh 0 1vh;
+    margin: 0.1vh;
+}
+
+.container-lg{
+
+    margin-top: 10px;
+    background-color: #ffffff;
+    display: flex;
+    
+}
+   
+
+ 
+.btn-lg{
+    margin-right: 10px;
+    margin-top: 10px;
+    background-color: #2babe2;
+}
+
+
+
+
+.container {
+    display: flex;
+    justify-content: space-between;
+  }
+/* 00609C */
