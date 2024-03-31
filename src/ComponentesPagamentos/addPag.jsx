@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PagPaci from './pagPaci';
 import '../styles.css';
 
 function AddPag() {
@@ -154,8 +155,9 @@ let valorParcelas = (parseFloat(valor)/parseInt(parcela)).toFixed(2);
               readOnly />
           </div>
           <div className="col-12">
-            <button type="submit" onClick={handleClickPagou} className="btn btn-primary">Adicionar</button>
+            <button  onClick={handleClickPagou} className="btn btn-primary">Adicionar</button>
           </div>
+            
         </form>
       </div>
     </div>
