@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import AddPag from './ComponentesPagamentos/addPag'
-import PagPaci from './ComponentesPagamentos/pagPaci'
-import PagMes from './ComponentesPagamentos/pagMes'
-import PagData from './ComponentesPagamentos/pagData'
+import AddPag from './addPag'
+import PagPaci from './pagPaci'
+import PagMes from './pagMes'
+import PagData from './pagData'
 
-import './styles.css';
+import '../styles.css';
 
 function Pagamentos() {
   const [BotaoVoltar, setBotao] = useState(false);

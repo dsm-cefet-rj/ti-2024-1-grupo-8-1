@@ -1,15 +1,14 @@
 import React from 'react';
-import './styles.css';
+import '../styles.css';
 
-function Pacientes() {
+function Estoque() {
   return (
     <div className="corpo">
       <div className="cabecalho">
-        Pacientes
+        Estoque
       </div>
- 
-   </div>
+    </div>
   );
 }
 
-export default Pacientes;
+export default Estoque;

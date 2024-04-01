@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import Agenda from './Agenda.jsx';
-import Pacientes from './Pacientes.jsx';
-import Estoque from './Estoque.jsx';
-import Pagamentos from './Pagamentos.jsx';
-import './styles.css';
+import Agenda from '../ComponentesAgenda/Agenda.jsx';
+import Pacientes from '../ComponentesPacientes/Pacientes.jsx';
+import Estoque from '../ComponentesEstoque/Estoque.jsx';
+import Pagamentos from '../ComponentesPagamentos/Pagamentos.jsx';
+import '../styles.css';
 
 function NavApp() {
   const [exibirPacientes, setExibirPacientes] = useState(false);
@@ -46,7 +46,7 @@ function NavApp() {
         <div className="logo">
           <div className="escrita1">
             Portal da
-            <img src={require('./Imagens/Imagem1.png')} />
+            <img src={require('../Imagens/Imagem1.png')} />
           </div>
           <div className="escrita2">Doutora</div>
         </div>
