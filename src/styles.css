@@ -172,7 +172,6 @@ body{
     display: flex;
     
 }
-   
 
  
 .btn-lg{
@@ -187,5 +186,6 @@ body{
 .container {
     display: flex;
     justify-content: space-between;
-  }
+    padding: 0vh 0vh 0vh 0vh;
+}
 /* 00609C */

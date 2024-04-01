@@ -40,47 +40,43 @@ function NavApp() {
   };
 
   return (
-    <div className='corpo'>
-    <div className='container'>
-      <nav className="side-bar">
-        <div className="logo">
-          <div className="escrita1">
-            Portal da
-            <img src={require('./Imagens/Imagem1.png')} />
+      <div className='container'>
+        <nav className="side-bar">
+          <div className="logo">
+            <div className="escrita1">
+              Portal da
+              <img src={require('./Imagens/Imagem1.png')} />
+            </div>
+            <div className="escrita2">Doutora</div>
           </div>
-          <div className="escrita2">Doutora</div>
-        </div>
-
-        <ul>
-          <li className="side-bar-item">
-            <button id="BtnPacientes" onClick={handleClickPacientes} className="aba">
-              Pacientes
-            </button>
-          </li>
-          <li className="side-bar-item">
-            <button id="BtnAgenda" onClick={handleClickAgenda} className="aba">
-              Agenda
-            </button>
-          </li>
-          <li className="side-bar-item">
-            <button id="BtnEstoque" onClick={handleClickEstoque} className="aba">
-              Estoque
-            </button>
-          </li>
-          <li className="side-bar-item">
-            <button id="BtnPagamentos" onClick={handleClickPagamentos} className="aba">
-              Pagamentos
-            </button>
-          </li>
-        </ul>
-      </nav>
-      {exibirPacientes && <Pacientes />}
-      {exibirAgenda && <Agenda />}
-      {exibirEstoque && <Estoque />}
-      {exibirPagamentos && <Pagamentos />}
-      
-    </div>
-    </div>
+          <ul>
+            <li className="side-bar-item">
+              <button id="BtnPacientes" onClick={handleClickPacientes} className="aba">
+                Pacientes
+              </button>
+            </li>
+            <li className="side-bar-item">
+              <button id="BtnAgenda" onClick={handleClickAgenda} className="aba">
+                Agenda
+              </button>
+            </li>
+            <li className="side-bar-item">
+              <button id="BtnEstoque" onClick={handleClickEstoque} className="aba">
+                Estoque
+              </button>
+            </li>
+            <li className="side-bar-item">
+              <button id="BtnPagamentos" onClick={handleClickPagamentos} className="aba">
+                Pagamentos
+              </button>
+            </li>
+          </ul>
+        </nav>
+        {exibirPacientes && <Pacientes />}
+        {exibirAgenda && <Agenda />}
+        {exibirEstoque && <Estoque />}
+        {exibirPagamentos && <Pagamentos />}
+      </div>
   );
 }
 

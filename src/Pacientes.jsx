@@ -7,7 +7,12 @@ function Pacientes() {
       <div className="cabecalho">
         Pacientes
       </div>
- 
+      <div>
+        <div>
+          <button>adicionar</button>
+          <button>remover</button>
+        </div>
+      </div>
    </div>
   );
 }
