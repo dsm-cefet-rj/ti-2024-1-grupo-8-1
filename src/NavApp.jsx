@@ -40,7 +40,7 @@ function NavApp() {
   };
 
   return (
-      <div className='container'>
+      <div className='janela'>
         <nav className="side-bar">
           <div className="logo">
             <div className="escrita1">
