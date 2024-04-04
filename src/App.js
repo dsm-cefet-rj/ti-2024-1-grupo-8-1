@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import NavApp from './NavApp.jsx';
-import Pacientes from './Pacientes.jsx';
-import './styles.css';
+import NavApp from './Componentes/ComponentesNavApp/NavApp.jsx';
+import './Componentes/styles.css';
 
 function App() {
   return (
