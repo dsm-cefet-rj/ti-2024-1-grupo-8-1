@@ -1,22 +1,13 @@
-
-
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Sail&display=swap');
-
-body{
-    height: 100vh;
-    font-family: 'Poppins';
-    display: flex;
-    overflow: hidden;
-    margin: 0;
-}
 
 .side-bar{
     width: 30vh;
     height: 100vh;
     box-shadow: 0.3vh 0 0 #2babe2;
     align-items: center;
-    justify-content: center; 
+    flex-direction: column;
+    display: flex;
 }
 
 .side-bar .logo {
@@ -51,14 +42,15 @@ body{
 }
 
 .side-bar > ul{
-    list-style-type: none;
+    list-style: none;
     position: relative;
-    padding: 3vh 0 0 5vh;
+    padding: 0 0 0 0;
     font-family: 'Poppins';
+    max-width: fit-content;
 }
 
 .side-bar > ul > .side-bar-item{
-    padding: 3vh 0 3vh;
+    padding-top: 5vh;
 }
 
 
@@ -68,8 +60,9 @@ body{
     background-color:white;
     transition: background-color 1s ease;
     border-radius: 1vh;
-    padding: 0.5vh 1vh 0.5vh 1vh;
     border: 0vh;
+    display: flex;
+    justify-content: center;
 }
 
 .side-bar > ul > .side-bar-item .aba:hover{
@@ -81,19 +74,9 @@ body{
     background-color: #2BABE2;
 }
 
-.ladoD{
-    height: 100%;
-    width: 100%;
-}
-
-.ladoD .frame-principal{
-    border: 0vh;
-    height: 100%;
-    width: 100%;
-}
 
 .corpo{
-    padding: 3vh 0 0 3vh;
+    padding: 3vh 3vh 3vh 3vh;
     height: 100%;
     width: 100%;
 }
@@ -166,31 +149,32 @@ body{
 }
 
 .container-lg{
-
     margin-top: 10px;
     background-color: #ffffff;
-    display: flex;
-    
+    display: flex;    
 }
+<<<<<<< HEAD:src/styles.css
    
  
+=======
+
+>>>>>>> 51acac7f87140d4c87f03162a8ec3c42fba0e13c:src/Componentes/styles.css
 .btn-lg{
     margin-right: 10px;
     margin-top: 10px;
     background-color: #2babe2;
 }
 
-
-.container {
+.janela{
     display: flex;
     justify-content: space-between;
-  }
-/* 00609C */
-
-.listaEstoque {
-
-    background-color: #2babe288;
-    overflow-y: auto;
-    max-height: 10vh;
-
+    padding: 0vh 0vh 0vh 0vh;
+    margin: none;
+    width: 100%;
 }
+
+#root{
+    width: 100%;
+    height: 100%;
+}
+/* 00609C */

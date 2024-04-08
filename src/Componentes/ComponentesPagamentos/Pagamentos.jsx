@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import AddPag from './ComponentesPagamentos/addPag'
-import PagPaci from './ComponentesPagamentos/pagPaci'
-import PagMes from './ComponentesPagamentos/pagMes'
-import PagData from './ComponentesPagamentos/pagData'
+import AddPag from './addPag'
+import PagPaci from './pagPaci'
+import PagMes from './pagMes'
+import PagData from './pagData'
 
-import './styles.css';
+import '../styles.css';
 
 function Pagamentos() {
   const [BotaoVoltar, setBotao] = useState(false);
@@ -96,37 +96,32 @@ function Pagamentos() {
 
 
 
-    return (
-        
-      <div className="corpo">
-        <div className="cabecalho">
-            Pagamentos
-        </div>
-        <button type="button" id="pagamentos-voltar-btn" onClick={handleClickBotaoVoltar} className="btn btn-primary">Voltar</button>
+  return (
+    <div className="corpo">
+      <div className="cabecalho">
+        <h1>Pagamentos</h1>
+      </div>
+        <button type="button" id="pagamentos-voltar-btn" onClick={handleClickBotaoVoltar} className="btn voltar">Voltar</button>
         <div className='container-lg'>
-          
           <div onClick={handleClickExibirBotaoAdd}>
-          {exibirBotaoAdd && <button type="button" id="pagamentos-adicionar-btn" onClick={handleClickAdd} className="btn btn-primary btn-lg">Adicionar</button>}
+            {exibirBotaoAdd && <button type="button" id="pagamentos-adicionar-btn" onClick={handleClickAdd} className="btn btn-primary btn-lg">Adicionar</button>}
           </div>
           <div onClick={handleClickExibirBotaoData}>
-          {exibirBotaoData && <button type="button" id="pagamentos-pagData-btn" onClick={handleClickPagData} className="btn btn-primary btn-lg">Ver pagamentos de uma data</button>}
+           {exibirBotaoData && <button type="button" id="pagamentos-pagData-btn" onClick={handleClickPagData} className="btn btn-primary btn-lg">Ver pagamentos de uma data</button>}
           </div>
           <div onClick={handleClickExibirBotaoPaci}>
-          {exibirBotaoPaci && <button type="button" id="pagamentos-pagPaci-btn" onClick={handleClickPagPaci}  className="btn btn-primary btn-lg">Ver pagamentos por paciente</button> }
+            {exibirBotaoPaci && <button type="button" id="pagamentos-pagPaci-btn" onClick={handleClickPagPaci}  className="btn btn-primary btn-lg">Ver pagamentos por paciente</button> }
           </div>
           <div onClick={handleClickExibirBotaoMes}>
-          {exibirBotaoMes && <button type="button" id="pagamentos-pagMes-btn" onClick={handleClickPagMes}  className="btn btn-primary btn-lg">Ver pagamentos por mês</button>}
+            {exibirBotaoMes && <button type="button" id="pagamentos-pagMes-btn" onClick={handleClickPagMes}  className="btn btn-primary btn-lg">Ver pagamentos por mês</button>}
           </div>
-            
             {exibirAdd && <AddPag />}
             {exibirPagData && <PagData />}
             {exibirPagPaci && <PagPaci />}
             {exibirPagMes && <PagMes />}
-         
+          </div>
         </div>
-      </div>
-          
-    );
+      );
 }
 
 export default Pagamentos;

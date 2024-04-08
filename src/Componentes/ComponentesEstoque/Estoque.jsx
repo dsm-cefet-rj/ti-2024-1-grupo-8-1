@@ -1,9 +1,14 @@
+<<<<<<< HEAD:src/Estoque.jsx
 import React, { useState } from 'react'
 import CadastrarItem from './ComponentesEstoque/cadastrarItem'
 import DeletarItem from './ComponentesEstoque/deletarItem'
 import {ListaEstoque, ItemEstoque} from './ComponentesEstoque/listaEstoque'
 
 import './styles.css';
+=======
+import React from 'react';
+import '../styles.css';
+>>>>>>> 51acac7f87140d4c87f03162a8ec3c42fba0e13c:src/Componentes/ComponentesEstoque/Estoque.jsx
 
 function Estoque() {
 
