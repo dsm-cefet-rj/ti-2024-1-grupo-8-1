@@ -9,14 +9,14 @@ function AddPag() {
     setPagou(true);
   }
  const Pacientes = [
-  {
-    nome: "Payet Bittencourt",
-    telefone: "(11) 98765-4320",
-    cpf: "123.456.789-00",
-    endereco: "Rua Sotero dos reis, 123",
-    cidade: "Rio de Janeiro",
-    pagou : false
-  },
+    {
+      nome: "Payet Bittencourt",
+      telefone: "(11) 98765-4320",
+      cpf: "123.456.789-00",
+      endereco: "Rua Sotero dos reis, 123",
+      cidade: "Rio de Janeiro",
+      pagou : false
+    },
 
     {
       nome: "João da Silva",
@@ -26,6 +26,7 @@ function AddPag() {
       cidade: "São Paulo",
       pagou : false
     },
+
     {
       nome: "Maria Souza",
       telefone: "(21) 99999-8888",
@@ -34,6 +35,7 @@ function AddPag() {
       cidade: "Rio de Janeiro",
       pagou : false
     },
+
     {
       nome: "Carlos Oliveira",
       telefone: "(31) 77777-2222",
@@ -42,6 +44,7 @@ function AddPag() {
       cidade: "Belo Horizonte",
       pagou : false
     },
+
     {
       nome: "Ana Santos",
       telefone: "(41) 33333-5555",
@@ -50,6 +53,7 @@ function AddPag() {
       cidade: "Curitiba",
       pagou : false
     },
+
     {
       nome: "Pedro Costa",
       telefone: "(85) 22222-7777",
@@ -58,6 +62,7 @@ function AddPag() {
       cidade: "Fortaleza",
       pagou : false
     },
+    
     {
       nome: "Fernanda Almeida",
       telefone: "(61) 44444-1111",
@@ -86,7 +91,7 @@ let valorParcelas = (parseFloat(valor)/parseInt(parcela)).toFixed(2);
           <div className="col-md-4">
             <label htmlFor="inputState" className="form-label">Paciente</label>
 
-            <select id="inputState" className="form-select"  onChange={(p)=>setPacienteSelecionado(p.target.value)} >
+            <select id="inputState" className="form-select" onChange={(p)=>setPacienteSelecionado(p.target.value)} >
               <option selected>Escolha...</option>
               {Pacientes.map((Paciente) => (
           <option key={Paciente.nome} value={Paciente.nome}>

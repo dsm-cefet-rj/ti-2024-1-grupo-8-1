@@ -173,7 +173,6 @@ body{
     
 }
    
-
  
 .btn-lg{
     margin-right: 10px;
@@ -182,10 +181,16 @@ body{
 }
 
 
-
-
 .container {
     display: flex;
     justify-content: space-between;
   }
 /* 00609C */
+
+.listaEstoque {
+
+    background-color: #2babe288;
+    overflow-y: auto;
+    max-height: 10vh;
+
+}
