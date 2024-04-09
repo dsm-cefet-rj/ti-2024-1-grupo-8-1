@@ -47,16 +47,21 @@ form{
 form > div{
     margin-top: 2vh;
 }
-form > div >input{
+
+input{
+    width: 100%;
     border: none;
     background-color: #2babe288;
     border-radius: 1vh;
     padding: 0 1vh 0 1vh;
 }
 
+
 .lista-de-alergias{
     display: flex;
     list-style: none;
+    padding: 0;
+    flex-wrap: wrap;
 }
 
 .lista-de-alergias > li{
