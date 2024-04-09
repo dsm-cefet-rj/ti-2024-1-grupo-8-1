@@ -1,27 +1,58 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, Component } from 'react';
 import PagPaci from './pagPaci';
-import Pacientes from '../Data/pacData'
+import Pacientes from '../Data/pacData';
 import '../styles.css';
-
+import {useSelector,useDispatch} from 'react-redux';
+import { addPag } from '../../features/listaPagamentosSlice';
 function AddPag() {
 
-  const[pagou,setPagou] = useState(false);
+const [dataAtual, setDataAtual] = useState('');
 
-  const handleClickPagou = ()=>{
+const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    const obterDataAtual = () => {
+      const data = new Date();
+      const formatoData = { day: '2-digit', month: '2-digit', year: 'numeric' };
+      const dataFormatada = data.toLocaleDateString('pt-BR', formatoData);
+      return dataFormatada;
+    };
+    setDataAtual(obterDataAtual());
+  }, []);
+
+  const[pagou,setPagou] = useState(false);
+  const pagamentosss = [];
+  const handleClickPagou = (event) => {
+    event.preventDefault();
     setPagou(true);
-    alert(pagou);
-  }
+    console.log(dados);
+    pagamentosss.concat(dados);
+    console.log(pagamentosss);
+  };
 
   const [pacienteSelecionado, setPacienteSelecionado] = useState('Ana Santos');
 
   let nomeProcurado = pacienteSelecionado;
 
-  const pacienteEncontrado= Pacientes.find((paciente) => paciente.nome === nomeProcurado);
+  const pacienteEncontrado = Pacientes.find((paciente) => paciente.nome === nomeProcurado);
 
 const[valor,setValorTotal] = useState('')
 const[parcela,setParcela] = useState('')
 let valorParcelas = (parseFloat(valor)/parseInt(parcela)).toFixed(2);
+const dados =  [
+  {
+    nome: pacienteSelecionado,
+    cpf: pacienteEncontrado.cpf,
+    valorTotal: valor,
+    parcela : parcela,
+    valorParcela: valorParcelas,
+    data: dataAtual,
+    emDia: true,
 
+  }
+
+];
 
   return (
     <div className="corpo">
@@ -59,13 +90,23 @@ let valorParcelas = (parseFloat(valor)/parseInt(parcela)).toFixed(2);
             <input type="number" className="form-control" id="inputParcela" value={parcela} onChange={(e)=>setParcela(e.target.value)} />
           </div>
           <div className="col-md-2">
-            <label htmlFor="inputValor" className="form-label">Pago?</label>
-            <input type="text" className="form-control" id="inputPago" value={pagou} readOnly/>
+            <label htmlFor="inputValor" className="form-label">Valor das parcelas</label>
+            <input type="text" className="form-control" id="inputPago" value={valorParcelas} readOnly/>
           </div>
           <div className="col-md-2">
-            <label htmlFor="inputParcelas" className="form-label">Valor das parcelas</label>
-            <input type="text" id="inputParcelas" value={valorParcelas} readOnly />
+            <label htmlFor="inputTelefone" className="form-label">Data do pagamento</label>
+            <input type="text" className="form-control" id="inputTelefone" value={dataAtual}
+              readOnly />
           </div>
+          <select id="inputState" className="form-select" onChange={(p)=>setPacienteSelecionado(p.target.value)} >
+              <option selected>Escolha...</option>
+              {pagamentosss.map((Paciente) => (
+          <option key={Paciente.nome} value={Paciente.nome}>
+            {Paciente.nome}
+          </option>
+        ))}
+            </select>
+        
          
           <div className="textpagComprador">
             <h1>Dados do comprador</h1>
@@ -103,8 +144,8 @@ let valorParcelas = (parseFloat(valor)/parseInt(parcela)).toFixed(2);
             
         </form>
       </div>
+      
     </div>
   );
 }
-
 export default AddPag;
