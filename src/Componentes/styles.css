@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Sail&display=swap');
 
 .side-bar{
-    width: 30vh;
+    width: 20vw;
     height: 100vh;
     box-shadow: 0.3vh 0 0 #2babe2;
     align-items: center;
@@ -13,22 +13,24 @@
 .side-bar .logo {
     align-items: center;
     justify-content: center; 
-    padding: 1vh 0 0 2vh;
+    padding: 1vh 0 0 0;
 }
 
 .side-bar .logo .escrita1{
-    font-size: 3.5vh;
-    line-height: 80%;
+    font-size: 1.8vw;
+    line-height: 100%;
     padding-left: 1vh;
+    display: flex;
+    align-items: baseline;
 }
 
 .side-bar .logo .escrita2{
-    line-height: 70%;
+    line-height: 80%;
     background: #2BABE2;
     border-radius: 1vh;
     font-family: 'Sail';
     font-style: normal;
-    font-size: 6vh;
+    font-size: 3vw;
     width: fit-content;
     height: fit-content;    
     padding: 0.3vh 1vh 0.3vh 0;
@@ -36,7 +38,7 @@
 
 
 .side-bar .logo .escrita1 img{
-    width: 3.5vh;
+    width: 2.5vw;
     height: auto;
     padding-left: 0.7vh;
 }
@@ -56,7 +58,7 @@
 
 .side-bar > ul > .side-bar-item .aba{
     text-decoration: none;
-    font-size: 3vh;
+    font-size: 1.5vw;
     background-color:white;
     transition: background-color 1s ease;
     border-radius: 1vh;
@@ -153,12 +155,8 @@
     background-color: #ffffff;
     display: flex;    
 }
-<<<<<<< HEAD:src/styles.css
    
  
-=======
-
->>>>>>> 51acac7f87140d4c87f03162a8ec3c42fba0e13c:src/Componentes/styles.css
 .btn-lg{
     margin-right: 10px;
     margin-top: 10px;
