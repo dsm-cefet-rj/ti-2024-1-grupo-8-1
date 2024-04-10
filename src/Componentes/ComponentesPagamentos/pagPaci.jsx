@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import Table from 'react-bootstrap/Table';
 
 function PagPaci() {
   const pagamentos = useSelector((state) => state.listaPagamentos.pagamentos);
@@ -7,19 +8,37 @@ function PagPaci() {
   return (
     <div>
       <h1>Pagamentos</h1>
-      {pagamentos.map((pagamento, index) => (
-        <div key={index}>
-          <p>Nome: {pagamento.nome}</p>
-          <p>CPF: {pagamento.cpf}</p>
-          <p>Valor Total: {pagamento.valorTotal}</p>
-          <p>Parcela: {pagamento.parcela}</p>
-          <p>Valor Parcela: {pagamento.valorParcela}</p>
-          <p>Data: {pagamento.data}</p>
-          <p>Em Dia: {pagamento.emDia ? 'Sim' : 'Não'}</p>
+      <Table striped bordered hover variant="dark">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nome</th>
+          <th>CPF</th>
+          <th>Total</th>
+          <th>Parcela</th>
+          <th>Valor Parcela</th>
+          <th>Data</th>
+          <th>Em dia?</th>
+        </tr>
+      </thead>
+      <tbody>
+    {pagamentos.map((pagamento, index) => (
+      <tr key={index}>
+           <td>{pagamento.id}</td>
+        <td>{pagamento.nome}</td>
+        <td>{pagamento.cpf}</td>
+        <td>{pagamento.valorTotal}</td>
+        <td>{pagamento.parcela}</td>
+        <td>{pagamento.valorParcela}</td>
+        <td>{pagamento.data}</td>
+        <td>{pagamento.emDia ? 'Sim' : 'Não'}</td>
+      </tr>
+    ))}
+  </tbody>
+    </Table>
+
           <hr />
         </div>
-      ))}
-    </div>
   );
 }
 

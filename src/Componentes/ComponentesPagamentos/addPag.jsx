@@ -22,13 +22,15 @@ function AddPag() {
   }, []);
 
   const [pagou, setPagou] = useState(false);
-  const [pagamentosss, setPagamentosss] = useState([]);
+ 
+  let id = 0;
   const handleClickPagou = (event) => {
     event.preventDefault();
     setPagou(true);
     const pacienteSelecionado = Pacientes.find(paciente => paciente.nome === nomeProcurado);
     const valorParcelas = (parseFloat(valor) / parseInt(parcela)).toFixed(2);
     const dados = {
+      id: id++,
       nome: pacienteSelecionado.nome,
       cpf: pacienteSelecionado.cpf,
       valorTotal: valor,
@@ -95,16 +97,6 @@ function AddPag() {
             <input type="text" className="form-control" id="inputTelefone" value={dataAtual}
               readOnly />
           </div>
-          <select id="inputState" className="form-select" onChange={(p) => setPacienteSelecionado(p.target.value)}>
-  <option selected>Escolha...</option>
-  {pagamentosss.map((Pacientes) => (
-    <option key={Pacientes.nome} value={Pacientes.nome}>
-      {Pacientes.nome}
-    </option>
-  ))}
-</select>
-
-
           <div className="textpagComprador">
             <h1>Dados do comprador</h1>
           </div>
