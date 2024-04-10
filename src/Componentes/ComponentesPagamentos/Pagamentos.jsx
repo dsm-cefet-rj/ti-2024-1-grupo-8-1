@@ -34,7 +34,7 @@ function Pagamentos() {
 
     const handleClickExibirBotaoPaci = () =>{
 
-        setExibirBotaoAdd(false);
+        setExibirBotaoAdd(true);
         setExibirBotaoMes(false);
         setExibirBotaoData(false);
     }

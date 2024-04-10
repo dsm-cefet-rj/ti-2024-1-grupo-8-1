@@ -1,8 +1,7 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import Pacientes from '../Componentes/Data/pagData';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  
+  pagamentos: [],
 };
 
 const pagamentosSlice = createSlice({
@@ -10,7 +9,7 @@ const pagamentosSlice = createSlice({
   initialState,
   reducers: {
     addPag: (state, action) => {
-      
+      state.pagamentos.push(action.payload);
     },
   },
 });

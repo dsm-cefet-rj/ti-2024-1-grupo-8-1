@@ -1,15 +1,15 @@
-import React, { useState, useEffect, Component } from 'react';
-import PagPaci from './pagPaci';
+import React, { useState, useEffect } from 'react';
 import Pacientes from '../Data/pacData';
-import '../styles.css';
 import { useSelector, useDispatch } from 'react-redux';
+
+
 import { addPag } from '../../features/listaPagamentosSlice';
+
 function AddPag() {
 
   const [dataAtual, setDataAtual] = useState('');
 
   const dispatch = useDispatch();
-
 
   useEffect(() => {
     const obterDataAtual = () => {
@@ -22,37 +22,34 @@ function AddPag() {
   }, []);
 
   const [pagou, setPagou] = useState(false);
-  const pagamentosss = [];
+  const [pagamentosss, setPagamentosss] = useState([]);
   const handleClickPagou = (event) => {
     event.preventDefault();
     setPagou(true);
-    console.log(dados);
-    pagamentosss.concat(dados);
-    console.log(pagamentosss);
-  };
-
-  const [pacienteSelecionado, setPacienteSelecionado] = useState('Ana Santos');
-
-  let nomeProcurado = pacienteSelecionado;
-
-  const pacienteEncontrado = Pacientes.find((paciente) => paciente.nome === nomeProcurado);
-
-  const [valor, setValorTotal] = useState('')
-  const [parcela, setParcela] = useState('')
-  let valorParcelas = (parseFloat(valor) / parseInt(parcela)).toFixed(2);
-  const dados = [
-    {
-      nome: pacienteSelecionado,
-      cpf: pacienteEncontrado.cpf,
+    const pacienteSelecionado = Pacientes.find(paciente => paciente.nome === nomeProcurado);
+    const valorParcelas = (parseFloat(valor) / parseInt(parcela)).toFixed(2);
+    const dados = {
+      nome: pacienteSelecionado.nome,
+      cpf: pacienteSelecionado.cpf,
       valorTotal: valor,
       parcela: parcela,
       valorParcela: valorParcelas,
       data: dataAtual,
-      emDia: true,
+      emDia: true
+    };
+    dispatch(addPag(dados));
 
-    }
+  };
+ 
 
-  ];
+  const [pacienteSelecionado, setPacienteSelecionado] = useState('Ana Santos');
+  let nomeProcurado = pacienteSelecionado;
+  const pacienteEncontrado = Pacientes.find((paciente) => paciente.nome === nomeProcurado);
+
+  const [valor, setValorTotal] = useState('');
+  const [parcela, setParcela] = useState('');
+  const valorParcelas = (parseFloat(valor) / parseInt(parcela)).toFixed(2);
+
 
   return (
     <div className="corpo">
@@ -98,14 +95,14 @@ function AddPag() {
             <input type="text" className="form-control" id="inputTelefone" value={dataAtual}
               readOnly />
           </div>
-          <select id="inputState" className="form-select" onChange={(p) => setPacienteSelecionado(p.target.value)} >
-            <option selected>Escolha...</option>
-            {pagamentosss.map((Paciente) => (
-              <option key={Paciente.nome} value={Paciente.nome}>
-                {Paciente.nome}
-              </option>
-            ))}
-          </select>
+          <select id="inputState" className="form-select" onChange={(p) => setPacienteSelecionado(p.target.value)}>
+  <option selected>Escolha...</option>
+  {pagamentosss.map((Pacientes) => (
+    <option key={Pacientes.nome} value={Pacientes.nome}>
+      {Pacientes.nome}
+    </option>
+  ))}
+</select>
 
 
           <div className="textpagComprador">
