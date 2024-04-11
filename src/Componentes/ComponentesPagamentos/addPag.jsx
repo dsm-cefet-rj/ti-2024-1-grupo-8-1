@@ -7,18 +7,18 @@ import { addPag } from '../../features/listaPagamentosSlice';
 
 function AddPag() {
 
-  const [dataAtual, setDataAtual] = useState('');
+  const [dataInput, setData] = useState('');
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const obterDataAtual = () => {
+    const obterData = () => {
       const data = new Date();
       const formatoData = { day: '2-digit', month: '2-digit', year: 'numeric' };
       const dataFormatada = data.toLocaleDateString('pt-BR', formatoData);
       return dataFormatada;
     };
-    setDataAtual(obterDataAtual());
+    setData(obterData());
   }, []);
 
   const [pagou, setPagou] = useState(false);
@@ -36,7 +36,7 @@ function AddPag() {
       valorTotal: valor,
       parcela: parcela,
       valorParcela: valorParcelas,
-      data: dataAtual,
+      data: dataInput,
       emDia: true
     };
     dispatch(addPag(dados));
@@ -94,8 +94,7 @@ function AddPag() {
           </div>
           <div className="col-md-2">
             <label htmlFor="inputTelefone" className="form-label">Data do pagamento</label>
-            <input type="text" className="form-control" id="inputTelefone" value={dataAtual}
-              readOnly />
+            <input type="text" className="form-control" id="inputTelefone" value={dataInput} onChange={(e) => setData(e.target.value)}/>
           </div>
           <div className="textpagComprador">
             <h1>Dados do comprador</h1>
