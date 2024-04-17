@@ -13,8 +13,7 @@ function Agenda() {
     ];
 
     const obterConsultas = () => {
-      // Simulação de chamada assíncrona para obter as consultas
-      setTimeout(() => {
+        setTimeout(() => {
         const consultas = [
           { dia: new Date(2024, 3, 14, 10, 0), paciente: 'Maria' },
           { dia: new Date(2024, 3, 14, 17, 30), paciente: 'João' },
