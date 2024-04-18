@@ -1,73 +1,101 @@
 import React, { useState } from 'react';
-import './stylesPaciente.css';
-import Pacientes from '../Data/pacData';
+import { useDispatch, useSelector } from 'react-redux';
+import { adicionarPaciente } from '../../features/listaPacientesSlice';
 
+export function AdicionarPaciente({ handleInicioPaciente }) {
+    const [novoPaciente, setNovoPaciente] = useState({
+        nome: "",
+        telefone: "",
+        cpf: "",
+        endereco: "",
+        cidade: "",
+        alergias: [],
+        responsavel: "",
+        medicacoes: [],
+        cirurgias: [],
+    })
 
+    const [medicacoesInput, setMedicacoesInput] = useState('')
+    const [alergiaInput, setAlergiaInput] = useState('')
+    const [cirurgiasInput, setCirurgiasInput] = useState('')
 
-function AdicionarPaciente({ handleInicioPaciente }) {
-    const [nome, setNome] = useState('');
-    const [telefone, setTelefone] = useState('');
-    const [cpf, setCpf] = useState('');
-    const [endereco, setEndereco] = useState('');
-    const [cidade, setCidade] = useState('');
-    const [alergiaInput, setAlergiaInput] = useState('');
-    const [alergias, setAlergias] = useState([]);
-    const [responsavel, setResponsavel] = useState();
-    const [medicacoesInput, setMedicacoesInput] = useState('');
-    const [medicacoes, setMedicacoes] = useState([]);
-    const [cirurgiasInput, setCirurgiasInput] = useState('');
-    const [cirurgias, setCirurgias] = useState([]);
+    const Pacientes = useSelector(state => state.listaPacientes.pacientes);
+    const dispatch = useDispatch();
 
-
+    const handleMudanca = (e) => {
+        const { name, value } = e.target;
+        if (name === 'alergias' || name === 'medicacoes' || name === 'cirurgias') {
+            setNovoPaciente({
+                ...novoPaciente,
+                [name]: [...novoPaciente[name], value],
+            });
+        } else {
+            setNovoPaciente({
+                ...novoPaciente,
+                [name]: value,
+            });
+        }
+    };
     const handleAddMedicacoes = (e) => {
         e.preventDefault();
         if (medicacoesInput.trim() !== '') {
-            setMedicacoes([...medicacoes, medicacoesInput]);
+            setNovoPaciente((novoPaciente) => ({
+                ...novoPaciente,
+                medicacoes: [...novoPaciente.medicacoes, medicacoesInput],
+            }));
             setMedicacoesInput('');
         }
     };
 
     const handleDeleteMedicacoes = (index) => {
-        const newMedicacoes = [...medicacoes];
-        newMedicacoes.splice(index, 1);
-        setMedicacoes(newMedicacoes);
+        setNovoPaciente((novoPaciente) => ({
+            ...novoPaciente,
+            medicacoes: novoPaciente.medicacoes.filter((_, i) => i !== index),
+        }));
     };
 
     const handleAddCirurgias = (e) => {
         e.preventDefault();
         if (cirurgiasInput.trim() !== '') {
-            setCirurgias([...cirurgias, cirurgiasInput]);
+            setNovoPaciente((novoPaciente) => ({
+                ...novoPaciente,
+                cirurgias: [...novoPaciente.cirurgias, cirurgiasInput],
+            }));
             setCirurgiasInput('');
         }
     };
 
     const handleDeleteCirurgia = (index) => {
-        const newCirurgias = [...cirurgias];
-        newCirurgias.splice(index, 1);
-        setCirurgias(newCirurgias);
+        setNovoPaciente((novoPaciente) => ({
+            ...novoPaciente,
+            cirurgias: novoPaciente.cirurgias.filter((_, i) => i !== index),
+        }));
     };
 
     const handleAddAlergia = (e) => {
         e.preventDefault();
         if (alergiaInput.trim() !== '') {
-            setAlergias([...alergias, alergiaInput]);
+            setNovoPaciente((novoPaciente) => ({
+                ...novoPaciente,
+                alergias: [...novoPaciente.alergias, alergiaInput],
+            }));
             setAlergiaInput('');
         }
     };
 
     const handleDeleteAlergia = (index) => {
-        const newAlergias = [...alergias];
-        newAlergias.splice(index, 1);
-        setAlergias(newAlergias);
+        setNovoPaciente((novoPaciente) => ({
+            ...novoPaciente,
+            alergias: novoPaciente.alergias.filter((_, i) => i !== index),
+        }));
     };
 
     const handleAdicionarPaciente = (e) => {
-        setNome('');
-        setTelefone('');
-        setCpf('');
-        setEndereco('');
-        setCidade('');
-        setAlergias([]);
+        console.log(novoPaciente);
+        alert("vasco")
+        dispatch(adicionarPaciente(novoPaciente));
+
+        handleInicioPaciente();
     };
 
     return (
@@ -79,30 +107,30 @@ function AdicionarPaciente({ handleInicioPaciente }) {
                 <form onSubmit={handleAdicionarPaciente} className='row g-3'>
                     <div className='col-md-6'>
                         <label>Nome: </label>
-                        <input type="text" value={nome} onChange={(e) => setNome(e.target.value)} />
+                        <input type="text" name='nome' onChange={(e) => handleMudanca(e)} />
                     </div>
                     <div className='col-md-3'>
                         <label>Telefone: </label>
-                        <input type="text" value={telefone} onChange={(e) => setTelefone(e.target.value)} />
+                        <input type="text" name='telefone' onChange={(e) => handleMudanca(e)} />
                     </div>
                     <div className='col-md-3'>
                         <label>CPF: </label>
-                        <input type="text" value={cpf} onChange={(e) => setCpf(e.target.value)} />
+                        <input type="text" name='cpf' onChange={(e) => handleMudanca(e)} />
                     </div>
                     <div className='col-md-5'>
                         <label>Endereço: </label>
-                        <input type="text" value={endereco} onChange={(e) => setEndereco(e.target.value)} />
+                        <input type="text" name='endereco' onChange={(e) => handleMudanca(e)} />
                     </div>
                     <div className='col-md-3'>
                         <label>Cidade: </label>
-                        <input type="text" value={cidade} onChange={(e) => setCidade(e.target.value)} />
+                        <input type="text" name='cidade' onChange={(e) => handleMudanca(e)} />
                     </div>
                     <div className='col-md-4'>
                         <label>Responsável</label>
-                        <select id="inputState" className="form-select" onChange={(p) => setResponsavel(p.target.value)} >
-                            <option>Escolha...</option>
+                        <select name='responsavel' onChange={(e) => handleMudanca(e)}>
+                            <option value={null}>Escolha...</option>
                             {Pacientes.map((Paciente) => (
-                                <option key={Paciente.nome} value={Paciente.nome}>
+                                <option key={Paciente.cpf} value={Paciente.cpf}>
                                     {Paciente.nome}
                                 </option>
                             ))}
@@ -111,14 +139,14 @@ function AdicionarPaciente({ handleInicioPaciente }) {
                     <div className='col-md-4'>
                         <div>
                             <label>Alergias: </label>
-                            <input type="text" value={alergiaInput} onChange={(e) => setAlergiaInput(e.target.value)} />
+                            <input type="text" className='inputListavel' name='alergias' onChange={(e) => setAlergiaInput(e.target.value)} />
                             <button type='button' id='botaoAlergias' className='botãoPaciente' onClick={handleAddAlergia}>+</button>
                         </div>
                         <ul className='lista-de-alergias'>
-                            {alergias.map((alergia, index) => (
+                            {novoPaciente['alergias'].map((alergia, index) => (
                                 <li key={index}>
                                     {alergia}
-                                    <button onClick={() => handleDeleteAlergia(index)}>X</button>
+                                    <button type='button' onClick={() => handleDeleteAlergia(index)}>X</button>
                                 </li>
                             ))}
                         </ul>
@@ -126,14 +154,14 @@ function AdicionarPaciente({ handleInicioPaciente }) {
                     <div className='col-md-4'>
                         <div>
                             <label>Medicações: </label>
-                            <input type="text" value={medicacoesInput} onChange={(e) => setMedicacoesInput(e.target.value)} />
+                            <input type="text" className='inputListavel' name='medicacoes' onChange={(e) => setMedicacoesInput(e.target.value)} />
                             <button type='button' id='botaoAlergias' className='botãoPaciente' onClick={handleAddMedicacoes}>+</button>
                         </div>
                         <ul className='lista-de-alergias'>
-                            {medicacoes.map((medicacao, index) => (
+                            {novoPaciente['medicacoes'].map((medicacao, index) => (
                                 <li key={index}>
                                     {medicacao}
-                                    <button onClick={() => handleDeleteMedicacoes(index)}>X</button>
+                                    <button type='button' onClick={() => handleDeleteMedicacoes(index)}>X</button>
                                 </li>
                             ))}
                         </ul>
@@ -141,23 +169,24 @@ function AdicionarPaciente({ handleInicioPaciente }) {
                     <div className='col-md-4'>
                         <div>
                             <label>Cirurgias: </label>
-                            <input type="text" value={cirurgiasInput} onChange={(e) => setCirurgiasInput(e.target.value)} />
+                            <input type="text" className='inputListavel' name='cirurgias' onChange={(e) => setCirurgiasInput(e.target.value)} />
                             <button type='button' id='botaoAlergias' className='botãoPaciente' onClick={handleAddCirurgias}>+</button>
                         </div>
                         <ul className='lista-de-alergias'>
-                            {cirurgias.map((Cirurgia, index) => (
+                            {novoPaciente['cirurgias'].map((Cirurgia, index) => (
                                 <li key={index}>
                                     {Cirurgia}
-                                    <button onClick={() => handleDeleteCirurgia(index)}>X</button>
+                                    <button type='button' onClick={() => handleDeleteCirurgia(index)}>X</button>
                                 </li>
                             ))}
                         </ul>
                     </div>
 
-                    <button className='botãoPaciente' type="button">Adicionar Paciente</button>
+
+                    <button className='botãoPaciente' type="submit">Adicionar Paciente</button>
                 </form>
-            </div >
-        </div >
+            </div>
+        </div>
     );
 }
 

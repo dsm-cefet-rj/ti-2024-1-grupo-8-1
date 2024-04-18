@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import '../styles.css';
 import PacData from '../Data/pacData';
 import ListarPacientes from './ListarPacientes';
-import AdicionarPaciente from './AdicionarPaciente';
+import AdicionarPaciente from './AdicionarPaciente';  
 
 function Pacientes() {
-  //estado da aba (tela inicial ou no processo de adicionar alguém ou no processo de editar)
   const [Modo, setModo] = useState('Inicial')
+
+  const handleVisualizarPaciente = (index) => {
+    setModo('Visualizar');
+  }
 
   const handleAdicionarPaciente = () => {
     setModo('Adicionar');
@@ -18,10 +21,13 @@ function Pacientes() {
 
   const renderizarConteudo = () => {
     if (Modo === 'Inicial') {
-      return <ListarPacientes ListaDePacientes={PacData} handleAdicionarPaciente={handleAdicionarPaciente} />;
+      return <ListarPacientes  handleAdicionarPaciente={handleAdicionarPaciente} handleVisualizarPaciente={handleVisualizarPaciente}/>;
     }
     else if (Modo === 'Adicionar') {
       return <div><AdicionarPaciente handleInicioPaciente={handleInicioPaciente} /></div>;
+    }
+    else if (Modo === 'Visualizar') {
+      return <div><AdicionarPaciente handleInicioPaciente={handleInicioPaciente}  /></div>;
     }
   };
 

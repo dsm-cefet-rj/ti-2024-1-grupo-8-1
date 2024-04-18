@@ -53,7 +53,7 @@ input{
     border: none;
     background-color: #2babe288;
     border-radius: 1vh;
-    padding: 0 1vh 0 1vh;
+    padding: 0.5vh 1vh 0.5vh 1vh;
 }
 
 
@@ -63,6 +63,21 @@ input{
     padding: 0;
     flex-wrap: wrap;
 }
+
+.inputListavel{
+    width: 90%;
+}
+
+select{
+    width: 100%;
+    border: none;
+    background-color: #2babe288;
+    border-radius: 1vh;
+    padding: 0.5vh 1vh 0.5vh 1vh;
+}
+
+
+
 
 .lista-de-alergias > li{
     background-color: #2babe2;
@@ -76,6 +91,7 @@ input{
     border: none;
     background: none;
     font-weight: bold;
+    width: 10%;
 }
 
 #botaoAlergias{

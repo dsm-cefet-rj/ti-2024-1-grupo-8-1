@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import '../styles.css';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { adicionarItem } from '../../features/listaEstoqueSlice';
 function CadastrarItem() {
-
+const dispatch = useDispatch();
     const Filtros = [
 
         { filtro: "Ortodontia" },
@@ -16,7 +17,18 @@ function CadastrarItem() {
     const [preco, setPrecoItem] = useState('')
     const [, setFiltroSelecionado] = useState('')
     const [descricao, setDescricaoItem] = useState('')
-
+const handleClickEstoque = (event) =>{
+    event.preventDefault();
+    const dados = {
+        nome : nome,
+        codigo:codigo,
+        quantidade: quantidade,
+        preco: preco,
+        descricao: descricao 
+    }
+dispatch(adicionarItem(dados));
+console.log(dados);
+}
     return (
         <div className="corpo">
             <div className="container-lg">
@@ -86,7 +98,7 @@ function CadastrarItem() {
                         <textarea type="text" className="form-control" id="inputDescricao" value={descricao} onChange={(e) => setDescricaoItem(e.target.value)}></textarea>
                     </div>
                     <div className="col-12">
-                        <button type="submit" className="btn btn-primary">Cadastrar</button>
+                        <button type="submit" className="btn btn-primary" onClick={handleClickEstoque}>Cadastrar</button>
                     </div>
                 </form>
             </div>
