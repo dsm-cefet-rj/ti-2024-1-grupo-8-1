@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import Pacientes from '../Data/pacData';
 import { useSelector, useDispatch } from 'react-redux';
 
 
 import { addPag } from '../../features/listaPagamentosSlice';
 
 function AddPag() {
-
+  const Pacientes = useSelector((state) => state.listaPacientes.pacientes);
   const [dataInput, setData] = useState('');
 
   const dispatch = useDispatch();
@@ -27,26 +26,25 @@ function AddPag() {
   const handleClickPagou = (event) => {
     event.preventDefault();
     setPagou(true);
-    const pacienteSelecionado = Pacientes.find(paciente => paciente.nome === nomeProcurado);
-    const valorParcelas = (parseFloat(valor) / parseInt(parcela)).toFixed(2);
-    const dados = {
-      id: id++,
-      nome: pacienteSelecionado.nome,
-      cpf: pacienteSelecionado.cpf,
-      valorTotal: valor,
-      parcela: parcela,
-      valorParcela: valorParcelas,
-      data: dataInput,
-      emDia: true
-    };
-    dispatch(addPag(dados));
-
+  
+    const paciente = Pacientes.find((paciente) => paciente.nome === pacienteSelecionado);
+    if (paciente) {
+      const valorParcelas = (parseFloat(valor) / parseInt(parcela)).toFixed(2);
+      const dados = {
+        id: id++,
+        nome: paciente.nome,
+        cpf: paciente.cpf,
+        valorTotal: valor,
+        parcela: parcela,
+        valorParcela: valorParcelas,
+        data: dataInput,
+        emDia: true
+      };
+      dispatch(addPag(dados));
+    }
   };
- 
-
-  const [pacienteSelecionado, setPacienteSelecionado] = useState('Ana Santos');
-  let nomeProcurado = pacienteSelecionado;
-  const pacienteEncontrado = Pacientes.find((paciente) => paciente.nome === nomeProcurado);
+  const [pacienteSelecionado, setPacienteSelecionado] = useState({});
+  const paciente = Pacientes[pacienteSelecionado];
 
   const [valor, setValorTotal] = useState('');
   const [parcela, setParcela] = useState('');
@@ -59,15 +57,14 @@ function AddPag() {
         <form className="row g-3">
           <div className="col-md-4">
             <label htmlFor="inputState" className="form-label">Paciente</label>
-
-            <select id="inputState" className="form-select" onChange={(p) => setPacienteSelecionado(p.target.value)} >
-              <option selected>Escolha...</option>
-              {Pacientes.map((Paciente) => (
-                <option key={Paciente.nome} value={Paciente.nome}>
-                  {Paciente.nome}
-                </option>
-              ))}
-            </select>
+            <select id="inputState" className="form-select" onChange={(e) => setPacienteSelecionado(e.target.value)}>
+  <option value="">Escolha...</option>
+  {Pacientes.map((paciente, index) => (
+    <option key={index} value={paciente.nome}>
+      {paciente.nome}
+    </option>
+  ))}
+</select>
           </div>
 
           <div className="col-md-2">
@@ -102,28 +99,28 @@ function AddPag() {
 
           <div className="col-md-6">
             <label htmlFor="inputEmail4" className="form-label">Nome:</label>
-            <input type="text" className="form-control" id="inputNomeComprador" value={pacienteSelecionado}
+            <input type="text" className="form-control" id="inputNomeComprador" value={pacienteSelecionado.nome}
               readOnly />
           </div>
 
           <div className="col-md-6">
             <label htmlFor="inputCPF" className="form-label">CPF</label>
-            <input type="text" className="form-control" id="inputCPF" value={pacienteEncontrado.cpf}
+            <input type="text" className="form-control" id="inputCPF" value={pacienteSelecionado?.cpf}
               readOnly />
           </div>
           <div className="col-12">
             <label htmlFor="inputAddress" className="form-label">Endereço</label>
-            <input type="text" className="form-control" id="inputAddress" placeholder="1234 rua caceres" value={pacienteEncontrado.endereco}
+            <input type="text" className="form-control" id="inputAddress" placeholder="1234 rua caceres" value={pacienteSelecionado?.endereco}
               readOnly />
           </div>
           <div className="col-md-6">
             <label htmlFor="inputCidade" className="form-label">Cidade</label>
-            <input type="text" className="form-control" id="inputCidade" value={pacienteEncontrado.cidade}
+            <input type="text" className="form-control" id="inputCidade" value={pacienteSelecionado?.cidade}
               readOnly />
           </div>
           <div className="col-md-6">
             <label htmlFor="inputTelefone" className="form-label">Telefone</label>
-            <input type="text" className="form-control" id="inputTelefone" value={pacienteEncontrado.telefone}
+            <input type="text" className="form-control" id="inputTelefone" value={pacienteSelecionado?.telefone}
               readOnly />
           </div>
           <div className="col-12">
