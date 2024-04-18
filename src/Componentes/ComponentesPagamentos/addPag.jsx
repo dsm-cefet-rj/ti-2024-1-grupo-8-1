@@ -1,37 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
-
 import { addPag } from '../../features/listaPagamentosSlice';
-
+import { v4 as uuidv4 } from 'uuid';
 function AddPag() {
   const Pacientes = useSelector((state) => state.listaPacientes.pacientes);
-  const [dataInput, setData] = useState('');
+  const [dataInput, setData] = useState(new Date());
+  const [pagou, setPagou] = useState(false);
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    const obterData = () => {
-      const data = new Date();
-      const formatoData = { day: '2-digit', month: '2-digit', year: 'numeric' };
-      const dataFormatada = data.toLocaleDateString('pt-BR', formatoData);
-      return dataFormatada;
-    };
-    setData(obterData());
-  }, []);
-
-  const [pagou, setPagou] = useState(false);
- 
-  let id = 0;
+var id = 0;
   const handleClickPagou = (event) => {
     event.preventDefault();
     setPagou(true);
-  
+
     const paciente = Pacientes.find((paciente) => paciente.nome === pacienteSelecionado);
     if (paciente) {
       const valorParcelas = (parseFloat(valor) / parseInt(parcela)).toFixed(2);
       const dados = {
-        id: id++,
+        id: uuidv4(),
         nome: paciente.nome,
         cpf: paciente.cpf,
         valorTotal: valor,
@@ -43,13 +29,13 @@ function AddPag() {
       dispatch(addPag(dados));
     }
   };
-  const [pacienteSelecionado, setPacienteSelecionado] = useState({});
-  const paciente = Pacientes[pacienteSelecionado];
+
+  const [pacienteSelecionado, setPacienteSelecionado] = useState('');
+  const paciente = Pacientes.find((paciente) => paciente.nome === pacienteSelecionado);
 
   const [valor, setValorTotal] = useState('');
   const [parcela, setParcela] = useState('');
   const valorParcelas = (parseFloat(valor) / parseInt(parcela)).toFixed(2);
-
 
   return (
     <div className="corpo">
@@ -58,13 +44,13 @@ function AddPag() {
           <div className="col-md-4">
             <label htmlFor="inputState" className="form-label">Paciente</label>
             <select id="inputState" className="form-select" onChange={(e) => setPacienteSelecionado(e.target.value)}>
-  <option value="">Escolha...</option>
-  {Pacientes.map((paciente, index) => (
-    <option key={index} value={paciente.nome}>
-      {paciente.nome}
-    </option>
-  ))}
-</select>
+              <option value="">Escolha...</option>
+              {Pacientes.map((paciente, index) => (
+                <option key={index} value={paciente.nome}>
+                  {paciente.nome}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="col-md-2">
@@ -90,8 +76,8 @@ function AddPag() {
             <input type="text" className="form-control" id="inputPago" value={valorParcelas} readOnly />
           </div>
           <div className="col-md-2">
-            <label htmlFor="inputTelefone" className="form-label">Data do pagamento</label>
-            <input type="text" className="form-control" id="inputTelefone" value={dataInput} onChange={(e) => setData(e.target.value)}/>
+            <label htmlFor="inputData" className="form-label">Data do pagamento</label>
+            <input type="date" className="form-control" id="inputData" value={dataInput.toISOString().split('T')[0]} onChange={(e) => setData(new Date(e.target.value))} />
           </div>
           <div className="textpagComprador">
             <h1>Dados do comprador</h1>
@@ -99,38 +85,32 @@ function AddPag() {
 
           <div className="col-md-6">
             <label htmlFor="inputEmail4" className="form-label">Nome:</label>
-            <input type="text" className="form-control" id="inputNomeComprador" value={pacienteSelecionado.nome}
-              readOnly />
+            <input type="text" className="form-control"id="inputNomeComprador" value={paciente?.nome || ''} readOnly />
           </div>
 
           <div className="col-md-6">
             <label htmlFor="inputCPF" className="form-label">CPF</label>
-            <input type="text" className="form-control" id="inputCPF" value={pacienteSelecionado?.cpf}
-              readOnly />
+            <input type="text" className="form-control" id="inputCPF" value={paciente?.cpf || ''} readOnly />
           </div>
           <div className="col-12">
             <label htmlFor="inputAddress" className="form-label">Endereço</label>
-            <input type="text" className="form-control" id="inputAddress" placeholder="1234 rua caceres" value={pacienteSelecionado?.endereco}
-              readOnly />
+            <input type="text" className="form-control" id="inputAddress" placeholder="1234 rua caceres" value={paciente?.endereco || ''} readOnly />
           </div>
           <div className="col-md-6">
             <label htmlFor="inputCidade" className="form-label">Cidade</label>
-            <input type="text" className="form-control" id="inputCidade" value={pacienteSelecionado?.cidade}
-              readOnly />
+            <input type="text" className="form-control" id="inputCidade" value={paciente?.cidade || ''} readOnly />
           </div>
           <div className="col-md-6">
             <label htmlFor="inputTelefone" className="form-label">Telefone</label>
-            <input type="text" className="form-control" id="inputTelefone" value={pacienteSelecionado?.telefone}
-              readOnly />
+            <input type="text" className="form-control" id="inputTelefone" value={paciente?.telefone || ''} readOnly />
           </div>
           <div className="col-12">
             <button onClick={handleClickPagou} className="btn btn-primary">Adicionar</button>
           </div>
-
         </form>
       </div>
-
     </div>
   );
 }
+
 export default AddPag;

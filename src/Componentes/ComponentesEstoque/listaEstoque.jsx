@@ -24,7 +24,7 @@ function ItemEstoque(props) {
 }
  
 function ListaEstoque() {
-  const Itens = useSelector((state) => state.listaPagamentos.pagamentos);
+  const Itens = useSelector((state) => state.ListaEstoque.ItemEstoque);
 
   return (
     <div className="corpo">

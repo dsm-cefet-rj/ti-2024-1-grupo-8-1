@@ -32,8 +32,10 @@ function PagMes() {
       const pagamentoMes = dataPagamento.getMonth() + 1;
       const pagamentoAno = dataPagamento.getFullYear();
 
-      if ((mesSelecionado === '' || pagamentoMes === mesesDoAno[mesSelecionado]) &&
-          (anoSelecionado === '' || pagamentoAno === parseInt(anoSelecionado))) {
+      if (
+        (mesSelecionado === '' || pagamentoMes === mesesDoAno[mesSelecionado]) &&
+        (anoSelecionado === '' || pagamentoAno === parseInt(anoSelecionado))
+      ) {
         total += parseFloat(pagamento.valorTotal);
       }
     });
@@ -51,10 +53,13 @@ function PagMes() {
 
   return (
     <div className="corpo">
-      <div className="cabecalho">
-        Pagamento por mês
-      </div>
-      <select id="inputState" className="form-select" onChange={(e) => setMesSelecionado(e.target.value)}>
+      <div className="cabecalho">Pagamento por mês</div>
+      <select
+        id="inputState"
+        className="form-select"
+        onChange={(e) => setMesSelecionado(e.target.value)}
+        value={mesSelecionado}
+      >
         <option value="">Escolha o mês...</option>
         {Object.keys(mesesDoAno).map((mes) => (
           <option key={mes} value={mes}>
@@ -62,18 +67,24 @@ function PagMes() {
           </option>
         ))}
       </select>
-      <select id="inputState" className="form-select" onChange={(e) => setAnoSelecionado(e.target.value)}>
+      <select
+        id="inputState"
+        className="form-select"
+        onChange={(e) => setAnoSelecionado(e.target.value)}
+        value={anoSelecionado}
+      >
         <option value="">Escolha o ano...</option>
-        {[...new Set(pagamentos.map(pagamento => new Date(pagamento.data).getFullYear()))].map(ano => (
-          <option key={ano} value={ano}>
-            {ano}
-          </option>
-        ))}
+        {[...new Set(pagamentos.map((pagamento) => new Date(pagamento.data).getFullYear()))].map(
+          (ano) => (
+            <option key={ano} value={ano}>
+              {ano}
+            </option>
+          )
+        )}
       </select>
       <Table striped bordered hover variant="dark">
         <thead>
           <tr>
-            <th>#</th>
             <th>Nome</th>
             <th>CPF</th>
             <th>Total</th>
@@ -85,32 +96,34 @@ function PagMes() {
         </thead>
         <tbody>
           {pagamentos.map((pagamento, index) => {
-            const dataPagamento = formatarData(pagamento.data);
-            const pagamentoMes = parseInt(dataPagamento.split("/")[1]);
-            const pagamentoAno = parseInt(dataPagamento.split("/")[2]);
+            const dataPagamento = new Date(pagamento.data);
+            const pagamentoMes = dataPagamento.getMonth() + 1;
+            const pagamentoAno = dataPagamento.getFullYear();
 
-            if ((mesSelecionado === '' || pagamentoMes === mesesDoAno[mesSelecionado]) &&
-                (anoSelecionado === '' || pagamentoAno === pagamentoAno)) {
+            if (
+              (mesSelecionado === '' || pagamentoMes === mesesDoAno[mesSelecionado]) &&
+              (anoSelecionado === '' || pagamentoAno === parseInt(anoSelecionado))
+            ) {
               return (
                 <tr key={index}>
-                  <td>{pagamento.id}</td>
                   <td>{pagamento.nome}</td>
                   <td>{pagamento.cpf}</td>
                   <td>{pagamento.valorTotal}</td>
                   <td>{pagamento.parcela}</td>
                   <td>{pagamento.valorParcela}</td>
-                  <td>{pagamento.data}</td>
+                  <td>{formatarData(pagamento.data)}</td>
                   <td>{pagamento.emDia ? 'Sim' : 'Não'}</td>
                 </tr>
               );
-            } else {
-              return null;
             }
+            return null;
           })}
         </tbody>
       </Table>
       <hr />
       <div>Total: {soma}</div>
+
+
     </div>
   );
 }
