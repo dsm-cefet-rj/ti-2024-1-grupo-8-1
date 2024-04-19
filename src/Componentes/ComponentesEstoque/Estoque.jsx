@@ -5,6 +5,7 @@ import {ListaEstoque, ItemEstoque} from './listaEstoque'
 import '../styles.css';
 
 
+
 function Estoque() {
 
   const[exibirBotaoVoltar, setExibirBotaoVoltar] = useState(true);

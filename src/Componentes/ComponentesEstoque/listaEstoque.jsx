@@ -1,40 +1,77 @@
-import React, { useState } from 'react';
-import '../styles.css';
-import { useDispatch,useSelector } from 'react-redux'; 
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Table from 'react-bootstrap/Table';
+import CloseButton from 'react-bootstrap/CloseButton';
+
+import './estoque.css';
+import { aumentarQtd, diminuirQtd, rmvItem } from '../../features/listaEstoqueSlice';
 
 function ItemEstoque(props) {
-  const [quantidade, setQuantidade] = useState(props.quantidade);
+  
+  const dispatch = useDispatch();
 
-  const handleClickBotaoDiminuir = () => {
-    setQuantidade(quantidade - 1);
+  const handleClickBotaoDiminuir = (event) => {
+    event.preventDefault();
+    dispatch(diminuirQtd(props.codigo));
   }
 
-  const handleClickBotaoAumentar = () => {
-    setQuantidade(quantidade + 1);
+  const handleClickBotaoAumentar = (event) => {
+    event.preventDefault();
+    dispatch(aumentarQtd(props.codigo));
+    console.log(props.quantidade);
+  }
+  const handleClickBotaoRemover = () => {
+    dispatch(rmvItem(props.codigo));
   }
 
   return (
-    <li>
-      {props.nome} 
-      <button type="button" onClick={handleClickBotaoDiminuir} className="btn btn-primary">-</button> 
-      {quantidade} 
-      <button type="button" onClick={handleClickBotaoAumentar} className="btn btn-primary">+</button>
-    </li>
+    <tr>
+      <td>{props.codigo}</td>
+      <td>{props.item}</td>
+      <td>{props.preco}</td>
+      <td>
+        {props.quantidade}
+      </td>
+      <td>    {<button onClick={handleClickBotaoDiminuir}>-</button>}
+                  {<button onClick={handleClickBotaoAumentar}>+</button>}</td>
+      <td>
+        <CloseButton onClick={handleClickBotaoRemover} />
+      </td>
+    </tr>
   );
 }
- 
+
 function ListaEstoque() {
-  const Itens = useSelector((state) => state.ListaEstoque.ItemEstoque);
+  const itens = useSelector((state) => state.listaEstoque.estoque);
 
   return (
     <div className="corpo">
       <div className="container-lg">
         <form className="row g-3">
-          <ol className="listaEstoque">
-            {Itens.map((item, index) => (
-              <ItemEstoque key={index} {...item} />
-            ))}
-          </ol>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Item</th>
+                <th>Preço</th>
+                <th>Quantidade</th>
+                <th>Ação</th>
+                <th>Remover</th>
+              </tr>
+            </thead>
+            <tbody>
+              {itens.map((item, index) => (
+                <ItemEstoque
+                  key={index}
+                  codigo={item.codigo}
+                  item={item.nome}
+                  preco={item.preco}
+                  quantidade={item.quantidade}
+              
+                />
+              ))}
+            </tbody>
+          </Table>
         </form>
       </div>
     </div>
