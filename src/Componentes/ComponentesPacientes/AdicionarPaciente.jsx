@@ -92,7 +92,6 @@ export function AdicionarPaciente({ handleInicioPaciente }) {
 
     const handleAdicionarPaciente = (e) => {
         console.log(novoPaciente);
-        alert("vasco")
         dispatch(adicionarPaciente(novoPaciente));
 
         handleInicioPaciente();

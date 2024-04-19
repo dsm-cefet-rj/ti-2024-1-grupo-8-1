@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import '../styles.css';
 import PacData from '../Data/pacData';
 import ListarPacientes from './ListarPacientes';
-import AdicionarPaciente from './AdicionarPaciente';  
+import AdicionarPaciente from './AdicionarPaciente';
+import VisualizarPaciente from './VisualizarPaciente';
 
 function Pacientes() {
   const [Modo, setModo] = useState('Inicial')
+  const [paciente, setPaciente] = useState('')
 
-  const handleVisualizarPaciente = (index) => {
+  const handleVisualizarPaciente = (pacienteSelecionado) => {
     setModo('Visualizar');
+    setPaciente(pacienteSelecionado);
   }
 
   const handleAdicionarPaciente = () => {
@@ -21,13 +24,13 @@ function Pacientes() {
 
   const renderizarConteudo = () => {
     if (Modo === 'Inicial') {
-      return <ListarPacientes  handleAdicionarPaciente={handleAdicionarPaciente} handleVisualizarPaciente={handleVisualizarPaciente}/>;
+      return <ListarPacientes handleAdicionarPaciente={handleAdicionarPaciente} handleVisualizarPaciente={handleVisualizarPaciente} />;
     }
     else if (Modo === 'Adicionar') {
-      return <div><AdicionarPaciente handleInicioPaciente={handleInicioPaciente} /></div>;
+      return <AdicionarPaciente handleInicioPaciente={handleInicioPaciente} />;
     }
     else if (Modo === 'Visualizar') {
-      return <div><AdicionarPaciente handleInicioPaciente={handleInicioPaciente}  /></div>;
+      return <VisualizarPaciente handleInicioPaciente={handleInicioPaciente} paciente={paciente} />;
     }
   };
 

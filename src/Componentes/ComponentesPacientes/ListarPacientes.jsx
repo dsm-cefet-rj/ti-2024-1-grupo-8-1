@@ -12,7 +12,7 @@ function ListarPacientes({ handleAdicionarPaciente, handleVisualizarPaciente }) 
                 <ul>
                     <li>Pacientes</li>
                     {ListaDePacientes.map((paciente, index) => (
-                        <li key={index} onClick={handleVisualizarPaciente}>{paciente.nome}</li>
+                        <li key={index} onClick={() => handleVisualizarPaciente(paciente)}>{paciente.nome}</li>
                     ))}
                 </ul>
             </div>

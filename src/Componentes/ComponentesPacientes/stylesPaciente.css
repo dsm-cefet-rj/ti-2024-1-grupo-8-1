@@ -40,6 +40,9 @@
     font-size: 6vh;
 }
 
+.ListaPaciente > ul > li{
+    cursor: pointer;
+}
 
 form{
     font-size: 2vh; 
@@ -77,8 +80,6 @@ select{
 }
 
 
-
-
 .lista-de-alergias > li{
     background-color: #2babe2;
     border-radius: 1vh;
@@ -100,4 +101,19 @@ select{
     background: none;
     font-weight: bold;
     margin-bottom: 1vh;
+}
+
+.visualizar{
+    font-size: 2vh;
+    width: 100%;
+}
+
+span{
+    display: block;
+    width: 100%;
+    border: none;
+    background-color: #2babe288;
+    border-radius: 1vh;
+    padding: 0.5vh 1vh 0.5vh 1vh;
+    min-height: 4vh;
 }
