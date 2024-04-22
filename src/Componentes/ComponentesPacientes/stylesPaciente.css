@@ -117,3 +117,14 @@ span{
     padding: 0.5vh 1vh 0.5vh 1vh;
     min-height: 4vh;
 }
+
+.visuLista{
+    display: block;
+    width: 100%;
+    border: none;
+    background-color: #2babe288;
+    border-radius: 1vh;
+    padding: 0.5vh 1vh 0.5vh 1vh;
+    min-height: 4vh;
+    list-style: none;
+}

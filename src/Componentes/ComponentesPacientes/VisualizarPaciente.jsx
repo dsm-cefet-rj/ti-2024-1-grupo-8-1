@@ -9,7 +9,7 @@ export function VisualizarPaciente({ handleInicioPaciente, paciente }) {
                 <button className='botãoPaciente' onClick={handleInicioPaciente}>Inicio</button>
             </div>
             <div className="container-lg">
-                <form className="row g-3 visualizar">
+                <div className="row g-3 visualizar">
                     <div className="col-md-6">
                         <label>Nome:</label>
                         <span>{paciente.nome}</span>
@@ -36,17 +36,29 @@ export function VisualizarPaciente({ handleInicioPaciente, paciente }) {
                     </div>
                     <div className="col-md-4">
                         <label>Alergias:</label>
-                        <span>{paciente.alergias.join(', ')}</span>
+                        <ul className='visuLista'>
+                            {paciente.alergias.map((alergia, i) => (
+                                <li key={i}>{alergia}</li>
+                            ))}
+                        </ul>
                     </div>
                     <div className="col-md-4">
                         <label>Medicações:</label>
-                        <span>{paciente.medicacoes.join(', ')}</span>
+                        <ul className='visuLista'>
+                            {paciente.medicacoes.map((medicacao, i) => (
+                                <li key={i}>{medicacao}</li>
+                            ))}
+                        </ul>
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-md-4 ">
                         <label>Cirurgias:</label>
-                        <span>{paciente.cirurgias.join(', ')}</span>
+                        <ul className='visuLista'>
+                            {paciente.cirurgias.map((cirurgia, i) => (
+                                <li key={i}>{cirurgia}</li>
+                            ))}
+                        </ul>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     );
