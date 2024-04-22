@@ -1,0 +1,28 @@
+.container-lg {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .container-estoque {
+    display:inline-flex;
+    flex-direction:row;
+    align-items: center;
+    text-align: center;
+  }
+  
+
+  .container-estoque button {
+    margin-top: 10px;
+  }
+  .visao-baixo{
+    display:inline-flex;
+    justify-items: end;
+  }
+  .item{
+    padding: 10px;
+  }
+  .diminuir{
+    padding: 10px;
+  }
