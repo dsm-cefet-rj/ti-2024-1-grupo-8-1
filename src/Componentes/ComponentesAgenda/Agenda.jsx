@@ -6,6 +6,8 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import AdicionarConsulta from './AdicionarConsulta'
+import VisualizarConsulta from './VisualizarConsulta'
+import ConsultasMarcadas from './ConsultasMarcadas'
 
 function Agenda() {
 
@@ -28,6 +30,33 @@ function Agenda() {
 
   }
   
+  const [Modo, setModo] = useState('Adicionar')
+  const [consulta, setConsulta] = useState('')
+
+  const handleVisualizarConsulta = (consultaSelecionada) => {
+    setModo('Visualizar');
+    setConsulta(consultaSelecionada);
+  }
+
+  const handleAdicionarConsulta = () => {
+    setModo('Adicionar');
+  };
+
+  const handleConsultasMarcadas = () => {
+    setModo('Inicial');
+  };
+
+  const renderizarConteudo = () => {
+    if (Modo === 'Inicial') {
+      return <ConsultasMarcadas handleAdicionarConsulta={handleAdicionarConsulta} handleVisualizarConsulta={handleVisualizarConsulta} />;
+    }
+    else if (Modo === 'Adicionar') {
+      return <AdicionarConsulta handleConsultaMarcada={handleConsultasMarcadas} />;
+    }
+    else if (Modo === 'Visualizar') {
+      return <VisualizarConsulta handleConsultaMarcada={handleConsultasMarcadas} consulta={consulta} />;
+    }
+  }
  
   return (
 
@@ -49,7 +78,7 @@ function Agenda() {
           height="auto"/>
       </div>
       <div>
-        <AdicionarConsulta/>
+        {renderizarConteudo()}
 
       </div>
 

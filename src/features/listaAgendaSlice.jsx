@@ -1,20 +1,39 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    agenda: [],
+    agenda: [
+
+        {
+            "id":"1",
+            "title":"Preenchimento",
+            "allDay":"Sim",
+            "start":"12/09/2003",
+            "end":"12/09/2024",
+            "paciente":"Eu"
+        },
+        {
+            "id":"2",
+            "title":"Limpeza",
+            "allDay":"Não",
+            "start":"12/09/2003",
+            "end":"12/09/2024",
+            "paciente":"Você"
+        },
+
+    ],
 };
 
-const agendaSlice = createSlice({
-    name: 'agenda',
+const listaAgendaSlice = createSlice({
+    name: "agenda",
     initialState,
     reducers:{
         adicionarAgenda: (state, action)=>{
-            state.paciente.push(action.payload);
+            state.agenda = [...state.agenda, action.payload]
         }
 
     }
 
-})
+});
 
-export const { adicionarAgenda } = agendaSlice.actions;
-export default agendaSlice.reducer;
+export const { adicionarAgenda } = listaAgendaSlice.actions;
+export default listaAgendaSlice.reducer;

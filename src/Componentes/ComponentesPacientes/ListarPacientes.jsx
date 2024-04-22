@@ -3,7 +3,7 @@ import './stylesPaciente.css';
 import { useSelector } from 'react-redux';
 
 function ListarPacientes({ handleAdicionarPaciente, handleVisualizarPaciente }) {
-    const ListaDePacientes = useSelector((state) => state.listaPacientes.pacientes);
+    const ListaDePacientes = useSelector(state => state.listaPacientes.pacientes);
 
     return (
         <div>
