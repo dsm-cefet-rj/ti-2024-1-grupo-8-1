@@ -4,7 +4,8 @@ import './stylesAgenda.css';
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
-import interactionPlugin from "@fullcalendar/interaction"
+import interactionPlugin from '@fullcalendar/interaction'
+import AdicionarConsulta from './AdicionarConsulta'
 
 function Agenda() {
 
@@ -46,6 +47,10 @@ function Agenda() {
           selectable={true}
           selectMirror={true} 
           height="auto"/>
+      </div>
+      <div>
+        <AdicionarConsulta/>
+
       </div>
 
       
