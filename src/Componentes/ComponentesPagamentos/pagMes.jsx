@@ -6,6 +6,7 @@ import '../styles.css';
 function PagMes() {
   const [mesSelecionado, setMesSelecionado] = useState('');
   const [anoSelecionado, setAnoSelecionado] = useState('');
+  const [diaSelecionado, setDiaSelecionado] = useState('');
   const [soma, setSoma] = useState(0);
 
   const mesesDoAno = {
@@ -31,17 +32,19 @@ function PagMes() {
       const dataPagamento = new Date(pagamento.data);
       const pagamentoMes = dataPagamento.getMonth() + 1;
       const pagamentoAno = dataPagamento.getFullYear();
+      const pagamentoDia = dataPagamento.getDate();
 
       if (
         (mesSelecionado === '' || pagamentoMes === mesesDoAno[mesSelecionado]) &&
-        (anoSelecionado === '' || pagamentoAno === parseInt(anoSelecionado))
+        (anoSelecionado === '' || pagamentoAno === parseInt(anoSelecionado)) &&
+        (diaSelecionado === '' || pagamentoDia === parseInt(diaSelecionado))
       ) {
         total += parseFloat(pagamento.valorTotal);
       }
     });
 
     setSoma(total);
-  }, [pagamentos, mesSelecionado, anoSelecionado, mesesDoAno]);
+  }, [pagamentos, mesSelecionado, anoSelecionado, diaSelecionado, mesesDoAno]);
 
   const formatarData = (data) => {
     const dataObj = new Date(data);
@@ -66,6 +69,21 @@ function PagMes() {
             {mes}
           </option>
         ))}
+      </select>
+      <select
+        id="inputState"
+        className="form-select"
+        onChange={(e) => setDiaSelecionado(e.target.value)}
+        value={diaSelecionado}
+      >
+        <option value="">Escolha o dia...</option>
+        {[...new Set(pagamentos.map((pagamento) => new Date(pagamento.data).getDate()))].map(
+          (dia) => (
+            <option key={dia} value={dia}>
+              {dia}
+            </option>
+          )
+        )}
       </select>
       <select
         id="inputState"
@@ -99,10 +117,12 @@ function PagMes() {
             const dataPagamento = new Date(pagamento.data);
             const pagamentoMes = dataPagamento.getMonth() + 1;
             const pagamentoAno = dataPagamento.getFullYear();
+            const pagamentoDia = dataPagamento.getDate();
 
             if (
               (mesSelecionado === '' || pagamentoMes === mesesDoAno[mesSelecionado]) &&
-              (anoSelecionado === '' || pagamentoAno === parseInt(anoSelecionado))
+              (anoSelecionado === '' || pagamentoAno === parseInt(anoSelecionado)) &&
+              (diaSelecionado === '' || pagamentoDia === parseInt(diaSelecionado))
             ) {
               return (
                 <tr key={index}>
@@ -122,8 +142,6 @@ function PagMes() {
       </Table>
       <hr />
       <div>Total: {soma}</div>
-
-
     </div>
   );
 }

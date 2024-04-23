@@ -1,8 +1,8 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 import { useSelector, useDispatch } from 'react-redux';
 import { editPag, rmvPag } from '../../features/listaPagamentosSlice';
-
+import './pagPaci.css'
 function PagPaci() {
   const pagamentos = useSelector((state) => state.listaPagamentos.pagamentos);
   const Consulta = useSelector((state) => state.listaConsulta.consulta);
@@ -15,12 +15,11 @@ function PagPaci() {
   const [totalAtualizado, setTotalAtualizado] = useState('');
   const [dataAtualizado, setDataAtualizado] = useState(null);
   const [parcelaAtualizado, setParcelaAtualizado] = useState('');
-const valorParcelaAtualizada = (parseFloat(totalAtualizado) / parseInt(parcelaAtualizado)).toFixed(2);
-useEffect(() => {
   const valorParcelaAtualizada = (parseFloat(totalAtualizado) / parseInt(parcelaAtualizado)).toFixed(2);
-  setParcelaAtualizado(parcelaAtualizado);
-}, [totalAtualizado, parcelaAtualizado]);
-
+  useEffect(() => {
+    const valorParcelaAtualizada = (parseFloat(totalAtualizado) / parseInt(parcelaAtualizado)).toFixed(2);
+    setParcelaAtualizado(parcelaAtualizado);
+  }, [totalAtualizado, parcelaAtualizado]);
 
   const handleClickRmv = (id) => {
     dispatch(rmvPag(id));
@@ -52,10 +51,32 @@ useEffect(() => {
     return total === pagamento.parcela ? 'Sim' : 'Não';
   };
 
+  const handleUpdateClick = (id) => {
+    setId(id);
+    setEditPagamento(true);
+  };
+
+  const handleUpdateSubmit = (pagamento) => {
+    dispatch(
+      editPag({
+        id: pagamento.id,
+        valorTotal: totalAtualizado,
+        data: dataAtualizado ,
+        parcela: parcelaAtualizado,
+        valorParcela: valorParcelaAtualizada,
+      })
+    );
+    setId(null);
+    setTotalAtualizado('');
+    setDataAtualizado(null);
+    setParcelaAtualizado('');
+    setEditPagamento(false);
+  };
+
   return (
     <div>
       <h1>Pagamentos</h1>
-
+      <div className='box'>
       <input
         type="text"
         value={filtroCPF}
@@ -80,7 +101,6 @@ useEffect(() => {
             <th>Em dia?</th>
             <th>Ação</th>
             <th>Consulta</th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -91,60 +111,42 @@ useEffect(() => {
               <td>{pagamento.valorTotal}</td>
               <td>{pagamento.parcela}</td>
               <td>{pagamento.valorParcela}</td>
-              <td>{pagamento.data}</td>
+              <td>{new Date(pagamento.data).toLocaleDateString()}</td>
               <td>{verificarEmDia(pagamento)}</td>
               <td>
-                <button onClick={() => handleClickRmv(pagamento.id)}>Remover</button>
-              </td>
-              <td>{pagamento.idConsulta}</td>
-              <td>
-                <button onClick={() => { setEditPagamento(true); setId(pagamento.id) }}>
-                  editar
-                </button>
-              </td>
-              {editPagamento && id === pagamento.id && (
-                <>
-                  <input
-                    type="text"
-                    placeholder="Atualizar Valor total"
-                    onChange={(e) => setTotalAtualizado(e.target.value)}
-                  />
-                  <input
-                    type="number"
-                    placeholder="Atualizar Parcelas"
-                    onChange={(e) => setParcelaAtualizado(e.target.value)}
-                  />
-                  <input
-                    type="date"
-                    placeholder="Atualizar Data"
-                    onChange={(e) => setDataAtualizado(e.target.value)}
-                  />
-                  <button
-                    onClick={() =>
-                      dispatch(
-                        editPag({
-                          id: pagamento.id,
-                          valorTotal: totalAtualizado,
-                          data: dataAtualizado,
-                          parcela: parcelaAtualizado,
-                          valorParcela: valorParcelaAtualizada
-                        })
-
-                      )
-                      && setEditPagamento(false)
-                    }
-                  >
-                    Atualizar
-                  </button>
+                {editPagamento && id === pagamento.id ? (
+                  <>
+                    <input
+                      type="text"
+                      placeholder="Atualizar Valor total"
+                      value={totalAtualizado}
+                      onChange={(e) => setTotalAtualizado(e.target.value)}
+                    />
+                    <input
+                      type="number"
+                      placeholder="Atualizar Parcelas"
+                      value={parcelaAtualizado}
+                      onChange={(e) => setParcelaAtualizado(e.target.value)}
+                    />
+                   <input type="date" className="form-control" id="inputData"
+                     
+                       onChange={(e) => setDataAtualizado(new Date(e.target.value + 'T00:00:00'))}
+            />
+                  <button onClick={() => handleUpdateSubmit(pagamento)}>Salvar</button>
                 </>
+              ) : (
+                <button onClick={() => handleUpdateClick(pagamento.id)}>Editar</button>
               )}
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-      <hr />
-    </div>
-  );
+              <button onClick={() => handleClickRmv(pagamento.id)}>Remover</button>
+            </td>
+            <td>{pagamento.idConsulta}</td>
+          </tr>
+        ))}
+      </tbody>
+    </Table>
+  </div>
+  </div>
+);
 }
 
 export default PagPaci;

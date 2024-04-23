@@ -31,7 +31,7 @@ function ItemEstoque(props) {
   };
 
   const handleClickEditar = (event) => {
-    
+    event.stopPropagation();
     setEditarItem(true);
   };
 
@@ -103,7 +103,7 @@ function ItemEstoque(props) {
   );
 }
 
-function ListaEstoque({handleCadastrarItem}) {
+function ListaEstoque({ handleCadastrarItem }) {
   const itens = useSelector((state) => state.listaEstoque.estoque);
 
   return (
@@ -125,7 +125,13 @@ function ListaEstoque({handleCadastrarItem}) {
             </thead>
             <tbody>
               {itens.map((item, index) => (
-                <ItemEstoque key={index} codigo={item.codigo} item={item.nome} preco={item.preco} quantidade={item.quantidade} />
+                <ItemEstoque
+                  key={index}
+                  codigo={item.codigo}
+                  item={item.nome}
+                  preco={item.preco}
+                  quantidade={item.quantidade}
+                />
               ))}
             </tbody>
           </Table>
