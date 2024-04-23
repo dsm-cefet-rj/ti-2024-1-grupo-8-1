@@ -98,7 +98,6 @@ function PagPaci() {
             <th>Parcelas</th>
             <th>Valor Parcela</th>
             <th>Data</th>
-            <th>Em dia?</th>
             <th>Ação</th>
             <th>Consulta</th>
           </tr>
@@ -112,7 +111,7 @@ function PagPaci() {
               <td>{pagamento.parcela}</td>
               <td>{pagamento.valorParcela}</td>
               <td>{new Date(pagamento.data).toLocaleDateString()}</td>
-              <td>{verificarEmDia(pagamento)}</td>
+
               <td>
                 {editPagamento && id === pagamento.id ? (
                   <>
