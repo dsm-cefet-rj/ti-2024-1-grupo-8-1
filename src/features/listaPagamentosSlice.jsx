@@ -20,6 +20,7 @@ const pagamentosSlice = createSlice({
         pagamento.valorTotal =  action.payload.valorTotal;
         pagamento.parcela = action.payload.parcela;
         pagamento.data = action.payload.data;
+        pagamento.valorParcela = action.payload.valorParcela;
       }
      })
     },

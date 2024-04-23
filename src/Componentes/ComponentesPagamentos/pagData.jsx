@@ -109,7 +109,7 @@ function PagData() {
             <th>Parcela</th>
             <th>Valor Parcela</th>
             <th>Data</th>
-            <th>Em dia?</th>
+
           </tr>
         </thead>
         <tbody>
@@ -132,7 +132,6 @@ function PagData() {
                   <td>{pagamento.parcela}</td>
                   <td>{pagamento.valorParcela}</td>
                   <td>{formatarData(pagamento.data)}</td>
-                  <td>{pagamento.emDia ? 'Sim' : 'Não'}</td>
                 </tr>
               );
             }
