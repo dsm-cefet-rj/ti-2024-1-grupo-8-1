@@ -2,8 +2,8 @@ import React from 'react';
 import './stylesAgenda.css';
 import { useSelector } from 'react-redux';
 
-function ConsultasMarcadas({ handleAdicionarConsulta, handleVisualizarConsultaM }) {
-    const ListaDeConsultasMarcadas = useSelector((state) => state.listaAgenda.agenda);
+function ConsultasConcluidas({ handleAdicionarConsulta, handleVisualizarConsultaC }) {
+    const ListaDeConsultasConcluidas = useSelector((state) => state.listaAgenda.agenda);
 
     return (
         <div>
@@ -11,8 +11,8 @@ function ConsultasMarcadas({ handleAdicionarConsulta, handleVisualizarConsultaM 
             <div>
                 <ul>
                     <li>Consultas Marcadas</li>
-                    {ListaDeConsultasMarcadas.map((consulta, index) => (
-                        <li key={index} onClick={() => handleVisualizarConsultaM(consulta)}>{consulta.title}</li>
+                    {ListaDeConsultasConcluidas.map((consulta, index) => (
+                        <li key={index} onClick={() => handleVisualizarConsultaC(consulta)}>{consulta.title}</li>
                     ))}
                 </ul>
             </div>
@@ -20,4 +20,4 @@ function ConsultasMarcadas({ handleAdicionarConsulta, handleVisualizarConsultaM 
     );
 }
 
-export default ConsultasMarcadas;
+export default ConsultasConcluidas;

@@ -7,13 +7,11 @@ export default function AdicionarConsulta({handleConsultasMarcadas}){
 
     const[novaConsulta, setNovaConsulta] = useState({
       
-        id:"",
-        title:"",
-        allDay:"",
-        start:"",
-        end:"",
-        paciente:"",
-        pagamento:""
+        id: "",
+        title: "",
+        start: "",
+        end: "",
+        paciente: "",
     })
       
     const Pacientes = useSelector(state => state.listaPacientes.pacientes);
@@ -43,11 +41,11 @@ export default function AdicionarConsulta({handleConsultasMarcadas}){
             </div>
             <div className='container-lg'>
                 <form onSubmit={handleAdicionarConsulta} className='row g-3'>
-                    <div className='col-md-4'>
+                    <div className='col-md-6'>
                         <label>Id: </label>
                         <input type="text" name='id' onChange={(e) => handleMudanca(e)} />
                     </div>
-                    <div className='col-md-4'>
+                    <div className='col-md-6'>
                         <label>Título: </label>
                         <input type="text" name='title' onChange={(e) => handleMudanca(e)} />
                     </div>

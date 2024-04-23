@@ -6,8 +6,10 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import AdicionarConsulta from './AdicionarConsulta'
-import VisualizarConsulta from './VisualizarConsulta'
+import VisualizarConsultaM from './VisualizarConsultaM'
+import VisualizarConsultaC from './VisualizarConsultaC'
 import ConsultasMarcadas from './ConsultasMarcadas'
+import ConsultasConcluidas from './ConsultasConcluidas'
 
 function Agenda() {
 
@@ -30,10 +32,10 @@ function Agenda() {
 
   }
   
-  const [Modo, setModo] = useState('Adicionar')
+  const [Modo, setModo] = useState('Inicial')
   const [consulta, setConsulta] = useState('')
 
-  const handleVisualizarConsulta = (consultaSelecionada) => {
+  const handleVisualizarConsultaM = (consultaSelecionada) => {
     setModo('Visualizar');
     setConsulta(consultaSelecionada);
   }
@@ -48,13 +50,13 @@ function Agenda() {
 
   const renderizarConteudo = () => {
     if (Modo === 'Inicial') {
-      return <ConsultasMarcadas handleAdicionarConsulta={handleAdicionarConsulta} handleVisualizarConsulta={handleVisualizarConsulta} />;
+      return <ConsultasMarcadas handleAdicionarConsulta={handleAdicionarConsulta} handleVisualizarConsultaM={handleVisualizarConsultaM} />;
     }
     else if (Modo === 'Adicionar') {
-      return <AdicionarConsulta handleConsultaMarcada={handleConsultasMarcadas} />;
+      return <AdicionarConsulta handleConsultasMarcadas={handleConsultasMarcadas} />;
     }
     else if (Modo === 'Visualizar') {
-      return <VisualizarConsulta handleConsultaMarcada={handleConsultasMarcadas} consulta={consulta} />;
+      return <VisualizarConsultaM handleConsultasMarcadas={handleConsultasMarcadas} consulta={consulta} />;
     }
   }
  

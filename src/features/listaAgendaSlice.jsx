@@ -6,17 +6,15 @@ const initialState = {
         {
             "id":"1",
             "title":"Preenchimento",
-            "allDay":"Sim",
             "start":"12/09/2003",
-            "end":"12/09/2024",
+            "end":"12/09/2023",
             "paciente":"Eu"
         },
         {
             "id":"2",
             "title":"Limpeza",
-            "allDay":"Não",
             "start":"12/09/2003",
-            "end":"12/09/2024",
+            "end":"12/09/2023",
             "paciente":"Você"
         },
 
