@@ -8,7 +8,7 @@ export function VisualizarConsultaM({ handleConsultasMarcadas, consultaM, handle
         <div>
             <div>
                 <button className='botãoConsulta' onClick={handleConsultasMarcadas}>Consultas Marcadas</button>
-                <button className='botãoConsulta' onClick={handleConcluirConsulta}>Concluir Consulta</button>
+                <button className='botãoConsulta' onClick={() => handleConcluirConsulta(consultaM)}>Concluir Consulta</button>
             </div>
             <div className="container-lg">
                 <div className="row g-3">

@@ -27,11 +27,13 @@ const listaAgendaSlice = createSlice({
     reducers:{
         adicionarAgenda: (state, action)=>{
             state.agenda = [...state.agenda, action.payload]
+        },
+        removerAgenda: (state, action)=>{
+            state.agenda = state.agenda.filter((agenda) => agenda.id !== action.payload)
         }
-
     }
 
 });
 
-export const { adicionarAgenda } = listaAgendaSlice.actions;
+export const { adicionarAgenda, removerAgenda  } = listaAgendaSlice.actions;
 export default listaAgendaSlice.reducer;

@@ -75,7 +75,7 @@ function Agenda() {
       return <AdicionarConsulta handleConsultasMarcadas={handleConsultasMarcadas} />;
     }
     else if(Modo === 'Concluir'){
-      return <ConcluirConsulta handleConsultasMarcadas={handleConsultasMarcadas} handleConsultasConcluidas={handleConsultasConcluidas} consultaM={consultaM}/>;
+      return <ConcluirConsulta handleConsultasMarcadas={handleConsultasMarcadas} consultaM={consultaM} handleConsultasConcluidas={handleConsultasConcluidas}/>;
     }
     else if (Modo === 'VisualizarM') {
       return <VisualizarConsultaM handleConsultasMarcadas={handleConsultasMarcadas} consultaM={consultaM} handleConcluirConsulta={handleConcluirConsulta}/>;

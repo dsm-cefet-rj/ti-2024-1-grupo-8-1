@@ -21,8 +21,8 @@ export default function AdicionarConsulta({handleConsultasMarcadas}){
     const handleMudanca = (e) => {
         const { name, value } = e.target;
         setNovaConsulta({
-        ...novaConsulta,
-        [name]: value,
+            ...novaConsulta,
+            [name]: value,
         });
     };
 
