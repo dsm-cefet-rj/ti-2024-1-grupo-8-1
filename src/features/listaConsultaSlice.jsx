@@ -6,8 +6,8 @@ const initialState = {
         {
             "id":"0",
             "title":"Obturação",
-            "start":"12/09/2003",
-            "end":"01/01/2024",
+            "data":"01/04/2024",
+            "hora":"16:20",
             "paciente":"Nós",
             "pagamento":"Consulta com pagamento",
             "descrição":"Uma Belezura"

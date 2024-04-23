@@ -25,12 +25,12 @@ export function VisualizarConsultaM({ handleConsultasMarcadas, consultaM, handle
                         <span>{consultaM.paciente}</span>
                     </div>
                     <div className="col-md-4">
-                        <label>Começo:</label>
-                        <span>{consultaM.start}</span>
+                        <label>Data:</label>
+                        <span>{consultaM.data}</span>
                     </div>
                     <div className="col-md-4">
-                        <label>Fim:</label>
-                        <span>{consultaM.end}</span>
+                        <label>Hora:</label>
+                        <span>{consultaM.hora}</span>
                     </div>
                 </div>
             </div>

@@ -57,20 +57,23 @@ export function ConcluirConsulta({ handleConsultasMarcadas, handleConsultasConcl
                         <input type="text" name='paciente' value={consultaM.paciente} />
                     </div>
                     <div className='col-md-4'>
-                        <label>Começo: </label>
-                        <input type="text" name='start' value={consultaM.start} />
+                        <label>Data: </label>
+                        <input type="text" name='data' value={consultaM.data} />
                     </div>
                     <div className='col-md-4'>
-                        <label>Fim: </label>
-                        <input type="text" name='end' value={consultaM.end} />
+                        <label>Hora: </label>
+                        <input type="text" name='hora' value={consultaM.hora} />
                     </div>
                     <div className="col-md-4">
                         <label>Pagamento:</label>
-                        <input type="text" name='pagamento' onChange={(e) => handleMudanca(e)} />
+                        <select name='pagamento' onChange={(e) => handleMudanca(e)}>
+                            <option value= "com">Com</option>
+                            <option value= "sem">Sem</option>
+                        </select>
                     </div>
-                    <div>
+                    <div className="col-12">
                         <label>Descrição:</label>
-                        <input type="text" name='descrição' onChange={(e) => handleMudanca(e)} />
+                        <textarea className="col-12" type="text" name='descrição' onChange={(e) => handleMudanca(e)} />
                     </div>
 
 

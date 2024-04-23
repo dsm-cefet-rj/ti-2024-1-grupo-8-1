@@ -24,12 +24,12 @@ export function VisualizarConsultaC({ handleConsultasConcluidas, consultaC }) {
                         <span>{consultaC.paciente}</span>
                     </div>
                     <div className="col-md-4">
-                        <label>Começo:</label>
-                        <span>{consultaC.start}</span>
+                        <label>Data:</label>
+                        <span>{consultaC.data}</span>
                     </div>
                     <div className="col-md-4">
-                        <label>Fim:</label>
-                        <span>{consultaC.end}</span>
+                        <label>Hora:</label>
+                        <span>{consultaC.hora}</span>
                     </div>
                     <div className="col-md-4">
                         <label>Pagamento:</label>

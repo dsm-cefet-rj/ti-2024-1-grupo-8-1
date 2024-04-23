@@ -62,12 +62,12 @@ export default function AdicionarConsulta({handleConsultasMarcadas}){
                     </div>
 
                     <div className='col-md-4'>
-                        <label>Começo: </label>
-                        <input type="text" name='start' onChange={(e) => handleMudanca(e)} />
+                        <label>Data: </label>
+                        <input type="text" name='data' onChange={(e) => handleMudanca(e)} />
                     </div>
                     <div className='col-md-4'>
-                        <label>Fim: </label>
-                        <input type="text" name='end' onChange={(e) => handleMudanca(e)} />
+                        <label>Hora: </label>
+                        <input type="text" name='hora' onChange={(e) => handleMudanca(e)} />
                     </div>
                     
                     <button className='botãoConsulta' type="submit">Adicionar Consulta</button>
