@@ -1,18 +1,21 @@
-import React, { useState } from 'react'
-import CadastrarItem from './cadastrarItem'
-import {ListaEstoque, ItemEstoque} from './listaEstoque'
+import React, { useState } from 'react';
+import CadastrarItem from './cadastrarItem';
+import {ListaEstoque, ItemEstoque} from './listaEstoque';
 import '../styles.css';
 
 
 
 function Estoque() {
 
-  const[exibirBotaoVoltar, setExibirBotaoVoltar] = useState(true);
-  const[exibirBotaoCadastrar, setExibirBotaoCadastrar] = useState(true);
+  /*const[exibirBotaoVoltar, setExibirBotaoVoltar] = useState(true);
+  const[exibirBotaoCadastrar, setExibirBotaoCadastrar] = useState(true);*/
 
-  const[exibirEstoque, setExibirEstoque] = useState(true);
+  const[Modo, setModo] = useState('Inicial')
+  const[item, setItem] = useState('')
+
+  //const[exibirEstoque, setExibirEstoque] = useState(true);
   
-  const handleClickBotaoVoltar = () =>{
+  /*const handleClickBotaoVoltar = () =>{
     
     setExibirBotaoCadastrar(true);
     setExibirCadastrar(false);
@@ -42,29 +45,28 @@ function Estoque() {
     setExibirBotaoVoltar(true);
     setExibirEstoque(false);
 
+  }*/
+
+  const handleCadastrarItem = () =>{
+    setModo('Cadastrar');
+  };
+
+  const handleListarItens = () =>{
+    setModo('Inicial');
+  };
+
+  const renderizarConteudo = () => {
+    if (Modo === 'Inicial') {
+      return <ListaEstoque handleCadastrarItem={handleCadastrarItem} />;
+    }
+    else if (Modo === 'Cadastrar') {
+      return <CadastrarItem handleListarItens={handleListarItens} />;
+    }
   }
   
   return (
     <div className="corpo">
-      <div className="cabecalho">
-        Estoque
-      </div>
-      <div>
-        {exibirBotaoVoltar && <button type="button" id="estoque-voltar-btn" onClick={handleClickBotaoVoltar} className="btn btn-primary">Voltar</button>}
-      </div>
-      
-      <div className="container-lg">
-        <div className="row g-6">
-          <div className= "col-md-6">
-            {exibirBotaoCadastrar && <button type="button" id="estoque-cadastrar-btn" onClick={handleClickBotaoCadastrar} className="btn btn-primary">Cadastrar</button>}
-          </div>
-        </div>
-          <div>
-            {exibirCadastrar && <CadastrarItem />}
-            {exibirEstoque && <ListaEstoque />}
-
-          </div>
-      </div>
+      {renderizarConteudo()}
     </div>
     
   );

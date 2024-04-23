@@ -30,7 +30,8 @@ function ItemEstoque(props) {
     dispatch(rmvItem(props.codigo));
   };
 
-  const handleClickEditar = (codigo) => {
+  const handleClickEditar = (event) => {
+    
     setEditarItem(true);
   };
 
@@ -72,14 +73,14 @@ function ItemEstoque(props) {
       </td>
       <td>
         {editarItem ? (
-          <input type="text" value={precoAtualizado} onChange={handlePrecoAtualizadoChange} />
+          <input type="number" value={precoAtualizado} onChange={handlePrecoAtualizadoChange} />
         ) : (
           props.preco
         )}
       </td>
       <td>
         {editarItem ? (
-          <input type="text" value={quantidadeAtualizada} onChange={handleQuantidadeAtualizadaChange} />
+          <input type="number" value={quantidadeAtualizada} onChange={handleQuantidadeAtualizadaChange} />
         ) : (
           props.quantidade
         )}
@@ -102,11 +103,12 @@ function ItemEstoque(props) {
   );
 }
 
-function ListaEstoque() {
+function ListaEstoque({handleCadastrarItem}) {
   const itens = useSelector((state) => state.listaEstoque.estoque);
 
   return (
     <div className="corpo">
+      <button onClick={handleCadastrarItem}>Cadastrar</button>
       <div className="container-lg">
         <form className="row g-3">
           <Table striped bordered hover>

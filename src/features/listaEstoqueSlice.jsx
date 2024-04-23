@@ -1,14 +1,26 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  estoque: [{
-    nome :'',
-    codigo:'',
-    quantidade: '',
-    preco: '',
-    descricao: '', 
-    filtros :[]
-  }],
+
+  estoque: [
+    {
+      "nome": 'Luva',
+      "codigo": '000',
+      "quantidade": '100',
+      "preco": '0.50',
+      "descricao": 'Unidades e luva da marca X',
+      "filtros": ["Descartável", "Ortodontia"]
+    },
+    {
+      "nome": 'Anestesia',
+      "codigo": '999',
+      "quantidade": '20',
+      "preco": '27.00',
+      "descricao": 'Medicamento anestésico da Marca Y',
+      "filtros": ["Ortodontia"]
+    },
+  ],
+
 };
 
 const listaEstoqueSlice = createSlice({
@@ -22,23 +34,23 @@ const listaEstoqueSlice = createSlice({
       state.estoque = state.estoque.filter((estoque) => estoque.codigo !== action.payload);
     },
     adicionarPaciente: (state, action) => {
-      state.estoque = [...state.estoque.quantidade =+ 1, action.payload];
-      return state.estoque.quantidade =+ 1
+      state.estoque = [...state.estoque.quantidade = + 1, action.payload];
+      return state.estoque.quantidade = + 1
     },
     diminuirQtd: (state, action) => {
-        state.estoque = state.estoque.filter((estoque) => estoque.codigo == action.payload && estoque.quantidade -1);
+      state.estoque = state.estoque.filter((estoque) => estoque.codigo == action.payload && estoque.quantidade - 1);
     },
     editItem: (state, action) => {
       state.estoque.map(estoque => {
-       if(estoque.id == action.payload.id){
-         estoque.nome =  action.payload.nome;
-         estoque.quantidade = action.payload.quantidade;
-         estoque.preco = action.payload.preco;
-         estoque.descricao = action.payload.descricao;
-         estoque.filtros = action.payload.filtros;
-       }
+        if (estoque.id == action.payload.id) {
+          estoque.nome = action.payload.nome;
+          estoque.quantidade = action.payload.quantidade;
+          estoque.preco = action.payload.preco;
+          estoque.descricao = action.payload.descricao;
+          estoque.filtros = action.payload.filtros;
+        }
       })
-     }
+    }
   },
 });
 

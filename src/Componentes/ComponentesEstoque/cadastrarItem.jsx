@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../styles.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { adicionarItem } from '../../features/listaEstoqueSlice';
-function CadastrarItem() {
+function CadastrarItem({handleListarItens}) {
 const dispatch = useDispatch();
     const Filtros = [
 
@@ -33,6 +33,7 @@ const dispatch = useDispatch();
       };
     return (
         <div className="corpo">
+            <button onClick={handleListarItens}>Voltar</button>
             <div className="container-lg">
                 <form className="row g-3">
                     <div className="col-md-4">
