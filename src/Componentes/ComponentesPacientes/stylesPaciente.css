@@ -128,3 +128,14 @@ span{
     min-height: 4vh;
     list-style: none;
 }
+
+.consulta{
+    margin-bottom: 2vh;
+    box-shadow: 0 0 0.3vh 0 #2babe2
+}
+
+.listaConsultas{
+    max-height: 50vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
