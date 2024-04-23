@@ -88,7 +88,11 @@ function ListaEstoque({ handleCadastrarItem }, { handleListarItens }) {
                     )}
                   </td>
                   <td>
-                    
+                    {editarItem && id === item.id ? (
+                      <textarea type="text" value={descricaoAtualizado} onChange={(e) => setDescricaoAtualizado(e.target.value)} />
+                    ) : (
+                      item.descricao
+                    )}
                   </td>
                   <td>
                     <CloseButton onClick={(e) => handleClickBotaoRemover(item.id)} />
