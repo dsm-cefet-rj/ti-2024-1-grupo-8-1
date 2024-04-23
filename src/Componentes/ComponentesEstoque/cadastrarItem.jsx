@@ -19,7 +19,6 @@ const dispatch = useDispatch();
     const [descricao, setDescricaoItem] = useState('')
 
     const handleClickEstoque = (event) => {
-        event.preventDefault();
         const dados = {
           nome: nome,
           codigo: codigo,
@@ -35,7 +34,7 @@ const dispatch = useDispatch();
         <div className="corpo">
             <button onClick={handleListarItens}>Voltar</button>
             <div className="container-lg">
-                <form className="row g-3">
+                <form onSubmit={handleListarItens} className="row g-3">
                     <div className="col-md-4">
                         <label htmlFor="inputNome" className="form-label">Nome</label>
                         <input type="text" className="form-control" id="inputNome" value={nome} onChange={(e) => setNomeItem(e.target.value)} />
