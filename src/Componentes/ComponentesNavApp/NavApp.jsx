@@ -7,6 +7,8 @@ import Pagamentos from '../ComponentesPagamentos/Pagamentos.jsx';
 import '../styles.css';
 
 function NavApp() {
+
+  
   const [exibirPacientes, setExibirPacientes] = useState(false);
 
   const handleClickPacientes = () => {

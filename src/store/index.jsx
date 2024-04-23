@@ -4,7 +4,7 @@ import listaPacientesReducer from '../features/listaPacientesSlice';
 import listaEstoqueReducer from '../features/listaEstoqueSlice';
 import listaAgendaReducer from '../features/listaAgendaSlice';
 import listaConsultaReducer from '../features/listaConsultaSlice';
-
+import userReducer from '../features/userSlice';
 const store = configureStore({
     reducer:{
         listaPagamentos: listaPagamentosReducer,
@@ -12,6 +12,7 @@ const store = configureStore({
         listaEstoque: listaEstoqueReducer,
         listaAgenda: listaAgendaReducer,
         listaConsulta: listaConsultaReducer,
+        user : userReducer
     }
 });
 
