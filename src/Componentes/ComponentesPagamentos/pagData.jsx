@@ -5,7 +5,7 @@ function PagData() {
   return (
     <div className="corpo">
       <div className="cabecalho">
-        Pagamento por data
+       
       </div>
     </div>
   );

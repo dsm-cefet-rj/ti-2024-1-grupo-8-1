@@ -110,10 +110,10 @@ function Pagamentos() {
            {exibirBotaoData && <button type="button" id="pagamentos-pagData-btn" onClick={handleClickPagData} className="btn btn-primary btn-lg">Ver pagamentos de uma data</button>}
           </div>
           <div onClick={handleClickExibirBotaoPaci}>
-            {exibirBotaoPaci && <button type="button" id="pagamentos-pagPaci-btn" onClick={handleClickPagPaci}  className="btn btn-primary btn-lg">Ver pagamentos por paciente</button> }
+            {exibirBotaoPaci && <button type="button" id="pagamentos-pagPaci-btn" onClick={handleClickPagPaci}  className="btn btn-primary btn-lg">Pagamentos do paciente</button> }
           </div>
           <div onClick={handleClickExibirBotaoMes}>
-            {exibirBotaoMes && <button type="button" id="pagamentos-pagMes-btn" onClick={handleClickPagMes}  className="btn btn-primary btn-lg">Ver pagamentos por mês</button>}
+            {exibirBotaoMes && <button type="button" id="pagamentos-pagMes-btn" onClick={handleClickPagMes}  className="btn btn-primary btn-lg">Pagamentos do mês</button>}
           </div>
             {exibirAdd && <AddPag />}
             {exibirPagData && <PagData />}

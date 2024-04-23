@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import CadastrarItem from './cadastrarItem'
-import DeletarItem from './deletarItem'
 import {ListaEstoque, ItemEstoque} from './listaEstoque'
 import '../styles.css';
 
@@ -10,13 +9,12 @@ function Estoque() {
 
   const[exibirBotaoVoltar, setExibirBotaoVoltar] = useState(true);
   const[exibirBotaoCadastrar, setExibirBotaoCadastrar] = useState(true);
-  const[exibirBotaoDeletar, setExibirBotaoDeletar] = useState(true);
+
   const[exibirEstoque, setExibirEstoque] = useState(true);
   
   const handleClickBotaoVoltar = () =>{
     
     setExibirBotaoCadastrar(true);
-    setExibirBotaoDeletar(true);
     setExibirCadastrar(false);
     setExibirDeletar(false);
     setExibirEstoque(true);
@@ -27,9 +25,8 @@ function Estoque() {
   const handleClickBotaoCadastrar = () =>{
 
     setExibirBotaoCadastrar(false);
-    setExibirBotaoDeletar(false);
+
     setExibirCadastrar(true);
-    setExibirDeletar(false);
     setExibirBotaoVoltar(true);
     setExibirEstoque(false);
 
@@ -39,9 +36,9 @@ function Estoque() {
   const handleClickBotaoDeletar = () =>{
 
     setExibirBotaoCadastrar(false);
-    setExibirBotaoDeletar(false);
+
     setExibirCadastrar(false);
-    setExibirDeletar(true);
+
     setExibirBotaoVoltar(true);
     setExibirEstoque(false);
 
@@ -61,13 +58,9 @@ function Estoque() {
           <div className= "col-md-6">
             {exibirBotaoCadastrar && <button type="button" id="estoque-cadastrar-btn" onClick={handleClickBotaoCadastrar} className="btn btn-primary">Cadastrar</button>}
           </div>
-          <div className= "col-md-6">
-            {exibirBotaoDeletar && <button type="button" id="pagamentos-deletar-btn" onClick={handleClickBotaoDeletar} className="btn btn-primary">Deletar</button>}
-          </div>
         </div>
           <div>
             {exibirCadastrar && <CadastrarItem />}
-            {exibirDeletar && <DeletarItem />}
             {exibirEstoque && <ListaEstoque />}
 
           </div>

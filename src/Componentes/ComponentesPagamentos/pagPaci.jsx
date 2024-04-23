@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import { useSelector, useDispatch } from 'react-redux';
-import { rmvPag } from '../../features/listaPagamentosSlice';
+import { editPag, rmvPag } from '../../features/listaPagamentosSlice';
 
 function PagPaci() {
   const pagamentos = useSelector((state) => state.listaPagamentos.pagamentos);
+  const Consulta = useSelector((state) => state.listaConsulta.consulta);
   const dispatch = useDispatch();
   const [filtroCPF, setFiltroCPF] = useState('');
+  const [filtroIDConsulta, setFiltroIDConsulta] = useState('');
+
+  const handleClickEditar = (id) => {
+    dispatch(editPag(id));
+  };
 
   const handleClickRmv = (id) => {
     dispatch(rmvPag(id));
@@ -16,26 +22,45 @@ function PagPaci() {
     setFiltroCPF(event.target.value);
   };
 
+  const handleFiltroIDConsultaChange = (event) => {
+    setFiltroIDConsulta(event.target.value);
+  };
+
   const pagamentosFiltrados = pagamentos.filter((pagamento) => {
     const cpfFormatado = pagamento.cpf.replace(/[^\d]/g, '');
-    return cpfFormatado.includes(filtroCPF);
+    return (
+      cpfFormatado.includes(filtroCPF) &&
+      (filtroIDConsulta === '' || pagamento.idConsulta === filtroIDConsulta)
+    );
   });
 
+  const verificarEmDia = (pagamento) => {
+    let total = 0;
+    pagamentos.forEach((pgto) => {
+      if (pgto.idConsulta === pagamento.idConsulta) {
+        total += 1;
+      }
+    });
+    return total === pagamento.parcela ? 'Sim' : 'Não';
+  };
   return (
     <div>
       <h1>Pagamentos</h1>
+
       <input type="text" value={filtroCPF} onChange={handleFiltroCPFChange} placeholder="Filtrar por CPF" />
+      <input type="text" value={filtroIDConsulta} onChange={handleFiltroIDConsultaChange} placeholder="Filtrar por ID da Consulta" />
       <Table striped bordered hover variant="dark">
         <thead>
           <tr>
             <th>Nome</th>
             <th>CPF</th>
             <th>Total</th>
-            <th>Parcela</th>
+            <th>Parcelas</th>
             <th>Valor Parcela</th>
             <th>Data</th>
             <th>Em dia?</th>
             <th>Ação</th>
+            <th>Consulta</th>
           </tr>
         </thead>
         <tbody>
@@ -47,10 +72,11 @@ function PagPaci() {
               <td>{pagamento.parcela}</td>
               <td>{pagamento.valorParcela}</td>
               <td>{pagamento.data.toLocaleDateString()}</td>
-              <td>{pagamento.emDia ? 'Sim' : 'Não'}</td>
+              <td>{verificarEmDia(pagamento)}</td>
               <td>
                 <button onClick={() => handleClickRmv(pagamento.id)}>Remover</button>
               </td>
+              <td>{pagamento.idConsulta} </td>
             </tr>
           ))}
         </tbody>

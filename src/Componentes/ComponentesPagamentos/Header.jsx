@@ -27,7 +27,7 @@ function Header() {
           </Nav>
         </Col>
         <Col sm={9}>
-          <Tab.Content>{/* Conteúdo dos tabs aqui */}</Tab.Content>
+          <Tab.Content>{}</Tab.Content>
         </Col>
       </Row>
     </Tab.Container>
