@@ -57,6 +57,7 @@ function ListaEstoque({ handleCadastrarItem }, { handleListarItens }) {
                 <th>Item</th>
                 <th>Preço</th>
                 <th>Quantidade</th>
+                <th>Descrição</th>
                 <th>Remover</th>
                 <th>Editar</th>
               </tr>
@@ -85,6 +86,9 @@ function ListaEstoque({ handleCadastrarItem }, { handleListarItens }) {
                     ) : (
                       item.quantidade
                     )}
+                  </td>
+                  <td>
+                    
                   </td>
                   <td>
                     <CloseButton onClick={(e) => handleClickBotaoRemover(item.id)} />

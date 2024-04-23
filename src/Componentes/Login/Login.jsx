@@ -26,7 +26,7 @@ function Login() {
           <img src={logo} class="img-fluid" alt="Sample image" />
         </div>
         <div className='login'>
-          <form onSubmit={(e) => handleSubmit(e)}>
+          <form className='formLogin' onSubmit={(e) => handleSubmit(e)}>
             <input type='email' value={email} className='inputLogin' onChange={(e) => setEmail(e.target.value)} placeholder='Digite o seu email' />
             <input type='password' value={senha} className='inputLogin' onChange={(e) => setSenha(e.target.value)} placeholder='Digite sua senha' />
             <div>

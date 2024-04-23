@@ -11,6 +11,7 @@ import VisualizarConsultaM from './VisualizarConsultaM'
 import VisualizarConsultaC from './VisualizarConsultaC'
 import ConsultasMarcadas from './ConsultasMarcadas'
 import ConsultasConcluidas from './ConsultasConcluidas'
+import addPag from '../ComponentesPagamentos/addPag'
 
 function Agenda() {
 
@@ -64,6 +65,11 @@ function Agenda() {
     setModo('Consultas')
   };
 
+  const handleAddPag = (consultaSelecionada) =>{
+    setModo('Pagamento')
+    setConsultaC(consultaSelecionada);
+  };
+
   const renderizarConteudo = () => {
     if (Modo === 'Inicial') {
       return <ConsultasMarcadas handleAdicionarConsulta={handleAdicionarConsulta} handleVisualizarConsultaM={handleVisualizarConsultaM} handleConsultasConcluidas={handleConsultasConcluidas} />;
@@ -75,13 +81,16 @@ function Agenda() {
       return <AdicionarConsulta handleConsultasMarcadas={handleConsultasMarcadas} />;
     }
     else if(Modo === 'Concluir'){
-      return <ConcluirConsulta handleConsultasMarcadas={handleConsultasMarcadas} consultaM={consultaM} handleConsultasConcluidas={handleConsultasConcluidas}/>;
+      return <ConcluirConsulta handleConsultasMarcadas={handleConsultasMarcadas} consultaM={consultaM} handleConsultasConcluidas={handleConsultasConcluidas} handleAddPag={handleAddPag}/>;
     }
     else if (Modo === 'VisualizarM') {
       return <VisualizarConsultaM handleConsultasMarcadas={handleConsultasMarcadas} consultaM={consultaM} handleConcluirConsulta={handleConcluirConsulta}/>;
     }
     else if (Modo === 'VisualizarC') {
       return <VisualizarConsultaC handleConsultasConcluidas={handleConsultasConcluidas} consultaC={consultaC} />;
+    }
+    else if (Modo === 'Pagamento') {
+      return <addPag handleConsultasConcluidas={handleConsultasConcluidas} consultaC={consultaC}/>
     }
   }
  

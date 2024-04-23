@@ -4,19 +4,25 @@ import { adicionarConsulta } from '../../features/listaConsultaSlice'
 import { removerAgenda } from '../../features/listaAgendaSlice';
 import { adicionarPaciente } from '../../features/listaPacientesSlice';
 
-export function ConcluirConsulta({ handleConsultasMarcadas, handleConsultasConcluidas, consultaM }) {
+export function ConcluirConsulta({ handleConsultasMarcadas, handleConsultasConcluidas, consultaM, handleAddPag }) {
 
     const [novaConsultaConcluida, setNovaConsultaConcluida] = useState({
 
         ...consultaM,
-        pagamentos: "",
+        pagamento: "",
         descrição: ""
     })
 
     const dispatch = useDispatch();
+    const [statusPagamento, setStatusPagamento] = useState('')
 
     const handleMudanca = (e) => {
         const { name, value } = e.target;
+        if (value === "com" || value === "sem") {
+            setStatusPagamento(value)
+        }else if(name === "pagamento"){
+            setStatusPagamento('')
+        }
         setNovaConsultaConcluida({
             ...novaConsultaConcluida,
             [name]: value,
@@ -28,13 +34,27 @@ export function ConcluirConsulta({ handleConsultasMarcadas, handleConsultasConcl
         alert("vasco")
         dispatch(adicionarConsulta(novaConsultaConcluida));
         handleRemoverAgenda();
-        handleConsultasConcluidas();
+        if (statusPagamento === "sem") {
+            handleConsultasConcluidas();
+        } else if (statusPagamento === "com") {
+            handleAddPag();
+        }
+
     };
 
-    const handleRemoverAgenda = (e) =>{
+    const handleRemoverAgenda = (e) => {
         dispatch(removerAgenda(consultaM.id))
     }
 
+    const handleBotaoConfirmar = (statusPagamento) => {
+        if(statusPagamento === "com"){
+            return <button type="submit" className="botãoConsulta"> Confirmar Com Pagamento</button>
+        }else if(statusPagamento === "sem"){
+            return <button type="submit" className="botãoConsulta"> Confirmar Sem Pagamento</button>
+        }else{
+            return <span className="botãoConsulta">Defina o Status de Pagamento</span>
+        }
+    }
 
     return (
         <div>
@@ -46,11 +66,11 @@ export function ConcluirConsulta({ handleConsultasMarcadas, handleConsultasConcl
                 <form onSubmit={handleConcluirConsulta} className='row g-3'>
                     <div className='col-md-4'>
                         <label>Id: </label>
-                        <input type="text" name='id' value={consultaM.id}  />
+                        <input type="text" name='id' value={consultaM.id} />
                     </div>
                     <div className='col-md-4'>
                         <label>Título: </label>
-                        <input type="text" name='title' value={consultaM.title}  />
+                        <input type="text" name='title' value={consultaM.title} />
                     </div>
                     <div className='col-md-4'>
                         <label>Paciente: </label>
@@ -67,8 +87,9 @@ export function ConcluirConsulta({ handleConsultasMarcadas, handleConsultasConcl
                     <div className="col-md-4">
                         <label>Pagamento:</label>
                         <select name='pagamento' onChange={(e) => handleMudanca(e)}>
-                            <option value= "com">Com</option>
-                            <option value= "sem">Sem</option>
+                            <option>Escolha...</option>
+                            <option key="com" value="com">Com</option>
+                            <option key="sem" value="sem">Sem</option>
                         </select>
                     </div>
                     <div className="col-12">
@@ -76,8 +97,7 @@ export function ConcluirConsulta({ handleConsultasMarcadas, handleConsultasConcl
                         <textarea className="col-12" type="text" name='descrição' onChange={(e) => handleMudanca(e)} />
                     </div>
 
-
-                    <button type="submit" className="botãoConsulta"> Confirmar</button>
+                    {handleBotaoConfirmar(statusPagamento)};
                 </form>
             </div>
         </div>
