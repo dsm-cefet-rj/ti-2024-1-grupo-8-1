@@ -5,7 +5,7 @@ const initialState = {
   estoque: [
     {
       "nome": 'Luva',
-      "codigo": '000',
+      "id": '000',
       "quantidade": '100',
       "preco": '0.50',
       "descricao": 'Unidades e luva da marca X',
@@ -13,7 +13,7 @@ const initialState = {
     },
     {
       "nome": 'Anestesia',
-      "codigo": '999',
+      "id": '999',
       "quantidade": '20',
       "preco": '27.00',
       "descricao": 'Medicamento anestésico da Marca Y',

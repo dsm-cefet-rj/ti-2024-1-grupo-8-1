@@ -9,7 +9,7 @@ function ListaEstoque({ handleCadastrarItem }, { handleListarItens }) {
 
   const dispatch = useDispatch();
 
-  const [codigo, setCodigo] = useState('');
+  const [id, setId] = useState('');
   const [nomeAtualizado, setNomeAtualizado] = useState('');
   const [precoAtualizado, setPrecoAtualizado] = useState('');
   const [descricaoAtualizado, setDescricaoAtualizado] = useState('');
@@ -22,15 +22,15 @@ function ListaEstoque({ handleCadastrarItem }, { handleListarItens }) {
     dispatch(rmvItem(cod));
   };
 
-  const handleClickEditar = (codigo) => {
-    setCodigo(codigo);
+  const handleClickEditar = (id) => {
+    setId(id);
     setEditarItem(true);
   };
 
   const handleAtualizarItem = (item) => {
     dispatch(
       editItem({
-        codigo: item.codigo,
+        id: item.id,
         nome: nomeAtualizado,
         preco: precoAtualizado,
         descricao: descricaoAtualizado,
@@ -39,7 +39,7 @@ function ListaEstoque({ handleCadastrarItem }, { handleListarItens }) {
       })
     );
 
-    setCodigo(null);
+    setId(null);
     setNomeAtualizado('');
     setPrecoAtualizado('');
     setQuantidadeAtualizada('');
@@ -63,37 +63,37 @@ function ListaEstoque({ handleCadastrarItem }, { handleListarItens }) {
             </thead>
             <tbody>
               {itens.map((item) => (
-                <tr key={item.codigo}>
-                  <td>{item.codigo}</td>
+                <tr key={item.id}>
+                  <td>{item.id}</td>
                   <td>
-                    {editarItem && codigo === item.codigo ? (
+                    {editarItem && id === item.id ? (
                       <input type="text" value={nomeAtualizado} onChange={(e) => setNomeAtualizado(e.target.value)} />
                     ) : (
-                      item.item
+                      item.nome
                     )}
                   </td>
                   <td>
-                    {editarItem && codigo === item.codigo ? (
+                    {editarItem && id === item.id ? (
                       <input type="number" value={precoAtualizado} onChange={(e) => setPrecoAtualizado(e.target.value)} />
                     ) : (
                       item.preco
                     )}
                   </td>
                   <td>
-                    {editarItem && codigo === item.codigo ? (
+                    {editarItem && id === item.id ? (
                       <input type="number" value={quantidadeAtualizada} onChange={(e) => setQuantidadeAtualizada(e.target.value)} />
                     ) : (
                       item.quantidade
                     )}
                   </td>
                   <td>
-                    <CloseButton onClick={(e) => handleClickBotaoRemover(item.codigo)} />
+                    <CloseButton onClick={(e) => handleClickBotaoRemover(item.id)} />
                   </td>
                   <td>
-                    {editarItem && codigo === item.codigo ? (
-                      <button onClick={() => handleAtualizarItem(item)}>Atualizar</button>
+                    {editarItem && id === item.id ? (
+                      <button onClick={(e) => {handleAtualizarItem(item); e.preventDefault()}}>Atualizar</button>
                     ) : (
-                      <button onClick={() => {handleClickEditar(item.codigo);}}>Editar</button>
+                      <button onClick={(e) => {handleClickEditar(item.id); e.preventDefault()}}>Editar</button>
                     )}
                   </td>
                 </tr>
