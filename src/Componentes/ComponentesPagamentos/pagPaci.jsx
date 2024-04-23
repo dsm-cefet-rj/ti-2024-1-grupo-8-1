@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 import { useSelector, useDispatch } from 'react-redux';
 import { editPag, rmvPag } from '../../features/listaPagamentosSlice';
@@ -9,10 +9,18 @@ function PagPaci() {
   const dispatch = useDispatch();
   const [filtroCPF, setFiltroCPF] = useState('');
   const [filtroIDConsulta, setFiltroIDConsulta] = useState('');
+  const [id, setId] = useState(null);
+  const [editPagamento, setEditPagamento] = useState(false);
 
-  const handleClickEditar = (id) => {
-    dispatch(editPag(id));
-  };
+  const [totalAtualizado, setTotalAtualizado] = useState('');
+  const [dataAtualizado, setDataAtualizado] = useState(null);
+  const [parcelaAtualizado, setParcelaAtualizado] = useState('');
+const valorParcelaAtualizada = (parseFloat(totalAtualizado) / parseInt(parcelaAtualizado)).toFixed(2);
+useEffect(() => {
+  const valorParcelaAtualizada = (parseFloat(totalAtualizado) / parseInt(parcelaAtualizado)).toFixed(2);
+  setParcelaAtualizado(parcelaAtualizado);
+}, [totalAtualizado, parcelaAtualizado]);
+
 
   const handleClickRmv = (id) => {
     dispatch(rmvPag(id));
@@ -43,12 +51,23 @@ function PagPaci() {
     });
     return total === pagamento.parcela ? 'Sim' : 'Não';
   };
+
   return (
     <div>
       <h1>Pagamentos</h1>
 
-      <input type="text" value={filtroCPF} onChange={handleFiltroCPFChange} placeholder="Filtrar por CPF" />
-      <input type="text" value={filtroIDConsulta} onChange={handleFiltroIDConsultaChange} placeholder="Filtrar por ID da Consulta" />
+      <input
+        type="text"
+        value={filtroCPF}
+        onChange={handleFiltroCPFChange}
+        placeholder="Filtrar por CPF"
+      />
+      <input
+        type="text"
+        value={filtroIDConsulta}
+        onChange={handleFiltroIDConsultaChange}
+        placeholder="Filtrar por ID da Consulta"
+      />
       <Table striped bordered hover variant="dark">
         <thead>
           <tr>
@@ -61,6 +80,7 @@ function PagPaci() {
             <th>Em dia?</th>
             <th>Ação</th>
             <th>Consulta</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -71,12 +91,53 @@ function PagPaci() {
               <td>{pagamento.valorTotal}</td>
               <td>{pagamento.parcela}</td>
               <td>{pagamento.valorParcela}</td>
-              <td>{pagamento.data.toLocaleDateString()}</td>
+              <td>{pagamento.data}</td>
               <td>{verificarEmDia(pagamento)}</td>
               <td>
                 <button onClick={() => handleClickRmv(pagamento.id)}>Remover</button>
               </td>
-              <td>{pagamento.idConsulta} </td>
+              <td>{pagamento.idConsulta}</td>
+              <td>
+                <button onClick={() => { setEditPagamento(true); setId(pagamento.id) }}>
+                  editar
+                </button>
+              </td>
+              {editPagamento && id === pagamento.id && (
+                <>
+                  <input
+                    type="text"
+                    placeholder="Atualizar Valor total"
+                    onChange={(e) => setTotalAtualizado(e.target.value)}
+                  />
+                  <input
+                    type="number"
+                    placeholder="Atualizar Parcelas"
+                    onChange={(e) => setParcelaAtualizado(e.target.value)}
+                  />
+                  <input
+                    type="date"
+                    placeholder="Atualizar Data"
+                    onChange={(e) => setDataAtualizado(e.target.value)}
+                  />
+                  <button
+                    onClick={() =>
+                      dispatch(
+                        editPag({
+                          id: pagamento.id,
+                          valorTotal: totalAtualizado,
+                          data: dataAtualizado,
+                          parcela: parcelaAtualizado,
+                          valorParcela: valorParcelaAtualizada
+                        })
+
+                      )
+                      && setEditPagamento(false)
+                    }
+                  >
+                    Atualizar
+                  </button>
+                </>
+              )}
             </tr>
           ))}
         </tbody>

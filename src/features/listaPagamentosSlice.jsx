@@ -9,16 +9,19 @@ const pagamentosSlice = createSlice({
   initialState,
   reducers: {
     addPag: (state, action) => {
-      state.pagamentos.push(action.payload);
-    },
+      state.pagamentos = [...state.pagamentos, action.payload];
+  },
     rmvPag: (state, action) => {
       state.pagamentos = state.pagamentos.filter((pagamento) => pagamento.id !== action.payload);
     },
     editPag: (state, action) => {
-      const index = state.pagamentos.findIndex((pagamento) => pagamento.id === action.payload.id);
-      if (index !== -1) {
-        state.pagamentos[index] = action.payload;
+     state.pagamentos.map(pagamento => {
+      if(pagamento.id == action.payload.id){
+        pagamento.valorTotal =  action.payload.valorTotal;
+        pagamento.parcela = action.payload.parcela;
+        pagamento.data = action.payload.data;
       }
+     })
     },
   },
 });

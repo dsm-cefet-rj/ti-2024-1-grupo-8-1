@@ -8,7 +8,7 @@ function AddPag() {
   const Consultas = useSelector((state) => state.listaConsulta.consulta);
   const [dataInput, setData] = useState(new Date());
   const dispatch = useDispatch();
-  const[pago,setPago] = useState(false);
+  const [pago, setPago] = useState(false);
   const [pacienteSelecionado, setPacienteSelecionado] = useState('');
   const paciente = Pacientes.find((paciente) => paciente.nome === pacienteSelecionado);
   const [metodo, setMetodo] = useState('');
@@ -41,7 +41,7 @@ function AddPag() {
         data: dataInput,
         metodo: metodo,
         emDia: '',
-        idConsulta: idConsulta 
+        idConsulta: idConsulta
       };
       dispatch(addPag(dados));
       console.log(dados);
@@ -90,13 +90,13 @@ function AddPag() {
           <div className="col-md-2">
             <label htmlFor="inputData" className="form-label">Data do pagamento</label>
             <input type="date" className="form-control" id="inputData"
-  value={dataInput.toISOString().split('T')[0]}
-  onChange={(e) => setData(new Date(e.target.value + 'T00:00:00'))}
-/>
+              value={dataInput.toISOString().split('T')[0]}
+              onChange={(e) => setData(new Date(e.target.value + 'T00:00:00'))}
+            />
           </div>
           <div className="col-md-2">
             <label htmlFor="inputIdConsulta" className="form-label">Id da consulta</label>
-            <input type="text" className="form-control" id="inputPago" value={idConsulta}  onChange={(e) => setIdConsulta(e.target.value)}/>
+            <input type="text" className="form-control" id="inputPago" value={idConsulta} onChange={(e) => setIdConsulta(e.target.value)} />
           </div>
           <div className="textpagComprador">
             <h1>Dados do comprador</h1>
@@ -104,7 +104,7 @@ function AddPag() {
 
           <div className="col-md-6">
             <label htmlFor="inputEmail4" className="form-label">Nome:</label>
-            <input type="text" className="form-control"id="inputNomeComprador" value={paciente?.nome || ''} readOnly />
+            <input type="text" className="form-control" id="inputNomeComprador" value={paciente?.nome || ''} readOnly />
           </div>
 
           <div className="col-md-6">

@@ -15,20 +15,22 @@ const dispatch = useDispatch();
     const [codigo, setCodigoItem] = useState('')
     const [quantidade, setQuantidadeItem] = useState('')
     const [preco, setPrecoItem] = useState('')
-    const [, setFiltroSelecionado] = useState('')
+    const [filtro, setFiltroSelecionado] = useState('')
     const [descricao, setDescricaoItem] = useState('')
-const handleClickEstoque = (event) =>{
-    event.preventDefault();
-    const dados = {
-        nome : nome,
-        codigo:codigo,
-        quantidade: quantidade,
-        preco: preco,
-        descricao: descricao 
-    }
-dispatch(adicionarItem(dados));
-console.log(dados);
-}
+
+    const handleClickEstoque = (event) => {
+        event.preventDefault();
+        const dados = {
+          nome: nome,
+          codigo: codigo,
+          quantidade: quantidade,
+          preco: preco,
+          descricao: descricao,
+          filtros: [...Filtros.map(f => f.filtro), filtro],
+        };
+        dispatch(adicionarItem(dados));
+        console.log(dados);
+      };
     return (
         <div className="corpo">
             <div className="container-lg">
