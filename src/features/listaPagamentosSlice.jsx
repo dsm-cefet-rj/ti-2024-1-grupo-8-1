@@ -16,7 +16,7 @@ const pagamentosSlice = createSlice({
     },
     editPag: (state, action) => {
      state.pagamentos.map(pagamento => {
-      if(pagamento.id == action.payload.id){
+      if(pagamento.id === action.payload.id){
         pagamento.valorTotal =  action.payload.valorTotal;
         pagamento.parcela = action.payload.parcela;
         pagamento.data = action.payload.data;

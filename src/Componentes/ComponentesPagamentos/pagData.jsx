@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import Table from 'react-bootstrap/Table';
 import '../styles.css';
 
-function PagData() {
+function PagData({handleListarPagamentos, handleAdicionarPagamento}) {
   const [mesSelecionado, setMesSelecionado] = useState('');
   const [anoSelecionado, setAnoSelecionado] = useState('');
   const [diaSelecionado, setDiaSelecionado] = useState('');
@@ -57,6 +57,8 @@ function PagData() {
   return (
     <div className="corpo">
       <div className="cabecalho">Pagamento por mês</div>
+      <button onClick={handleAdicionarPagamento}>Adicionar</button>
+      <button onClick={handleListarPagamentos}>Pagamentos Por Paciente</button>
       <select
         id="inputState"
         className="form-select"

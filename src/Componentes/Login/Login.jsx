@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import {MDBContainer, MDBCol, MDBRow, MDBBtn, MDBIcon, MDBInput, MDBCheckbox } from 'mdb-react-ui-kit';
-import logo from '../Componentes/Imagens/logo.png'
+import logo from '../Imagens/logo.png'
 import { useDispatch } from 'react-redux';
-import {login } from '../features/userSlice';
+import { login } from '../../features/userSlice';
 function Login() {
     const [email,setEmail] = useState("");
     const [senha,setSenha] = useState("");

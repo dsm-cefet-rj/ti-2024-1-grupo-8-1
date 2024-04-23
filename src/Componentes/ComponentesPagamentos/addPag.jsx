@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addPag } from '../../features/listaPagamentosSlice';
 import { v4 as uuidv4 } from 'uuid';
 
-function AddPag() {
+function AddPag({handleListarPagamentos}) {
   const Pacientes = useSelector((state) => state.listaPacientes.pacientes);
   const Consultas = useSelector((state) => state.listaConsulta.consulta);
   const [dataInput, setData] = useState(new Date());
@@ -51,6 +51,7 @@ function AddPag() {
 
   return (
     <div className="corpo">
+      <button onClick={handleListarPagamentos}>Voltar</button>
       <div className="container-lg">
         <form className="row g-3">
           <div className="col-md-4">

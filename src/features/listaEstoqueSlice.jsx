@@ -33,13 +33,6 @@ const listaEstoqueSlice = createSlice({
     rmvItem: (state, action) => {
       state.estoque = state.estoque.filter((estoque) => estoque.codigo !== action.payload);
     },
-    adicionarPaciente: (state, action) => {
-      state.estoque = [...state.estoque.quantidade = + 1, action.payload];
-      return state.estoque.quantidade = + 1
-    },
-    diminuirQtd: (state, action) => {
-      state.estoque = state.estoque.filter((estoque) => estoque.codigo == action.payload && estoque.quantidade - 1);
-    },
     editItem: (state, action) => {
       state.estoque.map(estoque => {
         if (estoque.id == action.payload.id) {
@@ -54,5 +47,5 @@ const listaEstoqueSlice = createSlice({
   },
 });
 
-export const { adicionarItem, rmvItem, aumentarQtd, diminuirQtd, editItem } = listaEstoqueSlice.actions;
+export const { adicionarItem, rmvItem, editItem } = listaEstoqueSlice.actions;
 export default listaEstoqueSlice.reducer;
