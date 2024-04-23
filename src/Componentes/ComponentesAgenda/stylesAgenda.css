@@ -10,3 +10,42 @@
   padding: 3vh 3vh 3vh 3vh;
 
 }
+
+.botãoConsulta{
+  border-radius: 1vh;
+  border: none;
+  background-color: #2babe288;
+  font-size: 3vh;
+  margin-bottom: 5vh;
+  width: auto;
+  height: auto;
+  padding: 1vh 2vh 1vh 2vh;
+}
+
+.ListaConsulta{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: #2babe288;
+  border-radius: 1vh;
+  overflow-y: scroll;
+}
+
+.ListaConsulta > ul{
+  list-style: none;
+  height: 70vh;
+  font-size: 4vh;
+  padding: 0 0 0 0;
+  padding: 1vh 1vh 1vh 1vh;
+
+}
+
+.ListaConsulta > ul > li:first-child{
+  font-weight: bold;
+  font-size: 6vh;
+}
+
+.ListaConsulta > ul > li{
+  cursor: pointer;
+}

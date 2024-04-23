@@ -6,6 +6,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import AdicionarConsulta from './AdicionarConsulta'
+import ConcluirConsulta from './ConcluirConsulta'
 import VisualizarConsultaM from './VisualizarConsultaM'
 import VisualizarConsultaC from './VisualizarConsultaC'
 import ConsultasMarcadas from './ConsultasMarcadas'
@@ -33,30 +34,54 @@ function Agenda() {
   }
   
   const [Modo, setModo] = useState('Inicial')
-  const [consulta, setConsulta] = useState('')
+  const [consultaM, setConsultaM] = useState('')
+  const [consultaC, setConsultaC] = useState('')
 
   const handleVisualizarConsultaM = (consultaSelecionada) => {
-    setModo('Visualizar');
-    setConsulta(consultaSelecionada);
+    setModo('VisualizarM');
+    setConsultaM(consultaSelecionada);
+  }
+
+  const handleVisualizarConsultaC = (consultaSelecionada) => {
+    setModo('VisualizarC');
+    setConsultaC(consultaSelecionada);
   }
 
   const handleAdicionarConsulta = () => {
     setModo('Adicionar');
   };
 
+  const handleConcluirConsulta = (consultaSelecionada) =>{
+    setModo('Concluir')
+    setConsultaM(consultaSelecionada);
+  }
+
   const handleConsultasMarcadas = () => {
     setModo('Inicial');
   };
 
+  const handleConsultasConcluidas = () => {
+    setModo('Consultas')
+  };
+
   const renderizarConteudo = () => {
     if (Modo === 'Inicial') {
-      return <ConsultasMarcadas handleAdicionarConsulta={handleAdicionarConsulta} handleVisualizarConsultaM={handleVisualizarConsultaM} />;
+      return <ConsultasMarcadas handleAdicionarConsulta={handleAdicionarConsulta} handleVisualizarConsultaM={handleVisualizarConsultaM} handleConsultasConcluidas={handleConsultasConcluidas} />;
+    }
+    else if (Modo === 'Consultas') {
+      return <ConsultasConcluidas handleVisualizarConsultaC={handleVisualizarConsultaC} handleConsultasMarcadas={handleConsultasMarcadas} />;
     }
     else if (Modo === 'Adicionar') {
       return <AdicionarConsulta handleConsultasMarcadas={handleConsultasMarcadas} />;
     }
-    else if (Modo === 'Visualizar') {
-      return <VisualizarConsultaM handleConsultasMarcadas={handleConsultasMarcadas} consulta={consulta} />;
+    else if(Modo === 'Concluir'){
+      return <ConcluirConsulta handleConsultasMarcadas={handleConsultasMarcadas} handleConsultasConcluidas={handleConsultasConcluidas} consultaM={consultaM}/>;
+    }
+    else if (Modo === 'VisualizarM') {
+      return <VisualizarConsultaM handleConsultasMarcadas={handleConsultasMarcadas} consultaM={consultaM} handleConcluirConsulta={handleConcluirConsulta}/>;
+    }
+    else if (Modo === 'VisualizarC') {
+      return <VisualizarConsultaC handleConsultasConcluidas={handleConsultasConcluidas} consultaC={consultaC} />;
     }
   }
  

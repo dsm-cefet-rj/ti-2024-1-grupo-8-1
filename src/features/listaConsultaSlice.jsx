@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    Consulta: [
+    consulta: [
 
         {
             "id":"0",
