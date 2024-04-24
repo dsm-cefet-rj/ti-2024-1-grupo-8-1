@@ -46,71 +46,69 @@ function ListaEstoque({ handleCadastrarItem }, { handleListarItens }) {
     setEditarItem(false);
   }
   return (
-    <div className="corpo">
-      <button onClick={handleCadastrarItem}>Cadastrar</button>
+    <div>
+      <button className='botao' onClick={handleCadastrarItem}>Cadastrar</button>
       <div className="container-lg">
-        <form className="row g-3">
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>Código</th>
-                <th>Item</th>
-                <th>Preço</th>
-                <th>Quantidade</th>
-                <th>Descrição</th>
-                <th>Remover</th>
-                <th>Editar</th>
+        <table className='tabela'>
+          <thead className='cabecaTabela'>
+            <tr>
+              <th className='TituloColuna'>Código</th>
+              <th className='TituloColuna'>Item</th>
+              <th className='TituloColuna'>Preço</th>
+              <th className='TituloColuna'>Quantidade</th>
+              <th className='TituloColuna'>Descrição</th>
+              <th className='TituloColuna'>Remover</th>
+              <th className='TituloColuna'>Editar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {itens.map((item) => (
+              <tr key={item.id}>
+                <td>{item.id}</td>
+                <td>
+                  {editarItem && id === item.id ? (
+                    <input type="text" value={nomeAtualizado} onChange={(e) => setNomeAtualizado(e.target.value)} />
+                  ) : (
+                    item.nome
+                  )}
+                </td>
+                <td>
+                  {editarItem && id === item.id ? (
+                    <input type="number" value={precoAtualizado} onChange={(e) => setPrecoAtualizado(e.target.value)} />
+                  ) : (
+                    item.preco
+                  )}
+                </td>
+                <td>
+                  {editarItem && id === item.id ? (
+                    <input type="number" value={quantidadeAtualizada} onChange={(e) => setQuantidadeAtualizada(e.target.value)} />
+                  ) : (
+                    item.quantidade
+                  )}
+                </td>
+                <td>
+                  {editarItem && id === item.id ? (
+                    <textarea type="text" value={descricaoAtualizado} onChange={(e) => setDescricaoAtualizado(e.target.value)} />
+                  ) : (
+                    item.descricao
+                  )}
+                </td>
+                <td>
+                  <CloseButton onClick={(e) => handleClickBotaoRemover(item.id)} />
+                </td>
+                <td>
+                  {editarItem && id === item.id ? (
+                    <button onClick={(e) => { handleAtualizarItem(item); e.preventDefault() }}>Atualizar</button>
+                  ) : (
+                    <button onClick={(e) => { handleClickEditar(item.id); e.preventDefault() }}>Editar</button>
+                  )}
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {itens.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.id}</td>
-                  <td>
-                    {editarItem && id === item.id ? (
-                      <input type="text" value={nomeAtualizado} onChange={(e) => setNomeAtualizado(e.target.value)} />
-                    ) : (
-                      item.nome
-                    )}
-                  </td>
-                  <td>
-                    {editarItem && id === item.id ? (
-                      <input type="number" value={precoAtualizado} onChange={(e) => setPrecoAtualizado(e.target.value)} />
-                    ) : (
-                      item.preco
-                    )}
-                  </td>
-                  <td>
-                    {editarItem && id === item.id ? (
-                      <input type="number" value={quantidadeAtualizada} onChange={(e) => setQuantidadeAtualizada(e.target.value)} />
-                    ) : (
-                      item.quantidade
-                    )}
-                  </td>
-                  <td>
-                    {editarItem && id === item.id ? (
-                      <textarea type="text" value={descricaoAtualizado} onChange={(e) => setDescricaoAtualizado(e.target.value)} />
-                    ) : (
-                      item.descricao
-                    )}
-                  </td>
-                  <td>
-                    <CloseButton onClick={(e) => handleClickBotaoRemover(item.id)} />
-                  </td>
-                  <td>
-                    {editarItem && id === item.id ? (
-                      <button onClick={(e) => {handleAtualizarItem(item); e.preventDefault()}}>Atualizar</button>
-                    ) : (
-                      <button onClick={(e) => {handleClickEditar(item.id); e.preventDefault()}}>Editar</button>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        </form>
+            ))}
+          </tbody>
+        </table>
       </div>
-    </div>
+    </div >
   );
 }
 
