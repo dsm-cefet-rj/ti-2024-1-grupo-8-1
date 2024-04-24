@@ -8,7 +8,7 @@ import './estoque.css';
 function ListaEstoque({ handleCadastrarItem }, { handleListarItens }) {
 
   const dispatch = useDispatch();
-
+  const itens = useSelector((state) => state.listaEstoque.estoque);
   const [id, setId] = useState('');
   const [nomeAtualizado, setNomeAtualizado] = useState('');
   const [precoAtualizado, setPrecoAtualizado] = useState('');
@@ -16,10 +16,10 @@ function ListaEstoque({ handleCadastrarItem }, { handleListarItens }) {
   const [filtroAtualizado, setFiltroAtualizado] = useState('');
   const [quantidadeAtualizada, setQuantidadeAtualizada] = useState('');
   const [editarItem, setEditarItem] = useState(false);
-  const itens = useSelector((state) => state.listaEstoque.estoque);
+ 
 
-  const handleClickBotaoRemover = (cod) => {
-    dispatch(rmvItem(cod));
+  const handleClickBotaoRemover = (id) => {
+    dispatch(rmvItem(id));
   };
 
   const handleClickEditar = (id) => {

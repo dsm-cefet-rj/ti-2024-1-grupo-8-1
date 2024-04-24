@@ -23,7 +23,7 @@ function CadastrarItem({ handleListarItens }) {
     const handleClickEstoque = (event) => {
         const dados = {
             nome: nome,
-            codigo: codigo,
+            id: codigo,
             quantidade: quantidade,
             preco: preco,
             descricao: descricao,

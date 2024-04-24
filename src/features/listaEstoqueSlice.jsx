@@ -31,7 +31,7 @@ const listaEstoqueSlice = createSlice({
       state.estoque.push(action.payload);
     },
     rmvItem: (state, action) => {
-      state.estoque = state.estoque.filter((estoque) => estoque.codigo !== action.payload);
+      state.estoque = state.estoque.filter((estoque) => estoque.id !== action.payload);
     },
     editItem: (state, action) => {
       state.estoque.map(estoque => {
