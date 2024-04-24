@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import AddPag from './addPag'
 import PagPaci from './pagPaci'
 import PagData from './pagData'
 
@@ -13,23 +12,16 @@ function Pagamentos() {
     setModo('Inicial')
   };
 
-  const handleAdicionarPagamento = () => {
-    setModo('Adicionar')
-  };
-
   const handlePagamentoPorData = () => {
     setModo('Data')
   };
 
   const renderizarConteudo = () => {
     if (Modo === 'Inicial') {
-      return <PagPaci handleAdicionarPagamento={handleAdicionarPagamento} handlePagamentoPorData={handlePagamentoPorData} />;
-    }
-    else if (Modo === 'Adicionar') {
-      return <AddPag handleListarPagamentos={handleListarPagamentos} />;
+      return <PagPaci handlePagamentoPorData={handlePagamentoPorData} />;
     }
     else if (Modo === 'Data') {
-      return <PagData handleListarPagamentos={handleListarPagamentos} handleAdicionarPagamento ={handleAdicionarPagamento} />;
+      return <PagData handleListarPagamentos={handleListarPagamentos}/>;
     }
   }
 

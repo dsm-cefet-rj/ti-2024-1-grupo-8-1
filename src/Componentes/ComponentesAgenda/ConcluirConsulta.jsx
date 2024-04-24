@@ -37,7 +37,7 @@ export function ConcluirConsulta({ handleConsultasMarcadas, handleConsultasConcl
         if (statusPagamento === "sem") {
             handleConsultasConcluidas();
         } else if (statusPagamento === "com") {
-            handleAddPag();
+            handleAddPag(novaConsultaConcluida);
         }
 
     };

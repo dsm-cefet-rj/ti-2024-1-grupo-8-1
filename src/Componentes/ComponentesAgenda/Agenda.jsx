@@ -11,7 +11,7 @@ import VisualizarConsultaM from './VisualizarConsultaM'
 import VisualizarConsultaC from './VisualizarConsultaC'
 import ConsultasMarcadas from './ConsultasMarcadas'
 import ConsultasConcluidas from './ConsultasConcluidas'
-import addPag from '../ComponentesPagamentos/addPag'
+import AddPag from './addPag'
 
 function Agenda() {
 
@@ -90,7 +90,7 @@ function Agenda() {
       return <VisualizarConsultaC handleConsultasConcluidas={handleConsultasConcluidas} consultaC={consultaC} />;
     }
     else if (Modo === 'Pagamento') {
-      return <addPag handleConsultasConcluidas={handleConsultasConcluidas} consultaC={consultaC}/>
+      return <AddPag handleConsultasConcluidas={handleConsultasConcluidas} consultaC={consultaC}/>
     }
   }
  

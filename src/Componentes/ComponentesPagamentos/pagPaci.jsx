@@ -5,7 +5,7 @@ import { editPag, rmvPag } from '../../features/listaPagamentosSlice';
 import './pagPaci.css'
 
 
-function PagPaci({handleAdicionarPagamento, handlePagamentoPorData}) {
+function PagPaci({handlePagamentoPorData}) {
 
   const pagamentos = useSelector((state) => state.listaPagamentos.pagamentos);
   const Consulta = useSelector((state) => state.listaConsulta.consulta);
@@ -71,7 +71,6 @@ function PagPaci({handleAdicionarPagamento, handlePagamentoPorData}) {
   return (
     <div>
       <h1>Pagamentos</h1>
-      <button onClick={handleAdicionarPagamento}>Adicionar</button>
       <button onClick={handlePagamentoPorData}>Ver Pagamentos Por Data</button>
       <div className='box'>
         <input

@@ -9,7 +9,7 @@ const initialState = {
             "data":"01/04/2024",
             "hora":"16:20",
             "paciente":"Nós",
-            "pagamento":"Consulta com pagamento",
+            "pagamento":"Com",
             "descrição":"Uma Belezura"
         },
     ],
