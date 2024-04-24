@@ -10,11 +10,11 @@ function AddPag({ handleConsultasConcluidas, consultaC }) {
   const [novoPagamento, setNovoPagamento] = useState({
 
     id: uuidv4(),
-    nome: "",
-    cpf: "",
+    nome: nomePaciente,
+    cpf: pacienteSelecionado,
     valorTotal: "",
     parcela: "",
-    valorParcela: "",
+    valorParcela: valorParcelas,
     data: "",
     metodo: "",
     idConsulta: consultaPagamento.id,
@@ -28,11 +28,9 @@ function AddPag({ handleConsultasConcluidas, consultaC }) {
   const [valorTotal, setValorTotal] = useState('');
   const [parcela, setParcela] = useState('');
   const valorParcelas = (parseFloat(valorTotal) / parseInt(parcela)).toFixed(2);
-
-  
   const [pacienteSelecionado, setPacienteSelecionado] = useState(consultaC.paciente);
   const paciente = Pacientes.find((paciente) => paciente.cpf === pacienteSelecionado);
-
+  const [nomePaciente, setNomePaciente] = useState(paciente.nome)
 
   const handleMudanca = (e) => {
     const { name, value } = e.target;
