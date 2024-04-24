@@ -32,7 +32,7 @@ function AddPag({ handleConsultasConcluidas, consultaC }) {
   
   const [pacienteSelecionado, setPacienteSelecionado] = useState(consultaC.paciente);
   const paciente = Pacientes.find((paciente) => paciente.cpf === pacienteSelecionado);
-  
+
 
   const handleMudanca = (e) => {
     const { name, value } = e.target;
@@ -74,7 +74,8 @@ function AddPag({ handleConsultasConcluidas, consultaC }) {
           <div className="col-md-4">
             <label>Método de pagamento</label>
             <select name="metodo" onChange={(e) => handleMudanca(e)}>
-              <option selected>Dinheiro</option>
+              <option>Escolha...</option>
+              <option>Dinheiro</option>
               <option>Pix</option>
               <option>Débito</option>
               <option>Crédito</option>
