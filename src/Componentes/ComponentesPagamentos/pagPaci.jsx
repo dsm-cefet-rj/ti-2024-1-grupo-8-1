@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 import { useSelector, useDispatch } from 'react-redux';
-import { editPag, rmvPag } from '../../features/listaPagamentosSlice';
+import { editPag, rmvPag, fetchPagamentos, deletePagamentoById,updatePagamentoById } from '../../features/listaPagamentosSlice';
 import './pagPaci.css'
 
 
@@ -11,6 +11,11 @@ function PagPaci({handlePagamentoPorData}) {
   const Consulta = useSelector((state) => state.listaConsulta.consulta);
   const dispatch = useDispatch();
   
+  useEffect(() => {
+ 
+    dispatch(fetchPagamentos());
+  }, []);
+
   const [filtroCPF, setFiltroCPF] = useState('');
   const [filtroIDConsulta, setFiltroIDConsulta] = useState('');
   const [id, setId] = useState(null);
@@ -21,13 +26,18 @@ function PagPaci({handlePagamentoPorData}) {
   const [parcelaAtualizado, setParcelaAtualizado] = useState('');
   const valorParcelaAtualizada = (parseFloat(totalAtualizado) / parseInt(parcelaAtualizado)).toFixed(2);
 
+
+
+
+
+
   useEffect(() => {
     const valorParcelaAtualizada = (parseFloat(totalAtualizado) / parseInt(parcelaAtualizado)).toFixed(2);
     setParcelaAtualizado(parcelaAtualizado);
   }, [totalAtualizado, parcelaAtualizado]);
 
   const handleClickRmv = (id) => {
-    dispatch(rmvPag(id));
+    dispatch(deletePagamentoById(id));
   };
 
   const handleFiltroCPFChange = (event) => {
@@ -52,15 +62,19 @@ function PagPaci({handlePagamentoPorData}) {
   };
 
   const handleUpdateSubmit = (pagamento) => {
-    dispatch(
-      editPag({
-        id: pagamento.id,
-        valorTotal: totalAtualizado,
-        data: dataAtualizado,
-        parcela: parcelaAtualizado,
-        valorParcela: valorParcelaAtualizada,
-      })
-    );
+    const pagEditado = {
+      id: pagamento.id,
+      cpf: pagamento.cpf,
+      nome: pagamento.nome,
+      valorTotal: totalAtualizado,
+      valorParcela:valorParcelaAtualizada,
+      data: dataAtualizado,
+      parcela: parcelaAtualizado,
+      idConsulta: pagamento.idConsulta
+    };
+  
+    dispatch(updatePagamentoById({ id: pagamento.id, data: pagEditado }));
+    
     setId(null);
     setTotalAtualizado('');
     setDataAtualizado(null);

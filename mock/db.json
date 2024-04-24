@@ -1,13 +1,14 @@
 {
-    "posts": [
-      { "id": "1", "title": "a title", "views": 100 },
-      { "id": "2", "title": "another title", "views": 200 }
-    ],
-    "comments": [
-      { "id": "1", "text": "a comment about post 1", "postId": "1" },
-      { "id": "2", "text": "another comment about post 1", "postId": "1" }
-    ],
-    "profile": {
-      "name": "typicode"
+  "pagamentos": [
+    {
+      "id": "d041eab4-5baf-43f7-8876-b83c935f6902",
+      "cpf": "345.678.901-22",
+      "nome": "Roberto Dinamite Santos",
+      "valorTotal": "500",
+      "valorParcela": "250.00",
+      "data": "2024-04-24T03:00:00.000Z",
+      "parcela": "2",
+      "idConsulta": "123"
     }
-  }
+  ]
+}

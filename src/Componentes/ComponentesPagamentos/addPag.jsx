@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addPag } from '../../features/listaPagamentosSlice';
+import { addPag,createPagamento } from '../../features/listaPagamentosSlice';
 import { v4 as uuidv4 } from 'uuid';
 
 function AddPag({ handleConsultasConcluidas, consultaC }) {
@@ -48,8 +48,7 @@ function AddPag({ handleConsultasConcluidas, consultaC }) {
     };
 
     console.log(novoPagamento);
-    alert('vasco');
-    dispatch(addPag(novoPagamento));
+    dispatch(createPagamento(novoPagamento));
     handleConsultasConcluidas();
   };
 

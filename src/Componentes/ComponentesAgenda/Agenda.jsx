@@ -11,7 +11,7 @@ import VisualizarConsultaM from './VisualizarConsultaM'
 import VisualizarConsultaC from './VisualizarConsultaC'
 import ConsultasMarcadas from './ConsultasMarcadas'
 import ConsultasConcluidas from './ConsultasConcluidas'
-import AddPag from './addPag'
+import AddPag from '../ComponentesPagamentos/addPag'
 
 function Agenda() {
 
