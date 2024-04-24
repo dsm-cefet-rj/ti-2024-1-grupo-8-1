@@ -4,6 +4,10 @@ const initialState = {
   users: [{
     email: 'lucas@gmail',
     senha: '123'
+  },
+  {
+    email: 'doutora@doutora',
+    senha: '1234'
   }],
   user :null
 };
