@@ -14,7 +14,7 @@ function AddPag({ handleConsultasConcluidas, consultaC }) {
   const [pacienteSelecionado, setPacienteSelecionado] = useState(consultaC.paciente);
   const paciente = Pacientes.find((paciente) => paciente.cpf === pacienteSelecionado);
   const [nomePaciente, setNomePaciente] = useState(paciente?.nome || '');
-
+  const [metodo, setMetodo] = useState('');
   const valorParcelas = (parseFloat(valorTotal) / parseInt(parcela)).toFixed(2);
 
   const handleMudanca = (e) => {
@@ -42,7 +42,7 @@ function AddPag({ handleConsultasConcluidas, consultaC }) {
       parcela: parcela,
       valorParcela: valorParcelas,
       data: dataInput,
-      metodo: '',
+      metodo: metodo,
       idConsulta: consultaPagamento.id,
       paciente: consultaPagamento.paciente,
     };
@@ -68,7 +68,7 @@ function AddPag({ handleConsultasConcluidas, consultaC }) {
 
           <div className="col-md-4">
             <label>Método de pagamento</label>
-            <select name="metodo" onChange={(e) => handleMudanca(e)}>
+            <select name="metodo" onChange={(e) => setMetodo(e.target.value)}>
               <option>Escolha...</option>
               <option>Dinheiro</option>
               <option>Pix</option>
@@ -87,11 +87,11 @@ function AddPag({ handleConsultasConcluidas, consultaC }) {
           <div className="col-md-2">
             <label>Data do pagamento</label>
             <input
-              type="date"
-              name="data"
-             
-              onChange={(e) => handleMudanca(e)}
-            />
+  type="date"
+  name="data"
+  value={dataInput.toISOString().split('T')[0]}
+  onChange={(e) => setData(new Date(e.target.value))}
+/>
           </div>
           <div className="col-md-2">
             <label>Id da consulta</label>
