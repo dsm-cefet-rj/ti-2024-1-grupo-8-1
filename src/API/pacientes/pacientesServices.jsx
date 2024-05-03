@@ -1,16 +1,18 @@
 import { Api } from '../ApiConfig';
 
-const paciente = {
-    "nome": "Juninho Pernambucano Lima",
-    "telefone": "(11) 4567-8901",
-    "cpf": "456.789.012-33",
-    "endereco": "Rua dos Gigantes, 1011",
-    "cidade": "Gigantão",
-    "alergias": ["Amendoim"],
-    "responsavel": "444.555.666-77",
-    "medicacoes": ["Ibuprofeno"],
-    "cirurgias": ["Nariz"]
-};
+
+const paciente = 
+    {
+        "nome": "Edmundo Silva",
+        "telefone": "(11) 1234-5678",
+        "cpf": "123.456.789-00",
+        "endereco": "Rua Vasco da Gama, 123",
+        "cidade": "Rio de Janeiro",
+        "alergias": [],
+        "responsavel": "111.222.333-44",
+        "medicacoes": [],
+        "cirurgias": []
+      }
 
 const getAll = async () => {
   try {
@@ -78,6 +80,7 @@ const deleteById = async (id) => {
 };
 
 export const PacientesServices = {
+
   getAll,
   create,
   getById,
