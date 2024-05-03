@@ -1,74 +1,81 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { PacientesServices } from '../API/pacientes/pacientesServices';
+
+export const fetchPacientes = createAsyncThunk(
+  'Pacientes/fetchPacientes',
+  async () => {
+    const resposta = await PacientesServices.getAll();
+    return resposta;
+  }
+);
+
+export const deletePacienteById = createAsyncThunk(
+  'Pacientes/deletePacienteById',
+  async (id) => {
+    await PacientesServices.deleteById(id);
+    return id;
+  }
+);
+export const updatePacienteById = createAsyncThunk(
+  'Pacientes/updatePacienteById',
+  async ({ id, data }) => {
+    const resposta = await PacientesServices.updateById(id, data);
+    return resposta;
+  }
+);
+export const createPaciente = createAsyncThunk(
+  'Pacientes/createPaciente',
+  async (data) => {
+    const resposta = await PacientesServices.create(data);
+    return resposta;
+  }
+);
 
 const initialState = {
-    pacientes: [
-        {
-            "nome": "Edmundo Silva",
-            "telefone": "(11) 1234-5678",
-            "cpf": "123.456.789-00",
-            "endereco": "Rua Vasco da Gama, 123",
-            "cidade": "Rio de Janeiro",
-            "alergias": [],
-            "responsavel": "111.222.333-44",
-            "medicacoes": [],
-            "cirurgias": []
-          },
-          {
-            "nome": "Romário Oliveira",
-            "telefone": "(11) 2345-6789",
-            "cpf": "234.567.890-11",
-            "endereco": "Avenida São Januário, 456",
-            "cidade": "São Januário",
-            "alergias": ["Penicilina"],
-            "responsavel": "222.333.444-55",
-            "medicacoes": ["Aspirina"],
-            "cirurgias": ["Apêndice"]
-          },
-          {
-            "nome": "Roberto Dinamite Santos",
-            "telefone": "(11) 3456-7890",
-            "cpf": "345.678.901-22",
-            "endereco": "Travessa da Colina, 789",
-            "cidade": "Colina",
-            "alergias": ["Sulfa"],
-            "responsavel": "333.444.555-66",
-            "medicacoes": ["Paracetamol"],
-            "cirurgias": ["Joelho"]
-          },
-          {
-            "nome": "Juninho Pernambucano Lima",
-            "telefone": "(11) 4567-8901",
-            "cpf": "456.789.012-33",
-            "endereco": "Rua dos Gigantes, 1011",
-            "cidade": "Gigantão",
-            "alergias": ["Amendoim"],
-            "responsavel": "444.555.666-77",
-            "medicacoes": ["Ibuprofeno"],
-            "cirurgias": ["Nariz"]
-          },
-          {
-            "nome": "Bellini Costa",
-            "telefone": "(11) 5678-9012",
-            "cpf": "567.890.123-44",
-            "endereco": "Praça da Glória, 1213",
-            "cidade": "Glória",
-            "alergias": ["Frutos do mar"],
-            "responsavel": "555.666.777-88",
-            "medicacoes": ["Omeprazol"],
-            "cirurgias": ["Ombro"]
-          }
-      ],
+  Pacientes: []
 };
 
-const listaPacientesSlice = createSlice({
-    name: "pacientes",
-    initialState,
-    reducers: {
-        adicionarPaciente: (state, action) => {
-            state.pacientes = [...state.pacientes, action.payload];
+const ListaPacientesSlice = createSlice({
+  name: 'Pacientes',
+  initialState,
+  reducers: {
+    adicionarPaciente: (state, action) => {
+      state.Pacientes.push(action.payload);
+    },
+    rmvPaciente: (state, action) => {
+      state.Pacientes = state.Pacientes.filter((Paciente) => Paciente.id !== action.payload);
+    },
+    editPaaciente: (state, action) => {
+      state.Pacientes = state.Pacientes.map(Paciente => {
+        if (Paciente.id === action.payload.id) {
+          return {
+            ...Paciente,
+            valorTotal: action.payload.valorTotal,
+            parcela: action.payload.parcela,
+            data: action.payload.data,
+            valorParcela: action.payload.valorParcela
+          };
         }
-    }
+        return Paciente;
+      });
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchPacientes.fulfilled, (state, action) => {
+      state.Pacientes = action.payload;
+    });
+    builder.addCase(deletePacienteById.fulfilled, (state, action) => {
+      state.Pacientes = state.Pacientes.filter((Paciente) => Paciente.id !== action.payload);
+    });
+    builder.addCase(updatePacienteById.fulfilled, (state, action) => {
+      const updatedPaciente = action.payload;
+      const index = state.Pacientes.findIndex(Paciente => Paciente.id === updatedPaciente.id);
+      if (index !== -1) {
+        state.Pacientes[index] = updatedPaciente;
+      }
+    });
+  },
 });
 
-export const { adicionarPaciente } = listaPacientesSlice.actions;
-export default listaPacientesSlice.reducer;
+export const { adicionarPaciente } = ListaPacientesSlice.actions;
+export default ListaPacientesSlice.reducer;

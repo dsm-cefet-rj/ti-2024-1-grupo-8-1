@@ -1,13 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import React from 'react';
 import './stylesPaciente.css';
-import { useSelector } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchPacientes } from '../../features/listaPacientesSlice';
 function ListarPacientes({ handleAdicionarPaciente, handleVisualizarPaciente }) {
     const [termoPesquisa, setTermoPesquisa] = useState('');
+    const ListaDePacientes = useSelector((state) => state.listaPacientes.Pacientes);
 
-    const ListaDePacientes = useSelector((state) => state.listaPacientes.pacientes);
+  const dispatch = useDispatch();
 
+
+    useEffect(() => {
+      dispatch(fetchPacientes());
+    }, []);
 
     const handlePesquisar = (e) => {
         setTermoPesquisa(e.target.value);

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Table from 'react-bootstrap/Table';
 import '../styles.css';
+import { fetchPagamentos } from '../../features/listaPagamentosSlice';
 
 function PagData({handleListarPagamentos}) {
   const [mesSelecionado, setMesSelecionado] = useState('');
@@ -23,9 +24,12 @@ function PagData({handleListarPagamentos}) {
     Novembro: 11,
     Dezembro: 12
   };
-
+const dispatch =  useDispatch();
   const pagamentos = useSelector((state) => state.listaPagamentos.pagamentos);
-
+  useEffect(() => {
+ 
+    dispatch(fetchPagamentos());
+  }, []);
   useEffect(() => {
     let total = 0;
     pagamentos.forEach((pagamento) => {
