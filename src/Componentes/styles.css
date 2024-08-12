@@ -8,6 +8,8 @@
     align-items: center;
     flex-direction: column;
     display: flex;
+    position: fixed;
+    background-color: #ffffff;
 }
 
 .side-bar .logo {
@@ -76,6 +78,12 @@
     background-color: #2BABE2;
 }
 
+.conteudoPrincipal {
+    margin-left: 20vw; /* Deve ser igual à largura da navbar */
+    overflow-y: auto;
+    height: 100vh;
+    box-sizing: border-box;
+}
 
 .corpo{
     padding: 3vh 3vh 3vh 3vh;
@@ -162,13 +170,13 @@
     background-color: #2babe2;
 }
 
-.janela{
+/* .janela{
     display: flex;
     justify-content: space-between;
     padding: 0vh 0vh 0vh 0vh;
     margin: none;
     width: 100%;
-}
+} */
 
 #root{
     width: 100%;

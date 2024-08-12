@@ -23,7 +23,7 @@
     width: 100%;
     background-color: #2babe288;
     border-radius: 1vh;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .ListaPaciente > ul{
@@ -138,4 +138,8 @@ span{
     max-height: 50vh;
     overflow-y: auto;
     overflow-x: hidden;
+}
+
+.pesquisaPaciente{
+    margin-bottom: 1vh;
 }

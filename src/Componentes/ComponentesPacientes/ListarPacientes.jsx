@@ -23,9 +23,9 @@ function ListarPacientes({ handleAdicionarPaciente, handleVisualizarPaciente }) 
     );
   
     return (
-      <div>
+      <div className='corpo'>
         <button className='botãoPaciente' onClick={handleAdicionarPaciente}>Adicionar</button>
-        <input type="text" placeholder="Pesquisar paciente..." value={termoPesquisa} onChange={handlePesquisar}/>
+        <input className='pesquisaPaciente' type="text" placeholder="Pesquisar paciente..." value={termoPesquisa} onChange={handlePesquisar}/>
         <div className='ListaPaciente'>
           <ul>
             <li>Pacientes</li>

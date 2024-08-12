@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Agenda from '../ComponentesAgenda/Agenda.jsx';
 import Pacientes from '../ComponentesPacientes/Pacientes.jsx';
@@ -8,80 +7,44 @@ import '../styles.css';
 
 function NavApp() {
 
-  
-  const [exibirPacientes, setExibirPacientes] = useState(false);
+  const [modo, setModo] = useState('Pacientes');
 
-  const handleClickPacientes = () => {
-    setExibirPacientes(true);
-    setExibirAgenda(false);
-    setExibirEstoque(false);
-    setExibirPagamentos(false);
+  const components = {
+    Pacientes: <Pacientes />,
+    Agenda: <Agenda />,
+    Estoque: <Estoque />,
+    Pagamentos: <Pagamentos />,
   };
-  const [exibirAgenda, setExibirAgenda] = useState(false);
 
-  const handleClickAgenda = () => {
-    setExibirAgenda(true);
-    setExibirPacientes(false);
-    setExibirEstoque(false);
-    setExibirPagamentos(false);
-  };
-  const [exibirEstoque, setExibirEstoque] = useState(false);
-
-  const handleClickEstoque = () => {
-    setExibirEstoque(true);
-    setExibirAgenda(false);
-    setExibirPacientes(false);
-    setExibirPagamentos(false);
-  };
-  const [exibirPagamentos, setExibirPagamentos] = useState(false);
-
-  const handleClickPagamentos = () => {
-    setExibirPagamentos(true);
-    setExibirAgenda(false);
-    setExibirEstoque(false);
-    setExibirPacientes(false);
+  const handleClick = (modoSelecionado) => {
+    setModo(modoSelecionado);
   };
 
   return (
-      <div className='janela'>
-        <nav className="side-bar">
-          <div className="logo">
-            <div className="escrita1">
-              Portal da
-              <img src={require('../Imagens/Imagem1.png')} />
-            </div>
-            <div className="escrita2">Doutora</div>
+    <div className='janela'>
+      <nav className="side-bar">
+        <div className="logo">
+          <div className="escrita1">
+            Portal da
+            <img src={require('../Imagens/Imagem1.png')} alt="Logo" />
           </div>
+          <div className="escrita2">Doutora</div>
+        </div>
 
-          <ul>
-            <li className="side-bar-item">
-              <button id="BtnPacientes" onClick={handleClickPacientes} className="aba">
-                Pacientes
+        <ul>
+          {Object.keys(components).map((key) => (
+            <li key={key} className="side-bar-item">
+              <button onClick={() => handleClick(key)} className="aba">
+                {key}
               </button>
             </li>
-            <li className="side-bar-item">
-              <button id="BtnAgenda" onClick={handleClickAgenda} className="aba">
-                Agenda
-              </button>
-            </li>
-            <li className="side-bar-item">
-              <button id="BtnEstoque" onClick={handleClickEstoque} className="aba">
-                Estoque
-              </button>
-            </li>
-            <li className="side-bar-item">
-              <button id="BtnPagamentos" onClick={handleClickPagamentos} className="aba">
-                Pagamentos
-              </button>
-            </li>
-          </ul>
-        </nav>
-        {exibirPacientes && <Pacientes />}
-        {exibirAgenda && <Agenda />}
-        {exibirEstoque && <Estoque />}
-        {exibirPagamentos && <Pagamentos />}
-
+          ))}
+        </ul>
+      </nav>
+      <div className='conteudoPrincipal'>
+      {components[modo]}
       </div>
+    </div>
   );
 }
 
