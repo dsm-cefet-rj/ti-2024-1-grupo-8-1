@@ -38,7 +38,7 @@ function CadastrarItem({ handleListarItens }) {
     }
 
     const handleDeleteFiltro = (index) => {
-        filtroSelecionado.splice(index, 1)
+        setFiltroSelecionado(filtroSelecionado.filter((_, i) => i !== index));
     };
 
 

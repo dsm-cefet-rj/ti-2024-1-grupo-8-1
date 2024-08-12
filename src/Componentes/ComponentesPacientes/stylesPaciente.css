@@ -45,13 +45,14 @@
 }
 
 form{
+    width: 100%;
     font-size: 2vh; 
 }
 form > div{
     margin-top: 2vh;
 }
 
-input{
+.inputPaciente{
     width: 100%;
     border: none;
     background-color: #2babe288;
@@ -141,5 +142,10 @@ span{
 }
 
 .pesquisaPaciente{
+    width: 100%;
+    border: none;
+    background-color: #2babe288;
+    border-radius: 1vh;
+    padding: 0.5vh 1vh 0.5vh 1vh;
     margin-bottom: 1vh;
 }

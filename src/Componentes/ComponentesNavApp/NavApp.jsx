@@ -42,7 +42,7 @@ function NavApp() {
         </ul>
       </nav>
       <div className='conteudoPrincipal'>
-      {components[modo]}
+        {components[modo]}
       </div>
     </div>
   );

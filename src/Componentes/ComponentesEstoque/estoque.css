@@ -84,9 +84,10 @@
 }
 
 .filtro{
-  background-color: #2babe2;
+  background-color: #2babe288;
   border-radius: 1vh;
   padding: 0.3vh 0.3vh 0.3vh 0.3vh;
+  margin: 0.3vh;
 }
 
 .filtro > button{
