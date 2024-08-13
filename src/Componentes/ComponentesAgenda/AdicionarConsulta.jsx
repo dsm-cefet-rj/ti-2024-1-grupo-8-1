@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { adicionarAgenda } from '../../features/listaAgendaSlice';
-import { adicionarPaciente } from '../../features/listaPacientesSlice';
 
 export default function AdicionarConsulta({handleConsultasMarcadas}){
 
@@ -14,7 +13,7 @@ export default function AdicionarConsulta({handleConsultasMarcadas}){
         paciente: "",
     })
       
-    const Pacientes = useSelector(state => state.listaPacientes.pacientes);
+    const Pacientes = useSelector((state) => state.listaPacientes.Pacientes);
 
     const dispatch = useDispatch();
 

@@ -1,51 +1,96 @@
-.calendario{
-
-  padding: 3vh 3vh 3vh 3vh;
-  max-width: 80vw ;
-  
-}
-
-.adicionarConsulta{
-
-  padding: 3vh 3vh 3vh 3vh;
-
-}
-
-.botãoConsulta{
-  border-radius: 1vh;
-  border: none;
-  background-color: #2babe288;
-  font-size: 3vh;
-  margin-bottom: 5vh;
-  width: auto;
-  height: auto;
-  padding: 1vh 2vh 1vh 2vh;
-}
-
-.ListaConsulta{
+.container {
   display: flex;
-  justify-content: center;
+  flex-direction: column; /* Empilha topo e formulário verticalmente */
+  gap: 20px;
+}
+
+.topo {
+  display: flex;
+  gap: 20px;
+  align-items: stretch; /* Faz com que a altura dos filhos seja igual */
+}
+
+.calendario,
+.compromissos {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.compromissos {
+  max-height: 600px; /* Ajuste conforme necessário */
+  overflow-y: auto;
+}
+
+.cabecalho {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  width: 100%;
-  background-color: #2babe288;
-  border-radius: 1vh;
-  overflow-y: scroll;
 }
 
-.ListaConsulta > ul{
-  list-style: none;
-  height: 70vh;
-  font-size: 4vh;
-  padding: 0 0 0 0;
-  padding: 1vh 1vh 1vh 1vh;
-
+.grade-calendario {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  margin-top: 10px;
 }
 
-.ListaConsulta > ul > li:first-child{
+.nome-dia {
   font-weight: bold;
-  font-size: 6vh;
+  text-align: center;
 }
 
-.ListaConsulta > ul > li{
+.celula-dia, .celula-vazia {
+  padding: 20px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  text-align: center;
+}
+
+.celula-dia.selecionado {
+  background-color: #87CEFA;
+}
+
+.lista-compromissos {
+  margin-top: 20px;
+}
+
+.lista-compromissos ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.lista-compromissos li {
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.lista-compromissos .hora.selecionado {
+  background-color: #87CEFA;
+}
+
+.formulario-e-detalhes {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formulario-compromisso {
+  display: flex;
+  flex-direction: column;
+}
+
+.formulario-compromisso input,
+.formulario-compromisso textarea {
+  padding: 5px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.formulario-compromisso button {
+  padding: 10px;
+  background-color: #87CEFA;
+  border: none;
   cursor: pointer;
 }
