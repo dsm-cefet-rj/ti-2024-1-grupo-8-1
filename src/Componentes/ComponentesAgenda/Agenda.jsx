@@ -1,135 +1,177 @@
-import React, { useEffect, useState } from 'react';
-import '../styles.css';
+import React, { useState } from 'react';
 import './stylesAgenda.css';
-import FullCalendar from '@fullcalendar/react'
-import dayGridPlugin from '@fullcalendar/daygrid'
-import timeGridPlugin from '@fullcalendar/timegrid'
-import interactionPlugin from '@fullcalendar/interaction'
-import AdicionarConsulta from './AdicionarConsulta'
-import ConcluirConsulta from './ConcluirConsulta'
-import VisualizarConsultaM from './VisualizarConsultaM'
-import VisualizarConsultaC from './VisualizarConsultaC'
-import ConsultasMarcadas from './ConsultasMarcadas'
-import ConsultasConcluidas from './ConsultasConcluidas'
-import AddPag from '../ComponentesPagamentos/addPag'
 
 function Agenda() {
+  const [dataAtual, setDataAtual] = useState(new Date());
+  const [dataSelecionada, setDataSelecionada] = useState(null);
+  const [horaSelecionada, setHoraSelecionada] = useState(null);
+  const [compromissos, setCompromissos] = useState({});
+  const [detalhesCompromisso, setDetalhesCompromisso] = useState([]);
 
-  function handleDateSelect(s){
+  const diasDaSemana = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
 
-    let title = prompt('Insira a consulta abaixo')
-    let evento = s.view.calendar
-
-    evento.unselect()
-
-    if(title){
-      evento.addEvent({
-        
-        title,
-        start: s.startStr,
-        end: s.endStr,
-        allDay: s.allDay
-      })
+  const gerarHorarios = () => {
+    const horarios = [];
+    for (let hora = 8; hora <= 20; hora++) {
+      for (let minutos = 0; minutos < 60; minutos += 15) {
+        const horario = `${hora.toString().padStart(2, '0')}:${minutos
+          .toString()
+          .padStart(2, '0')}`;
+        horarios.push(horario);
+      }
     }
-
-  }
-  
-  const [Modo, setModo] = useState('Inicial')
-  const [consultaM, setConsultaM] = useState('')
-  const [consultaC, setConsultaC] = useState('')
-
-  const handleVisualizarConsultaM = (consultaSelecionada) => {
-    setModo('VisualizarM');
-    setConsultaM(consultaSelecionada);
-  }
-
-  const handleVisualizarConsultaC = (consultaSelecionada) => {
-    setModo('VisualizarC');
-    setConsultaC(consultaSelecionada);
-  }
-
-  const handleAdicionarConsulta = () => {
-    setModo('Adicionar');
+    return horarios;
   };
 
-  const handleConcluirConsulta = (consultaSelecionada) =>{
-    setModo('Concluir')
-    setConsultaM(consultaSelecionada);
-  }
+  const horarios = gerarHorarios();
 
-  const handleConsultasMarcadas = () => {
-    setModo('Inicial');
+  const diasNoMes = (mes, ano) => new Date(ano, mes + 1, 0).getDate();
+
+  const handleCliqueData = (dia) => {
+    const data = new Date(dataAtual.getFullYear(), dataAtual.getMonth(), dia);
+    setDataSelecionada(data);
+    setHoraSelecionada(null);
   };
 
-  const handleConsultasConcluidas = () => {
-    setModo('Consultas')
+  const handleCliqueHora = (hora) => {
+    setHoraSelecionada(hora);
+    setDetalhesCompromisso(compromissos[dataSelecionada]?.[hora] || []);
   };
 
-  const handleAddPag = (consultaSelecionada) =>{
-    setModo('Pagamento')
-    setConsultaC(consultaSelecionada);
+  const handleAdicionarCompromisso = (e) => {
+    e.preventDefault();
+    const formulario = e.target;
+    const novoCompromisso = {
+      descricao: formulario.elements.descricao.value,
+      detalhes: formulario.elements.detalhes.value,
+    };
+
+    if (novoCompromisso.descricao && dataSelecionada && horaSelecionada) {
+      setCompromissos((prevCompromissos) => ({
+        ...prevCompromissos,
+        [dataSelecionada]: {
+          ...prevCompromissos[dataSelecionada],
+          [horaSelecionada]: [
+            ...(prevCompromissos[dataSelecionada]?.[horaSelecionada] || []),
+            novoCompromisso,
+          ],
+        },
+      }));
+      formulario.reset();
+      setHoraSelecionada(null);
+    }
   };
 
-  const renderizarConteudo = () => {
-    if (Modo === 'Inicial') {
-      return <ConsultasMarcadas handleAdicionarConsulta={handleAdicionarConsulta} handleVisualizarConsultaM={handleVisualizarConsultaM} handleConsultasConcluidas={handleConsultasConcluidas} />;
+  const renderizarDiasCalendario = () => {
+    const dias = [];
+    const primeiroDia = new Date(dataAtual.getFullYear(), dataAtual.getMonth(), 1).getDay();
+    const totalDias = diasNoMes(dataAtual.getMonth(), dataAtual.getFullYear());
+
+    for (let i = 0; i < primeiroDia; i++) {
+      dias.push(<div key={`vazio-${i}`} className="celula-vazia" />);
     }
-    else if (Modo === 'Consultas') {
-      return <ConsultasConcluidas handleVisualizarConsultaC={handleVisualizarConsultaC} handleConsultasMarcadas={handleConsultasMarcadas} />;
+
+    for (let dia = 1; dia <= totalDias; dia++) {
+      dias.push(
+        <div
+          key={dia}
+          className={`celula-dia ${dataSelecionada?.getDate() === dia ? 'selecionado' : ''}`}
+          onClick={() => handleCliqueData(dia)}
+        >
+          {dia}
+        </div>
+      );
     }
-    else if (Modo === 'Adicionar') {
-      return <AdicionarConsulta handleConsultasMarcadas={handleConsultasMarcadas} />;
+
+    const celulasRestantes = 7 - ((primeiroDia + totalDias) % 7);
+    if (celulasRestantes < 7) {
+      for (let i = 0; i < celulasRestantes; i++) {
+        dias.push(<div key={`vazio-${i + primeiroDia + totalDias}`} className="celula-vazia" />);
+      }
     }
-    else if(Modo === 'Concluir'){
-      return <ConcluirConsulta handleConsultasMarcadas={handleConsultasMarcadas} consultaM={consultaM} handleConsultasConcluidas={handleConsultasConcluidas} handleAddPag={handleAddPag}/>;
-    }
-    else if (Modo === 'VisualizarM') {
-      return <VisualizarConsultaM handleConsultasMarcadas={handleConsultasMarcadas} consultaM={consultaM} handleConcluirConsulta={handleConcluirConsulta}/>;
-    }
-    else if (Modo === 'VisualizarC') {
-      return <VisualizarConsultaC handleConsultasConcluidas={handleConsultasConcluidas} consultaC={consultaC} />;
-    }
-    else if (Modo === 'Pagamento') {
-      return <AddPag handleConsultasConcluidas={handleConsultasConcluidas} consultaC={consultaC}/>
-    }
-  }
- 
+
+    return dias;
+  };
+
+  const alterarMes = (incremento) => {
+    const novaData = new Date(dataAtual.getFullYear(), dataAtual.getMonth() + incremento, 1);
+    setDataAtual(novaData);
+    setDataSelecionada(null);
+    setHoraSelecionada(null);
+  };
+
+  const renderizarListaCompromissos = () => {
+    if (!dataSelecionada) return null;
+
+    const compromissosDoDia = compromissos[dataSelecionada] || {};
+
+    return (
+      <div className="lista-compromissos">
+        <h3>Compromissos para {dataSelecionada.toDateString()}</h3>
+        <ul>
+          {horarios.map((hora) => (
+            <li
+              key={hora}
+              className={`hora ${horaSelecionada === hora ? 'selecionado' : ''}`}
+              onClick={() => handleCliqueHora(hora)}
+            >
+              <strong>{hora}:</strong> {compromissosDoDia[hora] ? `(${compromissosDoDia[hora].length}) compromisso(s)` : 'Nenhum compromisso'}
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  };
+
+  const renderizarDetalhesCompromissos = () => {
+    return (
+      <div className="detalhes-compromissos">
+        {detalhesCompromisso.length > 0 ? (
+          detalhesCompromisso.map((compromisso, index) => (
+            <div key={index} className="card-compromisso">
+              <h4>{compromisso.descricao}</h4>
+              <p>{compromisso.detalhes}</p>
+            </div>
+          ))
+        ) : (
+          <p>Nenhum detalhe disponível.</p>
+        )}
+      </div>
+    );
+  };
+
   return (
-
-    <div>
-      <div className= "calendario">
-        <FullCalendar 
-          plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin ]} 
-          headerToolbar={{
-            left: 'prev,next',
-            center: 'title',
-            right: 'dayGridMonth timeGridDay today'
-          }}
-          initialView="dayGridMonth"
-          select={handleDateSelect}
-          eventContent={renderEventContent}
-          editable={true}
-          selectable={true}
-          selectMirror={true} 
-          height="auto"/>
+    <div className="container">
+      <div className="topo">
+        <div className="calendario">
+          <div className="cabecalho">
+            <button onClick={() => alterarMes(-1)}>Anterior</button>
+            <h2>{dataAtual.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })}</h2>
+            <button onClick={() => alterarMes(1)}>Próximo</button>
+          </div>
+          <div className="grade-calendario">
+            {diasDaSemana.map((dia, index) => (
+              <div key={index} className="nome-dia">
+                {dia}
+              </div>
+            ))}
+            {renderizarDiasCalendario()}
+          </div>
+        </div>
+        <div className="compromissos">
+          {renderizarListaCompromissos()}
+        </div>
       </div>
-      <div>
-        {renderizarConteudo()}
-
+      <div className="formulario-e-detalhes">
+        <form onSubmit={handleAdicionarCompromisso} className="formulario-compromisso">
+          <input type="text" name="descricao" placeholder="Descrição do compromisso" required />
+          <textarea name="detalhes" placeholder="Detalhes adicionais" required />
+          <button type="submit">Adicionar</button>
+        </form>
+        {renderizarDetalhesCompromissos()}
       </div>
-
-      
     </div>
   );
-}
-
-function renderEventContent(consulta) {
-  return (
-    <>
-      {consulta.timeText}
-      {consulta.event.title}
-    </>
-  )
-}
+};
 
 export default Agenda;
