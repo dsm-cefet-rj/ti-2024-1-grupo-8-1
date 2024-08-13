@@ -9,8 +9,8 @@
     border-radius: 1vh;
     border: none;
     background-color: #2babe288;
-    font-size: 3vh;
-    margin-bottom: 5vh;
+    font-size: 2rem;
+    margin-bottom: 1rem;
     width: auto;
     height: auto;
     padding: 1vh 2vh 1vh 2vh;
@@ -29,15 +29,16 @@
 .ListaPaciente > ul{
     list-style: none;
     height: 70vh;
-    font-size: 4vh;
+    font-size: 2rem;
     padding: 0 0 0 0;
-    padding: 1vh 1vh 1vh 1vh;
-
+    padding: 0.6rem;
+    justify-content: center;
+    text-align: center;
 }
 
 .ListaPaciente > ul > li:first-child{
     font-weight: bold;
-    font-size: 6vh;
+    font-size: 3rem;
 }
 
 .ListaPaciente > ul > li{
@@ -147,5 +148,5 @@ span{
     background-color: #2babe288;
     border-radius: 1vh;
     padding: 0.5vh 1vh 0.5vh 1vh;
-    margin-bottom: 1vh;
+    margin-bottom: 0.5rem;
 }

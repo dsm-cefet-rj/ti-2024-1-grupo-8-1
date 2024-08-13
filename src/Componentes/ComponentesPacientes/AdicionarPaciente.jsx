@@ -70,7 +70,7 @@ export function AdicionarPaciente({ handleInicioPaciente }) {
                     <div className='col-md-4'>
                         <ListaDinamica label="Cirurgias" itens={novoPaciente.cirurgias} setItens={(itens) => setNovoPaciente({ ...novoPaciente, cirurgias: itens })} />
                     </div>
-                    <button className='btn btn-primary' type='submit'>Adicionar Paciente</button>
+                    <button className='botãoPaciente' type='submit'>Adicionar Paciente</button>
                 </form>
             </div>
         </div>

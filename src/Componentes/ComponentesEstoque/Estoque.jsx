@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import CadastrarItem from './cadastrarItem';
 import ListaEstoque from './listaEstoque';
-import '../styles.css';
 
 
 
@@ -23,7 +22,7 @@ function Estoque() {
       return <ListaEstoque handleCadastrarItem={handleCadastrarItem} handleListarItens={handleListarItens}/>;
     }
     else if (Modo === 'Cadastrar') {
-      return <CadastrarItem handleListarItens={handleListarItens} />;
+      return <CadastrarItem handleListarItens={handleListarItens}/>;
     }
   }
   

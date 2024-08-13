@@ -6,8 +6,8 @@ import Pagamentos from '../ComponentesPagamentos/Pagamentos.jsx';
 import '../styles.css';
 
 function NavApp() {
-
   const [modo, setModo] = useState('Pacientes');
+  const [menuAberto, setMenuAberto] = useState(false);
 
   const components = {
     Pacientes: <Pacientes />,
@@ -18,11 +18,16 @@ function NavApp() {
 
   const handleClick = (modoSelecionado) => {
     setModo(modoSelecionado);
+    setMenuAberto(false);
+  };
+
+  const toggleMenu = () => {
+    setMenuAberto(!menuAberto);
   };
 
   return (
     <div className='janela'>
-      <nav className="side-bar">
+      <nav className={`side-bar ${menuAberto ? 'menu-aberto' : ''}`}>
         <div className="logo">
           <div className="escrita1">
             Portal da
@@ -34,13 +39,16 @@ function NavApp() {
         <ul>
           {Object.keys(components).map((key) => (
             <li key={key} className="side-bar-item">
-              <button onClick={() => handleClick(key)} className="aba">
+              <button onClick={() => handleClick(key)} className={`aba ${key === modo ? 'selecionada' : ''}`}>
                 {key}
               </button>
             </li>
           ))}
         </ul>
       </nav>
+      <button className="botao-menu" onClick={toggleMenu}>
+        ☰
+      </button>
       <div className='conteudoPrincipal'>
         {components[modo]}
       </div>

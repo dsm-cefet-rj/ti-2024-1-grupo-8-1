@@ -3,6 +3,7 @@ import React from 'react';
 import './stylesPaciente.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPacientes } from '../../features/listaPacientesSlice';
+
 function ListarPacientes({ handleAdicionarPaciente, handleVisualizarPaciente }) {
     const [termoPesquisa, setTermoPesquisa] = useState('');
     const ListaDePacientes = useSelector((state) => state.listaPacientes.Pacientes);
