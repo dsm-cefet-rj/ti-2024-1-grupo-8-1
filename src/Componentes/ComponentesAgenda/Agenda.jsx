@@ -25,11 +25,18 @@ function Agenda() {
   const handleAdicionarCompromisso = (e) => {
     e.preventDefault();
     const formulario = e.target;
+    const cpfPaciente = formulario.elements.cpfPaciente.value;
+    
+    if (!ListaDePacientes.some(paciente => paciente.cpf === cpfPaciente)) {
+      alert('Paciente não encontrado. Certifique-se de selecionar um paciente existente.');
+      return;
+    }
+    
     const novoCompromisso = {
       nomePaciente: formulario.elements.nomePaciente.value,
       descricao: formulario.elements.descricao.value,
       detalhes: formulario.elements.detalhes.value,
-
+      cpfPaciente: cpfPaciente,
     };
 
     if (novoCompromisso.descricao && dataSelecionada && horaSelecionada) {

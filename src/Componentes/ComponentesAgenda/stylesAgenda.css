@@ -79,7 +79,8 @@
 .lista-compromissos li {
   padding: 0.5rem;
   margin-bottom: 0.2rem;
-  background-color: #f4f4f4;
+  background-color: #2babe222;
+  border-radius: 0.5rem;
   cursor: pointer;
 }
 
@@ -118,16 +119,22 @@
   border-radius: 0.5rem;
 }
 
-.formulario-compromisso button:hover {
+.lista-compromissos .card-compromisso {
+  padding: 0.8rem;
+  box-shadow: 2px 2px 2px 2px #2babe2 ;
+  border-radius: 1rem;
+  display: flex;
+}
+.botao-concluir {
+  padding: 0.2rem;
   background-color: #2babe2;
+  font-size: 1rem;
+  color: black;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.5rem;
 }
 
-.detalhes-compromissos .card-compromisso {
-  padding: 10px;
-  background-color: #2babe288;
-  margin: 5px 0;
-  border-radius: 5px;
-}
 /* Container de autocompletar para facilitar o posicionamento */
 .autocomplete{
   position: relative;
@@ -160,6 +167,8 @@
 .lista-sugestoes li:hover {
   background-color: #f0f0f0;
 }
+
+
 /* Media Queries para Responsividade */
 @media (max-width: 768px) {
   .topo {

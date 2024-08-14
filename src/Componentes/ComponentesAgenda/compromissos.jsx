@@ -29,6 +29,10 @@ const Compromissos = ({ compromissos, dataSelecionada, horaSelecionada, onClique
       );
     }
 
+    const handleConcluirCompromisso = (compromisso) => {
+
+    }
+
     const compromissosDoDia = compromissos[dataSelecionada] || {};
 
     return (
@@ -45,8 +49,11 @@ const Compromissos = ({ compromissos, dataSelecionada, horaSelecionada, onClique
               {compromissosDoDia[hora] ? ` (${compromissosDoDia[hora].length}) compromisso(s)` : ' Nenhum compromisso'}
               {compromissosDoDia[hora]?.map((compromisso, index) => (
                 <div key={index} className="card-compromisso">
-                  <h4>{compromisso.nomePaciente}</h4>
-                  <p>{compromisso.descricao}</p>
+                  <div>
+                    <h4>{compromisso.nomePaciente}</h4>
+                    <p>{compromisso.descricao}</p>
+                  </div>
+                  <button className='botao-concluir' onClick={handleConcluirCompromisso(compromisso)}>Concluir</button>
                 </div>
               ))}
             </li>

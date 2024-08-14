@@ -45,7 +45,7 @@ const FormularioCompromisso = ({ onAdicionarCompromisso, ListaDePacientes }) => 
         />
         <input type="hidden" name="cpfPaciente" required />
         {sugestoes.length > 0 && (
-          <ul className="sugestoes">
+          <ul className="lista-sugestoes">
             {sugestoes.map((paciente) => (
               <li key={paciente.cpf} onClick={() => handleSelecaoPaciente(paciente)}>
                 {paciente.nome}
