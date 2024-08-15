@@ -29,12 +29,12 @@
   align-items: center;
 }
 
-.calendario .cabecalho h2{
+.calendario .cabecalho h2 {
   flex: 6.5;
   text-align: center;
 }
 
-.calendario .cabecalho button{
+.calendario .cabecalho button {
   border-radius: 0.5rem;
   background-color: #2babe2;
   border: none;
@@ -97,8 +97,7 @@
 }
 
 
-.formulario-compromisso input,
-.formulario-compromisso textarea {
+.formulario-compromisso input {
   width: 100%;
   padding: 0.5rem;
   margin-bottom: 1rem;
@@ -121,10 +120,12 @@
 
 .lista-compromissos .card-compromisso {
   padding: 0.8rem;
-  box-shadow: 2px 2px 2px 2px #2babe2 ;
+  box-shadow: 2px 2px 2px 2px #2babe2;
   border-radius: 1rem;
   display: flex;
+
 }
+
 .botao-concluir {
   padding: 0.2rem;
   background-color: #2babe2;
@@ -136,7 +137,7 @@
 }
 
 /* Container de autocompletar para facilitar o posicionamento */
-.autocomplete{
+.autocomplete {
   position: relative;
   width: 100%;
 }
@@ -144,7 +145,8 @@
 /* Lista de sugestões posicionada absolutamente */
 .lista-sugestoes {
   position: absolute;
-  top: calc(100% - 1rem); /* Coloca a lista diretamente abaixo do input */
+  top: calc(100% - 1rem);
+  /* Coloca a lista diretamente abaixo do input */
   left: 0;
   right: 0;
   z-index: 1000;
@@ -152,7 +154,8 @@
   background-color: white;
   max-height: 200px;
   overflow-y: auto;
-  margin-top: 0; /* Remove o espaçamento extra */
+  margin-top: 0;
+  /* Remove o espaçamento extra */
   padding-left: 0;
   list-style-type: none;
 }
@@ -166,6 +169,26 @@
 
 .lista-sugestoes li:hover {
   background-color: #f0f0f0;
+}
+
+
+.formularioConclusao .textarea-popup {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  background-color: #2babe255;
+  resize: vertical;
+  border-radius: 0.5rem;
+  border: solid #2babe2 1px;
+}
+
+.formularioConclusao input,
+.formularioConclusao select {
+  width: 100%;
+  border: none;
+  background-color: #2babe255;
+  border-radius: 1vh;
+  padding: 0.5vh 1vh 0.5vh 1vh;
 }
 
 

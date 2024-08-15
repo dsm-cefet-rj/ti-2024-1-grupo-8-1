@@ -35,7 +35,6 @@ function Agenda() {
     const novoCompromisso = {
       nomePaciente: formulario.elements.nomePaciente.value,
       descricao: formulario.elements.descricao.value,
-      detalhes: formulario.elements.detalhes.value,
       cpfPaciente: cpfPaciente,
     };
 

@@ -28,7 +28,7 @@ const FormularioCompromisso = ({ onAdicionarCompromisso, ListaDePacientes }) => 
   const handleSubmit = (e) => {
     e.preventDefault();
     onAdicionarCompromisso(e);
-    setTermoPesquisa(''); 
+    setTermoPesquisa('');
   };
 
   return (
@@ -55,7 +55,6 @@ const FormularioCompromisso = ({ onAdicionarCompromisso, ListaDePacientes }) => 
         )}
       </div>
       <input type="text" name="descricao" placeholder="Descrição do compromisso" required />
-      <textarea name="detalhes" placeholder="Detalhes adicionais" required />
       <button type="submit">Adicionar</button>
     </form>
   );

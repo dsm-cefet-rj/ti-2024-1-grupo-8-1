@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './stylesAgenda.css';
+import Popup from '../EDA/Popup';
 
 const gerarHorarios = () => {
   const horarios = [];
@@ -13,9 +14,22 @@ const gerarHorarios = () => {
 };
 
 const Compromissos = ({ compromissos, dataSelecionada, horaSelecionada, onCliqueHora }) => {
-  const renderizarListaCompromissos = () => {
-    if (!dataSelecionada) {
-      return (
+  const [compromissoAtual, setCompromissoAtual] = useState(null);
+  const [valorTotal, setValorTotal] = useState(0);
+
+  const handleConcluirCompromisso = (compromisso) => {
+    setCompromissoAtual(compromisso);
+  };
+
+  const fecharPopup = () => {
+    setCompromissoAtual(null);
+  };
+
+  const compromissosDoDia = compromissos[dataSelecionada] || {};
+
+  return (
+    <div className="compromissos">
+      {!dataSelecionada ? (
         <div className="lista-compromissos">
           <h3>Nenhum dia selecionado</h3>
           <ul>
@@ -26,46 +40,90 @@ const Compromissos = ({ compromissos, dataSelecionada, horaSelecionada, onClique
             ))}
           </ul>
         </div>
-      );
-    }
-
-    const handleConcluirCompromisso = (compromisso) => {
-
-    }
-
-    const compromissosDoDia = compromissos[dataSelecionada] || {};
-
-    return (
-      <div className="lista-compromissos">
-        <h3>Compromissos para {dataSelecionada.toDateString()}</h3>
-        <ul>
-          {gerarHorarios().map((hora) => (
-            <li
-              key={hora}
-              className={`hora ${horaSelecionada === hora ? 'selecionado' : ''}`}
-              onClick={() => onCliqueHora(hora)}
-            >
-              <strong>{hora}:</strong>
-              {compromissosDoDia[hora] ? ` (${compromissosDoDia[hora].length}) compromisso(s)` : ' Nenhum compromisso'}
-              {compromissosDoDia[hora]?.map((compromisso, index) => (
-                <div key={index} className="card-compromisso">
-                  <div>
-                    <h4>{compromisso.nomePaciente}</h4>
-                    <p>{compromisso.descricao}</p>
+      ) : (
+        <div className="lista-compromissos">
+          <h3>Compromissos para {dataSelecionada.toDateString()}</h3>
+          <ul>
+            {gerarHorarios().map((hora) => (
+              <li
+                key={hora}
+                className={`hora ${horaSelecionada === hora ? 'selecionado' : ''}`}
+                onClick={() => onCliqueHora(hora)}
+              >
+                <strong>{hora}:</strong>
+                {compromissosDoDia[hora] ? ` (${compromissosDoDia[hora].length}) compromisso(s)` : ' Nenhum compromisso'}
+                {compromissosDoDia[hora]?.map((compromisso, index) => (
+                  <div key={index} className="card-compromisso">
+                    <div>
+                      <h4>{compromisso.nomePaciente}</h4>
+                      <p>{compromisso.descricao}</p>
+                    </div>
+                    <button
+                      className="botao-concluir"
+                      onClick={() => handleConcluirCompromisso(compromisso)}
+                    >
+                      Concluir
+                    </button>
                   </div>
-                  <button className='botao-concluir' onClick={handleConcluirCompromisso(compromisso)}>Concluir</button>
-                </div>
-              ))}
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
-  };
+                ))}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
-  return (
-    <div className="compromissos">
-      {renderizarListaCompromissos()}
+      {compromissoAtual && (
+        <Popup className='popupconcluir' titulo={`Atendimento com ${compromissoAtual.nomePaciente}`} onClose={fecharPopup}>
+        <form className='formularioConclusao' onSubmit={(e) => { e.preventDefault(); fecharPopup(); }}>
+          <h4>Forma de Pagamento</h4>
+          
+          {/* Campo para inserir o valor total do pagamento */}
+          <label>
+            Valor Total:
+            <input
+              type="number"
+              className='input-popup'
+              placeholder="Insira o valor total"
+              onChange={(e) => setValorTotal(parseFloat(e.target.value) || 0)} // Verificação para evitar valores indefinidos
+              required
+            />
+          </label>
+      
+          {/* Campo para selecionar o método de pagamento */}
+          <label>
+            Método de Pagamento:
+            <select className='select-popup'>
+              <option value="cartaoCredito">Cartão de Crédito</option>
+              <option value="cartaoDebito">Cartão de Débito</option>
+              <option value="boleto">Boleto</option>
+              <option value="dinheiro">Dinheiro</option>
+            </select>
+          </label>
+          
+          {/* Campo para selecionar a quantidade de parcelas */}
+          <label>
+            Parcelas:
+            <select className='select-popup'>
+              {[...Array(12)].map((_, index) => {
+                const numParcelas = index + 1;
+                const valorParcela = (valorTotal > 0 ? (valorTotal / numParcelas).toFixed(2) : 0); // Verificação para evitar divisão por zero
+                return (
+                  <option key={numParcelas} value={numParcelas}>
+                    {numParcelas}x de R$ {valorParcela}
+                  </option>
+                );
+              })}
+            </select>
+          </label>
+      
+          {/* Observações adicionais */}
+          <textarea className='textarea-popup' placeholder="Observações sobre o atendimento"></textarea>
+      
+          {/* Botão para concluir */}
+          <button type="submit">Concluir</button>
+        </form>
+      </Popup>
+      )}
     </div>
   );
 };
