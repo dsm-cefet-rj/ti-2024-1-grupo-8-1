@@ -42,10 +42,10 @@ const ListaPacientesSlice = createSlice({
     adicionarPaciente: (state, action) => {
       state.Pacientes.push(action.payload);
     },
-    rmvPaciente: (state, action) => {
+    removePaciente: (state, action) => {
       state.Pacientes = state.Pacientes.filter((Paciente) => Paciente.id !== action.payload);
     },
-    editPaaciente: (state, action) => {
+    editPaciente: (state, action) => {
       state.Pacientes = state.Pacientes.map(Paciente => {
         if (Paciente.id === action.payload.id) {
           return {
@@ -77,5 +77,5 @@ const ListaPacientesSlice = createSlice({
   },
 });
 
-export const { adicionarPaciente } = ListaPacientesSlice.actions;
+export const { adicionarPaciente, editPaciente, removePaciente} = ListaPacientesSlice.actions;
 export default ListaPacientesSlice.reducer;

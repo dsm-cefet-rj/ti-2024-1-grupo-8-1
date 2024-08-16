@@ -5,6 +5,7 @@ import listaEstoqueReducer from '../features/listaEstoqueSlice';
 import listaAgendaReducer from '../features/listaAgendaSlice';
 import listaConsultaReducer from '../features/listaConsultaSlice';
 import userReducer from '../features/userSlice';
+
 const store = configureStore({
     reducer:{
         listaPagamentos: listaPagamentosReducer,

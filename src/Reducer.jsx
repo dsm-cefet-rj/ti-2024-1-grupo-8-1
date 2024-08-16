@@ -24,26 +24,26 @@ export const Reducer = (state = initialstate, action) => {
             return {
                 loading: false,
                 errmessage: '',
-                PAGAMENTOlist:action.payload,
-                PAGAMENTOobj:{}
+                PAGAMENTOlist: action.payload,
+                PAGAMENTOobj: {}
             }
-            case DELETE_PAGAMENTO:return{
-                ...state,
-                loading:false
-            }
-            case ADD_PAGAMENTO:return{
-                ...state,
-                loading:false
-            }
-            case UPDATE_PAGAMENTO:return{
-                ...state,
-                loading:false
-            }
-            case GET_PAGAMENTO_OBJ:return{
-                ...state,
-                loading:false,
-                PAGAMENTOobj:action.payload
-            }
+        case DELETE_PAGAMENTO: return {
+            ...state,
+            loading: false
+        }
+        case ADD_PAGAMENTO: return {
+            ...state,
+            loading: false
+        }
+        case UPDATE_PAGAMENTO: return {
+            ...state,
+            loading: false
+        }
+        case GET_PAGAMENTO_OBJ: return {
+            ...state,
+            loading: false,
+            PAGAMENTOobj: action.payload
+        }
         default: return state
     }
 }

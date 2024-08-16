@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './stylesAgenda.css';
 import Popup from '../EDA/Popup';
+import ConclusaoCompromisso from './ConclusaoCompromisso';
 
 const gerarHorarios = () => {
   const horarios = [];
@@ -74,55 +75,8 @@ const Compromissos = ({ compromissos, dataSelecionada, horaSelecionada, onClique
 
       {compromissoAtual && (
         <Popup className='popupconcluir' titulo={`Atendimento com ${compromissoAtual.nomePaciente}`} onClose={fecharPopup}>
-        <form className='formularioConclusao' onSubmit={(e) => { e.preventDefault(); fecharPopup(); }}>
-          <h4>Forma de Pagamento</h4>
-          
-          {/* Campo para inserir o valor total do pagamento */}
-          <label>
-            Valor Total:
-            <input
-              type="number"
-              className='input-popup'
-              placeholder="Insira o valor total"
-              onChange={(e) => setValorTotal(parseFloat(e.target.value) || 0)} // Verificação para evitar valores indefinidos
-              required
-            />
-          </label>
-      
-          {/* Campo para selecionar o método de pagamento */}
-          <label>
-            Método de Pagamento:
-            <select className='select-popup'>
-              <option value="cartaoCredito">Cartão de Crédito</option>
-              <option value="cartaoDebito">Cartão de Débito</option>
-              <option value="boleto">Boleto</option>
-              <option value="dinheiro">Dinheiro</option>
-            </select>
-          </label>
-          
-          {/* Campo para selecionar a quantidade de parcelas */}
-          <label>
-            Parcelas:
-            <select className='select-popup'>
-              {[...Array(12)].map((_, index) => {
-                const numParcelas = index + 1;
-                const valorParcela = (valorTotal > 0 ? (valorTotal / numParcelas).toFixed(2) : 0); // Verificação para evitar divisão por zero
-                return (
-                  <option key={numParcelas} value={numParcelas}>
-                    {numParcelas}x de R$ {valorParcela}
-                  </option>
-                );
-              })}
-            </select>
-          </label>
-      
-          {/* Observações adicionais */}
-          <textarea className='textarea-popup' placeholder="Observações sobre o atendimento"></textarea>
-      
-          {/* Botão para concluir */}
-          <button type="submit">Concluir</button>
-        </form>
-      </Popup>
+          <ConclusaoCompromisso/>
+        </Popup>
       )}
     </div>
   );

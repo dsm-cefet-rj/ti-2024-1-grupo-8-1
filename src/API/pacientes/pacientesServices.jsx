@@ -1,18 +1,18 @@
 import { Api } from '../ApiConfig';
 
 
-const paciente = 
-    {
-        "nome": "Edmundo Silva",
-        "telefone": "(11) 1234-5678",
-        "cpf": "123.456.789-00",
-        "endereco": "Rua Vasco da Gama, 123",
-        "cidade": "Rio de Janeiro",
-        "alergias": [],
-        "responsavel": "111.222.333-44",
-        "medicacoes": [],
-        "cirurgias": []
-      }
+const paciente =
+{
+  nome: "",
+  telefone: "",
+  cpf: "",
+  endereco: "",
+  cidade: "",
+  alergias: [],
+  responsavel: "",
+  medicacoes: [],
+  cirurgias: []
+}
 
 const getAll = async () => {
   try {
