@@ -3,25 +3,8 @@ import { useSelector } from 'react-redux';
 import { useState } from 'react';
 
 function VisualizarPaciente({ handleInicioPaciente, paciente }) {
-    const consultasMarcadas = useSelector(state => state.listaConsulta.consulta);
-    const consultasConcluidas = useSelector(state => state.listaAgenda.agenda);
 
-    const consultasDoPacienteMarcadas = consultasMarcadas.filter(consulta => consulta.paciente === paciente.cpf);
-    const consultasDoPacienteConcluidas = consultasConcluidas.filter(consulta => consulta.paciente === paciente.cpf);
-
-    consultasDoPacienteMarcadas.sort((a, b) => {
-        const dataA = new Date(a.data);
-        const dataB = new Date(b.data);
-        return dataA - dataB;
-    });
-
-    consultasDoPacienteConcluidas.sort((a, b) => {
-        const dataA = new Date(a.data);
-        const dataB = new Date(b.data);
-        return dataA - dataB;
-    });
-
-    const [consultasDoPaciente, setConsultasDoPacientes] = useState([...consultasDoPacienteConcluidas, ...consultasDoPacienteMarcadas])
+    const [consultasDoPaciente, setConsultasDoPacientes] = useState()
 
     return (
         <div>

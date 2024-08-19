@@ -5,20 +5,6 @@ const FormularioCompromisso = ({ onAdicionarCompromisso, ListaDePacientes }) => 
   const [termoPesquisa, setTermoPesquisa] = useState('');
   const [sugestoes, setSugestoes] = useState([]);
 
-  const handlePesquisaPaciente = (e) => {
-    const termo = e.target.value;
-    setTermoPesquisa(termo);
-
-    if (termo.length > 0) {
-      const filtrados = ListaDePacientes.filter((paciente) =>
-        paciente.nome.toLowerCase().includes(termo.toLowerCase())
-      );
-      setSugestoes(filtrados);
-    } else {
-      setSugestoes([]);
-    }
-  };
-
   const handleSelecaoPaciente = (paciente) => {
     setTermoPesquisa(paciente.nome);
     setSugestoes([]);
@@ -28,7 +14,6 @@ const FormularioCompromisso = ({ onAdicionarCompromisso, ListaDePacientes }) => 
   const handleSubmit = (e) => {
     e.preventDefault();
     onAdicionarCompromisso(e);
-    setTermoPesquisa('');
   };
 
   return (
@@ -38,21 +23,16 @@ const FormularioCompromisso = ({ onAdicionarCompromisso, ListaDePacientes }) => 
           type="text"
           name="nomePaciente"
           placeholder="Nome do paciente"
-          value={termoPesquisa}
-          onChange={handlePesquisaPaciente}
-          autoComplete="off"
+          autoComplete="on"
+          list='OpcoesPacientes'
           required
         />
+        <datalist id="OpcoesPacientes">
+          {ListaDePacientes.map((paciente, index) => (
+            <option key={index} value={paciente.nome} />
+          ))}
+        </datalist>
         <input type="hidden" name="cpfPaciente" required />
-        {sugestoes.length > 0 && (
-          <ul className="lista-sugestoes">
-            {sugestoes.map((paciente) => (
-              <li key={paciente.cpf} onClick={() => handleSelecaoPaciente(paciente)}>
-                {paciente.nome}
-              </li>
-            ))}
-          </ul>
-        )}
       </div>
       <input type="text" name="descricao" placeholder="Descrição do compromisso" required />
       <button type="submit">Adicionar</button>

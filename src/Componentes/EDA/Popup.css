@@ -21,7 +21,11 @@
 
 .cabecalho{
   display: flex;
-  gap: 1rem;
+}
+
+.cabecalho h3{
+  font-size: 2rem;
+  margin-right: 1rem;
 }
 
 .close-button {

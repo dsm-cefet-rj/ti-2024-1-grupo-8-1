@@ -85,7 +85,7 @@
 }
 
 .lista-compromissos li.selecionado {
-  background-color: #fff;
+  background-color: #2babe255;
   color: black;
 }
 
@@ -123,17 +123,23 @@
   box-shadow: 2px 2px 2px 2px #2babe2;
   border-radius: 1rem;
   display: flex;
-
 }
 
-.botao-concluir {
-  padding: 0.2rem;
+.card-compromisso .botao-concluir {
+  padding: 0.7rem;
   background-color: #2babe2;
   font-size: 1rem;
   color: black;
   border: none;
   cursor: pointer;
   border-radius: 0.5rem;
+  margin-left: auto;
+  height: fit-content;
+  align-self: center;
+}
+
+.card-compromisso p{
+  margin-bottom: 0;
 }
 
 /* Container de autocompletar para facilitar o posicionamento */
@@ -173,9 +179,9 @@
 
 
 .formularioConclusao .textarea-popup {
-  width: 100%;
+  /* width: 100%; */
   padding: 0.5rem;
-  margin-bottom: 1rem;
+  margin: 1rem;
   background-color: #2babe255;
   resize: vertical;
   border-radius: 0.5rem;
@@ -187,10 +193,18 @@
   width: 100%;
   border: none;
   background-color: #2babe255;
-  border-radius: 1vh;
-  padding: 0.5vh 1vh 0.5vh 1vh;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem 0.5rem 1rem;
 }
 
+.formularioConclusao label{
+  margin: 1rem;
+  font-size: 1rem;
+}
+
+.formularioConclusao .pagamentos{
+  display: flex;
+}
 
 /* Media Queries para Responsividade */
 @media (max-width: 768px) {
