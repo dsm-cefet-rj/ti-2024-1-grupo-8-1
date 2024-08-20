@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { PacientesServices } from '../API/pacientes/pacientesServices';
+import { pacienteController } from '../API/API_NODE/Controllers/pacienteController'
 
 export const fetchPacientes = createAsyncThunk(
   'Pacientes/fetchPacientes',
   async () => {
-    const resposta = await PacientesServices.getAll();
+    const resposta = await pacienteController.getAll();
     return resposta;
   }
 );
@@ -12,21 +12,23 @@ export const fetchPacientes = createAsyncThunk(
 export const deletePacienteById = createAsyncThunk(
   'Pacientes/deletePacienteById',
   async (id) => {
-    await PacientesServices.deleteById(id);
+    await pacienteController.deleteById(id);
     return id;
   }
 );
+
 export const updatePacienteById = createAsyncThunk(
   'Pacientes/updatePacienteById',
   async ({ id, data }) => {
-    const resposta = await PacientesServices.updateById(id, data);
+    const resposta = await pacienteController.updateById(id, data);
     return resposta;
   }
 );
+
 export const createPaciente = createAsyncThunk(
   'Pacientes/createPaciente',
   async (data) => {
-    const resposta = await PacientesServices.create(data);
+    const resposta = await pacienteController.create(data);
     return resposta;
   }
 );
@@ -77,5 +79,5 @@ const ListaPacientesSlice = createSlice({
   },
 });
 
-export const { adicionarPaciente, editPaciente, removePaciente} = ListaPacientesSlice.actions;
+export const { adicionarPaciente, editPaciente, removePaciente } = ListaPacientesSlice.actions;
 export default ListaPacientesSlice.reducer;
