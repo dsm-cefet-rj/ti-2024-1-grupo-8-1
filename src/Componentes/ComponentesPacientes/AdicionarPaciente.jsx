@@ -28,10 +28,9 @@ export function AdicionarPaciente({ handleInicioPaciente }) {
 
     const handleAdicionarPaciente = (e) => {
         e.preventDefault();
-        dispatch(createPaciente(novoPaciente));
+        dispatch(createPaciente(novoPaciente)); 
         handleInicioPaciente();
     };
-
     return (
         <div>
             <button className='botãoPaciente' onClick={handleInicioPaciente}>Início</button>
