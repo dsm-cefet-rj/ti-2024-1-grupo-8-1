@@ -1,26 +1,40 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { estoqueController } from '../API/API_NODE/Controllers/estoqueController';
+
+export const fetchEstoque = createAsyncThunk(
+  'estoque/fetchEstoque',
+  async () => {
+    const resposta = await estoqueController.getAll();
+    return resposta;
+  }
+);
+
+export const deleteItemById = createAsyncThunk(
+  'estoque/deleteItemById',
+  async (id) => {
+    await estoqueController.deleteById(id);
+    return id;
+  }
+);
+
+export const updateItemById = createAsyncThunk(
+  'estoque/updateItemById',
+  async ({ id, data }) => {
+    const resposta = await estoqueController.updateById(id, data);
+    return resposta;
+  }
+);
+
+export const createItem = createAsyncThunk(
+  'estoque/createItem',
+  async (data) => {
+    const resposta = await estoqueController.create(data);
+    return resposta;
+  }
+);
 
 const initialState = {
-
-  estoque: [
-    {
-      "nome": 'Luva',
-      "id": '000',
-      "quantidade": '100',
-      "preco": '0.50',
-      "descricao": 'Unidades e luva da marca X',
-      "filtros": ["Descartável", "Ortodontia"]
-    },
-    {
-      "nome": 'Anestesia',
-      "id": '999',
-      "quantidade": '20',
-      "preco": '27.00',
-      "descricao": 'Medicamento anestésico da Marca Y',
-      "filtros": ["Ortodontia"]
-    },
-  ],
-
+  estoque: []
 };
 
 const listaEstoqueSlice = createSlice({
@@ -31,21 +45,36 @@ const listaEstoqueSlice = createSlice({
       state.estoque.push(action.payload);
     },
     rmvItem: (state, action) => {
-      state.estoque = state.estoque.filter((estoque) => estoque.id !== action.payload);
+      state.estoque = state.estoque.filter((item) => item._id !== action.payload);
     },
     editItem: (state, action) => {
-      state.estoque.map(estoque => {
-        if (estoque.id == action.payload.id) {
-          estoque.nome = action.payload.nome;
-          estoque.quantidade = action.payload.quantidade;
-          estoque.preco = action.payload.preco;
-          estoque.descricao = action.payload.descricao;
-          estoque.filtros = action.payload.filtros;
+      state.estoque = state.estoque.map(item => {
+        if (item._id === action.payload._id) {
+          return {
+            ...item,
+            ...action.payload
+          };
         }
-      })
-    }
+        return item;
+      });
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchEstoque.fulfilled, (state, action) => {
+      state.estoque = action.payload;
+    });
+    builder.addCase(deleteItemById.fulfilled, (state, action) => {
+      state.estoque = state.estoque.filter((item) => item._id !== action.payload);
+    });
+    builder.addCase(updateItemById.fulfilled, (state, action) => {
+      const updatedItem = action.payload;
+      const index = state.estoque.findIndex(item => item._id === updatedItem._id);
+      if (index !== -1) {
+        state.estoque[index] = updatedItem;
+      }
+    });
   },
 });
 
-export const { adicionarItem, rmvItem, editItem } = listaEstoqueSlice.actions;
+export const { adicionarItem, editItem, rmvItem } = listaEstoqueSlice.actions;
 export default listaEstoqueSlice.reducer;

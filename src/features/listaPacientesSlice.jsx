@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { pacienteController } from '../API/API_NODE/Controllers/pacienteController';
 
-// Fetch pacientes
 export const fetchPacientes = createAsyncThunk(
   'Pacientes/fetchPacientes',
   async () => {
@@ -10,7 +9,6 @@ export const fetchPacientes = createAsyncThunk(
   }
 );
 
-// Delete paciente by id
 export const deletePacienteById = createAsyncThunk(
   'Pacientes/deletePacienteById',
   async (id) => {
@@ -19,7 +17,6 @@ export const deletePacienteById = createAsyncThunk(
   }
 );
 
-// Update paciente by id
 export const updatePacienteById = createAsyncThunk(
   'Pacientes/updatePacienteById',
   async ({ id, data }) => {
@@ -28,7 +25,6 @@ export const updatePacienteById = createAsyncThunk(
   }
 );
 
-// Create paciente
 export const createPaciente = createAsyncThunk(
   'Pacientes/createPaciente',
   async (data) => {

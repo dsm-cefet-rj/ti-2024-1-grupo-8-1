@@ -31,11 +31,11 @@ function ListaEstoque({ handleCadastrarItem }, { handleListarItens }) {
     dispatch(
       editItem({
         id: item.id,
-        nome: nomeAtualizado,
-        preco: precoAtualizado,
-        descricao: descricaoAtualizado,
-        filtros: filtroAtualizado,
-        quantidade: quantidadeAtualizada,
+        nome: nomeAtualizado || item.nome, 
+        preco: precoAtualizado || item.preco, 
+        descricao: descricaoAtualizado || item.descricao, 
+        filtros: filtroAtualizado || item.filtros,
+        quantidade: quantidadeAtualizada || item.quantidade, 
       })
     );
 
@@ -67,28 +67,28 @@ function ListaEstoque({ handleCadastrarItem }, { handleListarItens }) {
                 <td>{item.id}</td>
                 <td>
                   {editarItem && id === item.id ? (
-                    <input type="text" value={nomeAtualizado} onChange={(e) => setNomeAtualizado(e.target.value)} />
+                    <input type="text" value={nomeAtualizado} onChange={(e) => setNomeAtualizado(e.target.value || item.nome)} />
                   ) : (
                     item.nome
                   )}
                 </td>
                 <td>
                   {editarItem && id === item.id ? (
-                    <input type="number" value={precoAtualizado} onChange={(e) => setPrecoAtualizado(e.target.value)} />
+                    <input type="number" value={precoAtualizado} onChange={(e) => setPrecoAtualizado(e.target.value || item.preco)} />
                   ) : (
                     item.preco
                   )}
                 </td>
                 <td>
                   {editarItem && id === item.id ? (
-                    <input type="number" value={quantidadeAtualizada} onChange={(e) => setQuantidadeAtualizada(e.target.value)} />
+                    <input type="number" value={quantidadeAtualizada} onChange={(e) => setQuantidadeAtualizada(e.target.value || item.quantidade)} />
                   ) : (
                     item.quantidade
                   )}
                 </td>
                 <td>
                   {editarItem && id === item.id ? (
-                    <textarea type="text" value={descricaoAtualizado} onChange={(e) => setDescricaoAtualizado(e.target.value)} />
+                    <textarea type="text" value={descricaoAtualizado} onChange={(e) => setDescricaoAtualizado(e.target.value || item.descricao)} />
                   ) : (
                     item.descricao
                   )}

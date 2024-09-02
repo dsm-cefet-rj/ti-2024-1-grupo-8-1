@@ -1,32 +1,38 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { PagamentosServices } from '../API/pagamentos/pagamentosServices';
+import { pagamentoController } from '../API/API_NODE/Controllers/pagamentoController';
+
 
 export const fetchPagamentos = createAsyncThunk(
-  'pagamentos/fetchPagamentos',
+  'Pagamentos/fetchPagamentos',
   async () => {
-    const resposta = await PagamentosServices.getAll();
+    const resposta = await pagamentoController.getAll();
     return resposta;
   }
 );
 
+
 export const deletePagamentoById = createAsyncThunk(
-  'pagamentos/deletePagamentoById',
+  'Pagamentos/deletePagamentoById',
   async (id) => {
-    await PagamentosServices.deleteById(id);
+    await pagamentoController.deleteById(id);
     return id;
   }
 );
+
+
 export const updatePagamentoById = createAsyncThunk(
-  'pagamentos/updatePagamentoById',
+  'Pagamentos/updatePagamentoById',
   async ({ id, data }) => {
-    const resposta = await PagamentosServices.updateById(id, data);
+    const resposta = await pagamentoController.updateById(id, data);
     return resposta;
   }
 );
+
+
 export const createPagamento = createAsyncThunk(
-  'pagamentos/createPagamento',
+  'Pagamentos/createPagamento',
   async (data) => {
-    const resposta = await PagamentosServices.create(data);
+    const resposta = await pagamentoController.create(data);
     return resposta;
   }
 );
@@ -35,47 +41,44 @@ const initialState = {
   pagamentos: []
 };
 
-const pagamentosSlice = createSlice({
-  name: 'pagamentos',
+const ListaPagamentosSlice = createSlice({
+  name: 'Pagamentos',
   initialState,
   reducers: {
-    addPag: (state, action) => {
-      state.pagamentos.push(action.payload);
+    adicionarPagamento: (state, action) => {
+      state.Pagamentos.push(action.payload);
     },
-    rmvPag: (state, action) => {
-      state.pagamentos = state.pagamentos.filter((pagamento) => pagamento.id !== action.payload);
+    removePagamento: (state, action) => {
+      state.Pagamentos = state.Pagamentos.filter((Pagamento) => Pagamento._id !== action.payload);
     },
-    editPag: (state, action) => {
-      state.pagamentos = state.pagamentos.map(pagamento => {
-        if (pagamento.id === action.payload.id) {
+    editPagamento: (state, action) => {
+      state.Pagamentos = state.Pagamentos.map(Pagamento => {
+        if (Pagamento._id === action.payload._id) {
           return {
-            ...pagamento,
-            valorTotal: action.payload.valorTotal,
-            parcela: action.payload.parcela,
-            data: action.payload.data,
-            valorParcela: action.payload.valorParcela
+            ...Pagamento,
+            ...action.payload
           };
         }
-        return pagamento;
+        return Pagamento;
       });
     },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchPagamentos.fulfilled, (state, action) => {
-      state.pagamentos = action.payload;
+      state.Pagamentos = action.payload;
     });
     builder.addCase(deletePagamentoById.fulfilled, (state, action) => {
-      state.pagamentos = state.pagamentos.filter((pagamento) => pagamento.id !== action.payload);
+      state.Pagamentos = state.Pagamentos.filter((Pagamento) => Pagamento._id !== action.payload);
     });
     builder.addCase(updatePagamentoById.fulfilled, (state, action) => {
       const updatedPagamento = action.payload;
-      const index = state.pagamentos.findIndex(pagamento => pagamento.id === updatedPagamento.id);
+      const index = state.Pagamentos.findIndex(Pagamento => Pagamento._id === updatedPagamento._id);
       if (index !== -1) {
-        state.pagamentos[index] = updatedPagamento;
+        state.Pagamentos[index] = updatedPagamento;
       }
     });
   },
 });
 
-export const { addPag, rmvPag, editPag } = pagamentosSlice.actions;
-export default pagamentosSlice.reducer;
+export const { adicionarPagamento, editPagamento, removePagamento } = ListaPagamentosSlice.actions;
+export default ListaPagamentosSlice.reducer;
