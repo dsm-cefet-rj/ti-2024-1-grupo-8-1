@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const estoqueController = require('../controllers/estoqueController.jsx');
+const estoqueController = require('../Controllers/estoqueController.jsx');
 
 router.get('/', estoqueController.getEstoque);
 router.get('/:id', estoqueController.getEstoqueById);

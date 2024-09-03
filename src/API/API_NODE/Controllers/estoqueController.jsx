@@ -14,9 +14,7 @@ exports.getEstoqueById = async (req, res) => {
   const { id } = req.params;
   try {
     const itemEstoque = await Estoque.findById(id);
-    if (!itemEstoque) {
-      return res.status(404).json({ mensagem: 'Item de estoque não encontrado' });
-    }
+    if (!itemEstoque) return res.status(404).json({ mensagem: 'Item de estoque não encontrado' });
     res.status(200).json(itemEstoque);
   } catch (error) {
     console.error(`Erro ao obter item de estoque com ID ${id}:`, error);
@@ -41,9 +39,7 @@ exports.updateEstoque = async (req, res) => {
   const dadosAtualizados = req.body;
   try {
     const itemEstoque = await Estoque.findByIdAndUpdate(id, dadosAtualizados, { new: true });
-    if (!itemEstoque) {
-      return res.status(404).json({ mensagem: 'Item de estoque não encontrado' });
-    }
+    if (!itemEstoque) return res.status(404).json({ mensagem: 'Item de estoque não encontrado' });
     res.status(200).json(itemEstoque);
   } catch (error) {
     console.error(`Erro ao atualizar item de estoque com ID ${id}:`, error);
@@ -55,9 +51,7 @@ exports.deleteEstoque = async (req, res) => {
   const { id } = req.params;
   try {
     const itemEstoque = await Estoque.findByIdAndDelete(id);
-    if (!itemEstoque) {
-      return res.status(404).json({ mensagem: 'Item de estoque não encontrado' });
-    }
+    if (!itemEstoque) return res.status(404).json({ mensagem: 'Item de estoque não encontrado' });
     res.status(204).send(); // No content
   } catch (error) {
     console.error(`Erro ao deletar item de estoque com ID ${id}:`, error);
