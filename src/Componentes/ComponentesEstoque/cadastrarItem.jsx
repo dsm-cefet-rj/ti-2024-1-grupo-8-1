@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../styles.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { adicionarItem } from '../../features/listaEstoqueSlice';
+import { createItem } from '../../features/listaEstoqueSlice';
 import './estoque.css';
 
 
@@ -29,7 +29,7 @@ function CadastrarItem({ handleListarItens }) {
             descricao: descricao,
             filtros: filtroSelecionado,
         };
-        dispatch(adicionarItem(dados));
+        dispatch(createItem(dados));
         console.log(dados);
     };
 

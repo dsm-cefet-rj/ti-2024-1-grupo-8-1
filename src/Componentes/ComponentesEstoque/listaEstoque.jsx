@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Table from 'react-bootstrap/Table';
 import CloseButton from 'react-bootstrap/CloseButton';
-import { rmvItem, editItem } from '../../features/listaEstoqueSlice';
+import { deleteItemById, updateItemById } from '../../features/listaEstoqueSlice';
 import './estoque.css';
 
 function ListaEstoque({ handleCadastrarItem }, { handleListarItens }) {
@@ -19,7 +19,7 @@ function ListaEstoque({ handleCadastrarItem }, { handleListarItens }) {
  
 
   const handleClickBotaoRemover = (id) => {
-    dispatch(rmvItem(id));
+    dispatch(deleteItemById(id));
   };
 
   const handleClickEditar = (id) => {
@@ -28,23 +28,21 @@ function ListaEstoque({ handleCadastrarItem }, { handleListarItens }) {
   };
 
   const handleAtualizarItem = (item) => {
-    dispatch(
-      editItem({
-        id: item.id,
-        nome: nomeAtualizado || item.nome, 
-        preco: precoAtualizado || item.preco, 
-        descricao: descricaoAtualizado || item.descricao, 
-        filtros: filtroAtualizado || item.filtros,
-        quantidade: quantidadeAtualizada || item.quantidade, 
-      })
-    );
-
-    setId(null);
     setNomeAtualizado('');
     setPrecoAtualizado('');
     setQuantidadeAtualizada('');
     setEditarItem(false);
-  }
+    const data = {
+      nome: nomeAtualizado || item.nome, 
+      preco: precoAtualizado || item.preco, 
+      descricao: descricaoAtualizado || item.descricao, 
+      filtros: filtroAtualizado || item.filtros,
+      quantidade: quantidadeAtualizada || item.quantidade, 
+    }
+
+    dispatch(updateItemById(item.id, data));
+    }
+  
   return (
     <div>
       <button className='botao' onClick={handleCadastrarItem}>Cadastrar</button>

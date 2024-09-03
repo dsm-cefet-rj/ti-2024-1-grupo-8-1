@@ -1,26 +1,66 @@
-import axios from 'axios';
+const Estoque = require('../Models/estoqueModel.jsx');
 
-const API_URL = 'http://localhost:3006/api/estoque';
+exports.getEstoque = async (req, res) => {
+  try {
+    const estoque = await Estoque.find();
+    res.status(200).json(estoque);
+  } catch (error) {
+    console.error('Erro ao obter estoque:', error);
+    res.status(500).json({ mensagem: 'Erro ao obter estoque' });
+  }
+};
 
-export const estoqueController = {
-  getAll: async () => {
-    const resposta = await axios.get(API_URL);
-    return resposta.data;
-  },
-  getById: async (id) => {
-    const resposta = await axios.get(`${API_URL}/${id}`);
-    return resposta.data;
-  },
-  create: async (data) => {
-    const resposta = await axios.post(API_URL, data);
-    return resposta.data;
-  },
-  updateById: async (id, data) => {
-    const resposta = await axios.put(`${API_URL}/${id}`, data);
-    return resposta.data;
-  },
-  deleteById: async (id) => {
-    await axios.delete(`${API_URL}/${id}`);
-    return id;
+exports.getEstoqueById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const itemEstoque = await Estoque.findById(id);
+    if (!itemEstoque) {
+      return res.status(404).json({ mensagem: 'Item de estoque não encontrado' });
+    }
+    res.status(200).json(itemEstoque);
+  } catch (error) {
+    console.error(`Erro ao obter item de estoque com ID ${id}:`, error);
+    res.status(500).json({ mensagem: 'Erro ao obter item de estoque' });
+  }
+};
+
+exports.createEstoque = async (req, res) => {
+  const dadosEstoque = req.body;
+  try {
+    const novoItemEstoque = new Estoque(dadosEstoque);
+    await novoItemEstoque.save();
+    res.status(201).json(novoItemEstoque);
+  } catch (error) {
+    console.error('Erro ao criar item de estoque:', error);
+    res.status(400).json({ mensagem: 'Erro ao criar item de estoque' });
+  }
+};
+
+exports.updateEstoque = async (req, res) => {
+  const { id } = req.params;
+  const dadosAtualizados = req.body;
+  try {
+    const itemEstoque = await Estoque.findByIdAndUpdate(id, dadosAtualizados, { new: true });
+    if (!itemEstoque) {
+      return res.status(404).json({ mensagem: 'Item de estoque não encontrado' });
+    }
+    res.status(200).json(itemEstoque);
+  } catch (error) {
+    console.error(`Erro ao atualizar item de estoque com ID ${id}:`, error);
+    res.status(400).json({ mensagem: 'Erro ao atualizar item de estoque' });
+  }
+};
+
+exports.deleteEstoque = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const itemEstoque = await Estoque.findByIdAndDelete(id);
+    if (!itemEstoque) {
+      return res.status(404).json({ mensagem: 'Item de estoque não encontrado' });
+    }
+    res.status(204).send(); // No content
+  } catch (error) {
+    console.error(`Erro ao deletar item de estoque com ID ${id}:`, error);
+    res.status(500).json({ mensagem: 'Erro ao deletar item de estoque' });
   }
 };

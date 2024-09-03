@@ -4,11 +4,11 @@ const mongoURI = 'mongodb+srv://labeats2238:lucas1213@cluster0.zid7k.mongodb.net
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
+    await mongoose.connect(mongoURI);
     console.log('Conectado ao MongoDB');
   } catch (error) {
     console.error('Erro ao conectar ao MongoDB:', error);
-    process.exit(1); // Encerra o processo se houver erro de conexão
+    process.exit(1); 
   }
 };
 

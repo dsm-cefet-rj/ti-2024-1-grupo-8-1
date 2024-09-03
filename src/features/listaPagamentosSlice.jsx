@@ -1,38 +1,34 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { pagamentoController } from '../API/API_NODE/Controllers/pagamentoController';
-
+import { pagamentoService } from '../API/API_NODE/Services/pagamentoService';
 
 export const fetchPagamentos = createAsyncThunk(
   'Pagamentos/fetchPagamentos',
   async () => {
-    const resposta = await pagamentoController.getAll();
+    const resposta = await pagamentoService.getAll();
     return resposta;
   }
 );
-
 
 export const deletePagamentoById = createAsyncThunk(
   'Pagamentos/deletePagamentoById',
   async (id) => {
-    await pagamentoController.deleteById(id);
+    await pagamentoService.deleteById(id);
     return id;
   }
 );
 
-
 export const updatePagamentoById = createAsyncThunk(
   'Pagamentos/updatePagamentoById',
   async ({ id, data }) => {
-    const resposta = await pagamentoController.updateById(id, data);
+    const resposta = await pagamentoService.updateById(id, data);
     return resposta;
   }
 );
 
-
 export const createPagamento = createAsyncThunk(
   'Pagamentos/createPagamento',
   async (data) => {
-    const resposta = await pagamentoController.create(data);
+    const resposta = await pagamentoService.create(data);
     return resposta;
   }
 );
@@ -46,13 +42,13 @@ const ListaPagamentosSlice = createSlice({
   initialState,
   reducers: {
     adicionarPagamento: (state, action) => {
-      state.Pagamentos.push(action.payload);
+      state.pagamentos.push(action.payload);
     },
     removePagamento: (state, action) => {
-      state.Pagamentos = state.Pagamentos.filter((Pagamento) => Pagamento._id !== action.payload);
+      state.pagamentos = state.pagamentos.filter((Pagamento) => Pagamento._id !== action.payload);
     },
     editPagamento: (state, action) => {
-      state.Pagamentos = state.Pagamentos.map(Pagamento => {
+      state.pagamentos = state.pagamentos.map(Pagamento => {
         if (Pagamento._id === action.payload._id) {
           return {
             ...Pagamento,
@@ -65,16 +61,16 @@ const ListaPagamentosSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchPagamentos.fulfilled, (state, action) => {
-      state.Pagamentos = action.payload;
+      state.pagamentos = action.payload;
     });
     builder.addCase(deletePagamentoById.fulfilled, (state, action) => {
-      state.Pagamentos = state.Pagamentos.filter((Pagamento) => Pagamento._id !== action.payload);
+      state.pagamentos = state.pagamentos.filter((Pagamento) => Pagamento._id !== action.payload);
     });
     builder.addCase(updatePagamentoById.fulfilled, (state, action) => {
       const updatedPagamento = action.payload;
-      const index = state.Pagamentos.findIndex(Pagamento => Pagamento._id === updatedPagamento._id);
+      const index = state.pagamentos.findIndex(Pagamento => Pagamento._id === updatedPagamento._id);
       if (index !== -1) {
-        state.Pagamentos[index] = updatedPagamento;
+        state.pagamentos[index] = updatedPagamento;
       }
     });
   },

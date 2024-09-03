@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { estoqueController } from '../API/API_NODE/Controllers/estoqueController';
+import { estoqueService } from '../API/API_NODE/Services/estoqueService'; 
 
 export const fetchEstoque = createAsyncThunk(
   'estoque/fetchEstoque',
   async () => {
-    const resposta = await estoqueController.getAll();
+    const resposta = await estoqueService.getAll(); 
     return resposta;
   }
 );
@@ -12,7 +12,7 @@ export const fetchEstoque = createAsyncThunk(
 export const deleteItemById = createAsyncThunk(
   'estoque/deleteItemById',
   async (id) => {
-    await estoqueController.deleteById(id);
+    await estoqueService.deleteById(id); 
     return id;
   }
 );
@@ -20,7 +20,7 @@ export const deleteItemById = createAsyncThunk(
 export const updateItemById = createAsyncThunk(
   'estoque/updateItemById',
   async ({ id, data }) => {
-    const resposta = await estoqueController.updateById(id, data);
+    const resposta = await estoqueService.updateById(id, data); 
     return resposta;
   }
 );
@@ -28,7 +28,7 @@ export const updateItemById = createAsyncThunk(
 export const createItem = createAsyncThunk(
   'estoque/createItem',
   async (data) => {
-    const resposta = await estoqueController.create(data);
+    const resposta = await estoqueService.create(data); 
     return resposta;
   }
 );

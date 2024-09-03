@@ -1,14 +1,12 @@
 const express = require('express');
-
 const router = express.Router();
+const pacienteRoutes = require('./Routes/pacienteRoutes.jsx');
+const pagamentoRoutes = require('./Routes/pagamentoRoutes.jsx');
+const estoqueRoutes = require('./Routes/estoqueRoutes.jsx');
 
 
-const pacienteController = require('./Controllers/pacienteController.jsx')
-
-router.get('/api/pacientes', pacienteController.getAllPacientes);
-router.get('/api/pacientes/:id', pacienteController.getPacienteById);
-router.post('/api/pacientes', pacienteController.createPaciente);
-router.put('/api/pacientes/:id', pacienteController.updatePacienteById);
-router.delete('/api/pacientes/:id', pacienteController.deletePacienteById);
+router.use('/api/pacientes', pacienteRoutes);
+router.use('/api/pagamentos', pagamentoRoutes);
+router.use('/api/estoque', estoqueRoutes);
 
 module.exports = router;
