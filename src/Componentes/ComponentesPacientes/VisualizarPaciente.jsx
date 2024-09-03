@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 function VisualizarPaciente({ handleInicioPaciente, paciente }) {
 
-    const [consultasDoPaciente, setConsultasDoPacientes] = useState()
+    const [consultasDoPaciente, setConsultasDoPacientes] = useState([''])
 
     return (
         <div>

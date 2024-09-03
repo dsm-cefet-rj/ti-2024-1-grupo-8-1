@@ -58,6 +58,7 @@ const Compromissos = ({ compromissos, dataSelecionada, horaSelecionada, onClique
                     <div>
                       <h4>{compromisso.nomePaciente}</h4>
                       <p>{compromisso.descricao}</p>
+                      {/* <p>Status: {compromisso.status}<p/> */}
                     </div>
                     <button
                       className="botao-concluir"
@@ -75,7 +76,7 @@ const Compromissos = ({ compromissos, dataSelecionada, horaSelecionada, onClique
 
       {compromissoAtual && (
         <Popup className='popupconcluir' titulo={`Atendimento com ${compromissoAtual.nomePaciente}`} onClose={fecharPopup}>
-          <ConclusaoCompromisso/>
+          <ConclusaoCompromisso fecharPopup={fecharPopup}/>
         </Popup>
       )}
     </div>

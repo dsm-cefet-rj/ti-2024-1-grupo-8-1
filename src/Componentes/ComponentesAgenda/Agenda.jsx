@@ -3,6 +3,9 @@ import Calendario from './Calendario';
 import Compromissos from './compromissos';
 import FormularioCompromisso from './FormularioCompromisso';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { fetchPacientes } from '../../features/listaPacientesSlice';
+import { useEffect } from 'react';
 import './stylesAgenda.css';
 
 function Agenda() {
@@ -11,6 +14,11 @@ function Agenda() {
   const [horaSelecionada, setHoraSelecionada] = useState(null);
   const [compromissos, setCompromissos] = useState({});
   const ListaDePacientes = useSelector((state) => state.listaPacientes.Pacientes);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchPacientes());
+  }, []);
 
   const handleCliqueData = (dia) => {
     const data = new Date(dataAtual.getFullYear(), dataAtual.getMonth(), dia);

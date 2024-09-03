@@ -4,11 +4,17 @@ import './stylesAgenda.css';
 const FormularioCompromisso = ({ onAdicionarCompromisso, ListaDePacientes }) => {
   const [termoPesquisa, setTermoPesquisa] = useState('');
   const [sugestoes, setSugestoes] = useState([]);
+  const [nomePaciente, setnomePaciente] = useState();
+  const [cpfBuscado, setcpfBuscado] = useState();
+
+  const onChangeNome = (e) => {
+    setcpfBuscado(e.target.value)
+    setnomePaciente(ListaDePacientes.filter((paciente) => paciente.cpf = cpfBuscado))
+  }
 
   const handleSelecaoPaciente = (paciente) => {
     setTermoPesquisa(paciente.nome);
     setSugestoes([]);
-    document.getElementsByName('cpfPaciente')[0].value = paciente.cpf;
   };
 
   const handleSubmit = (e) => {
@@ -18,23 +24,13 @@ const FormularioCompromisso = ({ onAdicionarCompromisso, ListaDePacientes }) => 
 
   return (
     <form onSubmit={handleSubmit} className="formulario-compromisso">
-      <div className="autocomplete">
-        <input
-          type="text"
-          name="nomePaciente"
-          placeholder="Nome do paciente"
-          autoComplete="on"
-          list='OpcoesPacientes'
-          required
-        />
-        <datalist id="OpcoesPacientes">
-          {ListaDePacientes.map((paciente, index) => (
-            <option key={index} value={paciente.nome} />
-          ))}
-        </datalist>
-        <input type="hidden" name="cpfPaciente" required />
+      <div className='areaPaciente'>
+        <input onChange={onChangeNome} />
+        <div className='autocompleteNome'>
+          <p>{nomePaciente}</p>
+        </div>
       </div>
-      <input type="text" name="descricao" placeholder="Descrição do compromisso" required />
+      <input type="text" placeholder="Descrição do compromisso" required />
       <button type="submit">Adicionar</button>
     </form>
   );
