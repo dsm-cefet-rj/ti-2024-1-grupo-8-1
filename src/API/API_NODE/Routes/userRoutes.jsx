@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
-const authenticate = require('../authenticate')
-const userController = require('../Controllers/userController')
+
+const userController = require('../Controllers/userController.jsx')
 
 
 router.post('/', userController.signUp);

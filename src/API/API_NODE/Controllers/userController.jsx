@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
-const User = require('../Models/userModel');
+const User = require('../Models/userModel.jsx');
 const passport = require('passport');
-const authenticate = require('../authenticate')
+const authenticate = require('../authenticate.jsx')
 
 router.use(bodyParser.json());
 

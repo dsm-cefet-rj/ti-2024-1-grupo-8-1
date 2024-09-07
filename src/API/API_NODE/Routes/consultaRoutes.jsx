@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const authenticate = require('../authenticate.jsx');
+
 const consultaController = require('../Controllers/consultaController.jsx');
 
-router.get('/', authenticate.verifyUser, consultaController.getConsultas);
-router.get('/:id', authenticate.verifyUser, consultaController.getConsultaById);
-router.post('/', authenticate.verifyUser, consultaController.createConsulta);
-router.put('/:id', authenticate.verifyUser, consultaController.updateConsulta);
-router.delete('/:id', authenticate.verifyUser, consultaController.deleteConsulta);
+router.get('/', consultaController.getConsultas);
+router.get('/:id', consultaController.getConsultaById);
+router.post('/', consultaController.createConsulta);
+router.put('/:id', consultaController.updateConsulta);
+router.delete('/:id', consultaController.deleteConsulta);
 
 module.exports = router;

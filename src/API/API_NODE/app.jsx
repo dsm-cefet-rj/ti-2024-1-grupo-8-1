@@ -15,7 +15,6 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 
 
-app.use('/users', userRouter)
 app.use('/api', router); 
 
 app.listen(PORT, () => {

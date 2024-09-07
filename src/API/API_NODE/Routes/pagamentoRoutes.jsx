@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const authenticate = require('../authenticate.jsx');
+
 const pagamentoController = require('../Controllers/pagamentoController.jsx');
 
-router.get('/', authenticate.verifyUser, pagamentoController.getPagamentos);
-router.get('/:id', authenticate.verifyUser, pagamentoController.getPagamentoById);
-router.post('/', authenticate.verifyUser, pagamentoController.createPagamento);
-router.put('/:id', authenticate.verifyUser, pagamentoController.updatePagamento);
-router.delete('/:id', authenticate.verifyUser, pagamentoController.deletePagamento);
+router.get('/',  pagamentoController.getPagamentos);
+router.get('/:id', pagamentoController.getPagamentoById);
+router.post('/',  pagamentoController.createPagamento);
+router.put('/:id',  pagamentoController.updatePagamento);
+router.delete('/:id',  pagamentoController.deletePagamento);
 
 module.exports = router;
