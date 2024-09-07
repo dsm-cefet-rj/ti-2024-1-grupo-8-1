@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
+const config = require('./config');
 
-const mongoURI = 'mongodb+srv://cauan:1209@cluster0.zid7k.mongodb.net/portal_da_doutora';
-// Login Cauan: 'mongodb+srv://cauan:1209@cluster0.zid7k.mongodb.net/portal_da_doutora';
-// Login Lucas A: 'mongodb+srv://labeats2238:lucas1213@cluster0.zid7k.mongodb.net/portal_da_doutora';
-// Login Lucca: 'mongodb+srv://lucca:Lucca-2912@cluster0.zid7k.mongodb.net/portal_da_doutora';
+const mongoURI = config.mongoUrl;
 
 const connectDB = async () => {
   try {
