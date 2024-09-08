@@ -4,8 +4,11 @@ const bodyParser = require('body-parser');
 const User = require('../Models/userModel.jsx');
 const passport = require('passport');
 const authenticate = require('../authenticate.jsx')
+const cors = require ('../cors.jsx');
 
 router.use(bodyParser.json());
+
+exports.corsAuth = (req, res) => {res.sendStatus(200);}
 
 exports.signUp = (req, res, next)=>{
     User.register(new User({username: req.body.username}), req.body.password, 

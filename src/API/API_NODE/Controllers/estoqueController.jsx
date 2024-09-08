@@ -1,5 +1,8 @@
 const Estoque = require('../Models/estoqueModel.jsx');
 const authenticate = require('../authenticate.jsx')
+const cors = require ('../cors.jsx');
+
+exports.corsAuth = (req, res) => {res.sendStatus(200);}
 
 exports.getEstoque = authenticate.verifyUser, async (req, res) => {
   try {

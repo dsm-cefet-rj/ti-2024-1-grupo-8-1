@@ -1,5 +1,8 @@
 const Consulta = require('../Models/consultaModel.jsx');
 const authenticate = require('../authenticate.jsx')
+const cors = require ('../cors.jsx');
+
+exports.corsAuth = (req, res) => {res.sendStatus(200);}
 
 exports.getConsultas = async (req, res) => {
   try {

@@ -1,5 +1,8 @@
 const Paciente = require('../Models/pacienteModel.jsx');
 const authenticate = require('../authenticate.jsx')
+const cors = require ('../cors.jsx');
+
+exports.corsAuth = (req, res) => {res.sendStatus(200);}
 
 exports.getPacientes = async (req, res) => {
   try {

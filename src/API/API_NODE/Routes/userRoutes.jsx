@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
+const cors = require ('../cors.jsx');
 
 const userController = require('../Controllers/userController.jsx')
 
-
-router.post('/', userController.signUp);
-router.post('/login', passport.authenticate('local', {session: false}), userController.login);
-router.get('/', userController.logout);
+router.options('/', cors.corsWithOptions, userController.corsAuth);
+router.post('/', cors.corsWithOptions, userController.signUp);
+router.post('/login', cors.corsWithOptions, passport.authenticate('local', {session: false}), userController.login);
+router.get('/', cors.corsWithOptions, userController.logout);
 
 module.exports = router;
 
