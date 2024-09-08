@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Table from 'react-bootstrap/Table';
 import CloseButton from 'react-bootstrap/CloseButton';
-import { deleteItemById, updateItemById } from '../../features/listaEstoqueSlice';
+import { deleteItemById, fetchEstoque, updateItemById } from '../../features/listaEstoqueSlice';
 import './estoque.css';
 
 function ListaEstoque({ handleCadastrarItem }, { handleListarItens }) {
@@ -17,6 +17,9 @@ function ListaEstoque({ handleCadastrarItem }, { handleListarItens }) {
   const [quantidadeAtualizada, setQuantidadeAtualizada] = useState('');
   const [editarItem, setEditarItem] = useState(false);
  
+  useEffect(() => {
+    dispatch(fetchEstoque());
+  }, []);
 
   const handleClickBotaoRemover = (id) => {
     dispatch(deleteItemById(id));

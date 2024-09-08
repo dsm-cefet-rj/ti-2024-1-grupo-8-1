@@ -1,9 +1,9 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const User = require('./Models/userModel');
+const User = require('./Models/userModel.jsx');
 const JwtStrategy = require('passport-jwt').Strategy;
 const extractJwt = require('passport-jwt').ExtractJwt;
-const config = require('./config')
+const config = require('./config.jsx')
 const jwt = require('jsonwebtoken');
 
 
@@ -16,10 +16,10 @@ exports.getToken = function(user){
 };
 
 const opts= {};
-opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+opts.jwtFromRequest = extractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = config.secretKey;
 
-exports.jwtpassport = passport.use(newJwtStrategy(opts,
+exports.jwtpassport = passport.use(new JwtStrategy(opts,
     (jwt_payload, done) => {
         console.log("JWTpayload: ", jwt_payload);
         User.findOne({_id: jwt_payload._id}, (err, user) =>{

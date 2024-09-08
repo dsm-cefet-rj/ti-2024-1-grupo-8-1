@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
     admin: {type: Boolean, default: false}
 });
 
-User.plugin(passportLocalMongoose);
-const User = mongoose.model('User', userSchema);
+userSchema.plugin(passportLocalMongoose);
 
-module.exports = User;
+module.exports =  mongoose.model('User', userSchema);
+
