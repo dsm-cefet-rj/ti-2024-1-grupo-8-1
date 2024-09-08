@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const router = require('./router.jsx'); 
-const conn = require('./connection.jsx')
+const conn = require('./connection.jsx');
+const authenticate = require('./authenticate.jsx');
+const passport = require('passport');
 const app = express();
 const PORT = process.env.PORT || 3006;
 
@@ -11,6 +13,8 @@ app.use(cors());
 app.use(bodyParser.json());
 
 conn();
+app.use(passport.initialize());
+
 app.use(router);
 
 app.listen(PORT, () => {

@@ -3,7 +3,8 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const connectDB = require('./connection.jsx'); // Importando a função de conexão
 const router = require('./router.jsx'); // Importando o roteador (ajustar o caminho conforme necessário)
-const authenticate = require('.authenticate')
+const authenticate = require('./authenticate.jsx')
+const passport = require('passport');
 const app = express();
 const PORT = process.env.PORT || 3006;
 

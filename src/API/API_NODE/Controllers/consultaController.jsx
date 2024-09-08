@@ -1,4 +1,5 @@
 const Consulta = require('../Models/consultaModel.jsx');
+const authenticate = require('../authenticate.jsx')
 
 exports.getConsultas = async (req, res) => {
   try {

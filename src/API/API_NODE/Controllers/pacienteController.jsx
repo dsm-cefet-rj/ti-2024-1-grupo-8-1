@@ -1,4 +1,5 @@
 const Paciente = require('../Models/pacienteModel.jsx');
+const authenticate = require('../authenticate.jsx')
 
 exports.getPacientes = async (req, res) => {
   try {

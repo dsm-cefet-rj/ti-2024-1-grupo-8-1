@@ -9,7 +9,7 @@ function ListaEstoque({ handleCadastrarItem }, { handleListarItens }) {
 
   const dispatch = useDispatch();
   const itens = useSelector((state) => state.listaEstoque.estoque);
-  const [id, setId] = useState('');
+  const [codigo, setCodigo] = useState('');
   const [nomeAtualizado, setNomeAtualizado] = useState('');
   const [precoAtualizado, setPrecoAtualizado] = useState('');
   const [descricaoAtualizado, setDescricaoAtualizado] = useState('');
@@ -25,26 +25,28 @@ function ListaEstoque({ handleCadastrarItem }, { handleListarItens }) {
     dispatch(deleteItemById(id));
   };
 
-  const handleClickEditar = (id) => {
-    setId(id);
+  const handleClickEditar = (cod) => {
+    setCodigo(cod);
     setEditarItem(true);
   };
 
   const handleAtualizarItem = (item) => {
+    
+    const data = {
+      nome: nomeAtualizado || item.nome, 
+      codigo: codigo || item.codigo,
+      quantidade: quantidadeAtualizada || item.quantidade, 
+      preco: precoAtualizado || item.preco, 
+      descricao: descricaoAtualizado || item.descricao, 
+      filtros: filtroAtualizado || item.filtros
+    }
+
+    dispatch(updateItemById(item._id, data));
     setNomeAtualizado('');
     setPrecoAtualizado('');
     setQuantidadeAtualizada('');
     setEditarItem(false);
-    const data = {
-      nome: nomeAtualizado || item.nome, 
-      preco: precoAtualizado || item.preco, 
-      descricao: descricaoAtualizado || item.descricao, 
-      filtros: filtroAtualizado || item.filtros,
-      quantidade: quantidadeAtualizada || item.quantidade, 
-    }
-
-    dispatch(updateItemById(item.id, data));
-    }
+  }
   
   return (
     <div>
@@ -64,44 +66,44 @@ function ListaEstoque({ handleCadastrarItem }, { handleListarItens }) {
           </thead>
           <tbody>
             {itens.map((item) => (
-              <tr key={item.id}>
-                <td>{item.id}</td>
+              <tr key={item.codigo}>
+                <td>{item.codigo}</td>
                 <td>
-                  {editarItem && id === item.id ? (
+                  {editarItem && codigo === item.codigo ? (
                     <input type="text" value={nomeAtualizado} onChange={(e) => setNomeAtualizado(e.target.value || item.nome)} />
                   ) : (
                     item.nome
                   )}
                 </td>
                 <td>
-                  {editarItem && id === item.id ? (
+                  {editarItem && codigo === item.codigo ? (
                     <input type="number" value={precoAtualizado} onChange={(e) => setPrecoAtualizado(e.target.value || item.preco)} />
                   ) : (
                     item.preco
                   )}
                 </td>
                 <td>
-                  {editarItem && id === item.id ? (
+                  {editarItem && codigo === item.codigo ? (
                     <input type="number" value={quantidadeAtualizada} onChange={(e) => setQuantidadeAtualizada(e.target.value || item.quantidade)} />
                   ) : (
                     item.quantidade
                   )}
                 </td>
                 <td>
-                  {editarItem && id === item.id ? (
+                  {editarItem && codigo === item.codigo ? (
                     <textarea type="text" value={descricaoAtualizado} onChange={(e) => setDescricaoAtualizado(e.target.value || item.descricao)} />
                   ) : (
                     item.descricao
                   )}
                 </td>
                 <td>
-                  <CloseButton onClick={(e) => handleClickBotaoRemover(item.id)} />
+                  <CloseButton onClick={(e) => handleClickBotaoRemover(item._id)} />
                 </td>
                 <td>
-                  {editarItem && id === item.id ? (
+                  {editarItem && codigo === item.codigo ? (
                     <button onClick={(e) => { handleAtualizarItem(item); e.preventDefault() }}>Atualizar</button>
                   ) : (
-                    <button onClick={(e) => { handleClickEditar(item.id); e.preventDefault() }}>Editar</button>
+                    <button onClick={(e) => { handleClickEditar(item.codigo); e.preventDefault() }}>Editar</button>
                   )}
                 </td>
               </tr>

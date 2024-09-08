@@ -1,6 +1,7 @@
 const Estoque = require('../Models/estoqueModel.jsx');
+const authenticate = require('../authenticate.jsx')
 
-exports.getEstoque = async (req, res) => {
+exports.getEstoque = authenticate.verifyUser, async (req, res) => {
   try {
     const estoque = await Estoque.find();
     res.status(200).json(estoque);
@@ -10,7 +11,7 @@ exports.getEstoque = async (req, res) => {
   }
 };
 
-exports.getEstoqueById = async (req, res) => {
+exports.getEstoqueById = authenticate.verifyUser, async (req, res) => {
   const { id } = req.params;
   try {
     const itemEstoque = await Estoque.findById(id);
@@ -22,7 +23,7 @@ exports.getEstoqueById = async (req, res) => {
   }
 };
 
-exports.createEstoque = async (req, res) => {
+exports.createEstoque = authenticate.verifyUser, async (req, res) => {
   const dadosEstoque = req.body;
   try {
     const novoItemEstoque = new Estoque(dadosEstoque);
@@ -34,11 +35,11 @@ exports.createEstoque = async (req, res) => {
   }
 };
 
-exports.updateEstoque = async (req, res) => {
+exports.updateEstoque = authenticate.verifyUser, async (req, res) => {
   const { id } = req.params;
   const dadosAtualizados = req.body;
   try {
-    const itemEstoque = await Estoque.findByIdAndUpdate(id, dadosAtualizados, { new: true });
+    const itemEstoque = await Estoque.findByIdAndUpdate(id, dadosAtualizados, { new: true, runValidators: true });
     if (!itemEstoque) return res.status(404).json({ mensagem: 'Item de estoque não encontrado' });
     res.status(200).json(itemEstoque);
   } catch (error) {
@@ -47,7 +48,7 @@ exports.updateEstoque = async (req, res) => {
   }
 };
 
-exports.deleteEstoque = async (req, res) => {
+exports.deleteEstoque = authenticate.verifyUser, async (req, res) => {
   const { id } = req.params;
   try {
     const itemEstoque = await Estoque.findByIdAndDelete(id);

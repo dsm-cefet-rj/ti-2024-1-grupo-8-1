@@ -1,4 +1,5 @@
 const Pagamento = require('../Models/pagamentoModel.jsx');
+const authenticate = require('../authenticate.jsx')
 
 exports.getPagamentos = async (req, res) => {
   try {

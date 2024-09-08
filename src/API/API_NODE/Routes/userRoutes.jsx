@@ -6,7 +6,7 @@ const userController = require('../Controllers/userController.jsx')
 
 
 router.post('/', userController.signUp);
-router.post('/:id', passport.authenticate('local'), userController.login);
+router.post('/login', passport.authenticate('local', {session: false}), userController.login);
 router.get('/', userController.logout);
 
 module.exports = router;
