@@ -4,7 +4,7 @@ import Compromissos from './compromissos';
 import FormularioCompromisso from './FormularioCompromisso';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import createPagamento from '../../features/listaPagamentosSlice';
+import { createPagamento } from '../../features/listaPagamentosSlice';
 import { fetchPacientes } from '../../features/listaPacientesSlice';
 import { fetchConsultas, createConsulta, updateConsultaById } from '../../features/listaConsultaSlice'
 import { useEffect } from 'react';
@@ -76,20 +76,10 @@ function Agenda() {
       metodo: formulario.elements.metodo.value,
       idConsulta: compromisso._id
     };
-
-    const compromissoEditado = {
-      cpfPaciente: compromisso.cpfPaciente,
-      dia: compromisso.dia,
-      hora: compromisso.hora,
-      descricao: compromisso.descricao,
-
-      observacoes: formulario.elements.observacoes.value
-    };
-    console.log('vasco')
+    console.log('Consultas no componente:', compromissos);
     dispatch(createPagamento(novoPagamento));
-    console.log('vasco1')
-    dispatch(updateConsultaById({id: compromisso._id, compromissoEditado}));
-    console.log('vasco2')
+    console.log('compromissos.filter((c) => c._id == compromisso._id resultou em:',compromissos.filter((c) => c._id == compromisso._id));
+    dispatch(updateConsultaById({id: compromisso._id, data: formulario.elements.observacoes.value}));  
   };
 
   const alterarMes = (mes) => {

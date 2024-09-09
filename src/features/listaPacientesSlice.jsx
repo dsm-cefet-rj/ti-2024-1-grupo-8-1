@@ -48,15 +48,13 @@ const ListaPacientesSlice = createSlice({
       state.Pacientes = state.Pacientes.filter((Paciente) => Paciente._id !== action.payload);
     },
     editPaciente: (state, action) => {
-      state.Pacientes = state.Pacientes.map(Paciente => {
-        if (Paciente._id === action.payload._id) {
-          return {
-            ...Paciente,
-            ...action.payload
-          };
-        }
-        return Paciente;
-      });
+      const index = state.Pacientes.findIndex((Paciente) => Paciente._id === action.payload._id);
+      if (index !== -1) {
+        state.Pacientes[index] = {
+          ...state.Pacientes[index],
+          ...action.payload.data,
+        };
+      }
     },
   },
   extraReducers: (builder) => {

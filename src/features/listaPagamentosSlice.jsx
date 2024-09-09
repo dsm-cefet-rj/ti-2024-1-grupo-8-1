@@ -48,15 +48,13 @@ const ListaPagamentosSlice = createSlice({
       state.pagamentos = state.pagamentos.filter((Pagamento) => Pagamento._id !== action.payload);
     },
     editPagamento: (state, action) => {
-      state.pagamentos = state.pagamentos.map(Pagamento => {
-        if (Pagamento._id === action.payload._id) {
-          return {
-            ...Pagamento,
-            ...action.payload
-          };
-        }
-        return Pagamento;
-      });
+      const index = state.pagamentos.findIndex((Pagamento) => Pagamento._id === action.payload._id);
+      if (index !== -1) {
+        state.Pagamentos[index] = {
+          ...state.pagamentos[index],
+          ...action.payload.data,
+        };
+      }
     },
   },
   extraReducers: (builder) => {
