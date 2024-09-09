@@ -5,6 +5,7 @@ import FormularioCompromisso from './FormularioCompromisso';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { fetchPacientes } from '../../features/listaPacientesSlice';
+import createConsulta from '../../features/listaConsultaSlice'
 import { useEffect } from 'react';
 import './stylesAgenda.css';
 
@@ -31,40 +32,29 @@ function Agenda() {
   };
 
   const handleAdicionarCompromisso = (e) => {
-    e.preventDefault();
     const formulario = e.target;
     const cpfPaciente = formulario.elements.cpfPaciente.value;
-    
-    if (!ListaDePacientes.some(paciente => paciente.cpf === cpfPaciente)) {
-      alert('Paciente não encontrado. Certifique-se de selecionar um paciente existente.');
-      return;
-    }
-    
+
     const novoCompromisso = {
       nomePaciente: formulario.elements.nomePaciente.value,
       descricao: formulario.elements.descricao.value,
       cpfPaciente: cpfPaciente,
-    };
 
-    if (novoCompromisso.descricao && dataSelecionada && horaSelecionada) {
-      setCompromissos((prevCompromissos) => ({
-        ...prevCompromissos,
-        [dataSelecionada]: {
-          ...prevCompromissos[dataSelecionada],
-          [horaSelecionada]: [
-            ...(prevCompromissos[dataSelecionada]?.[horaSelecionada] || []),
-            novoCompromisso,
-          ],
-        },
-      }));
-      formulario.reset();
-      setHoraSelecionada(null);
-    }
+      idPagamento: '',
+      observacoes: ''
+    };
+    dispatch(createConsulta(novoCompromisso))
+    formulario.reset();
+    setHoraSelecionada(null);
   };
 
+  const onConclusaoCompromisso = (compromisso) => {
+
+  }
+
   const alterarMes = (mes) => {
-      setDataAtual((prev) => new Date(prev.setMonth(prev.getMonth() + mes)));
-    };
+    setDataAtual((prev) => new Date(prev.setMonth(prev.getMonth() + mes)));
+  };
 
   return (
     <div className="container">
@@ -80,6 +70,7 @@ function Agenda() {
           dataSelecionada={dataSelecionada}
           horaSelecionada={horaSelecionada}
           onCliqueHora={handleCliqueHora}
+          onConclusaoCompromisso={onConclusaoCompromisso}
         />
       </div>
       <FormularioCompromisso

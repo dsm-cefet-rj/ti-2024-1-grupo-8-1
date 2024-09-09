@@ -138,31 +138,22 @@
   display: flex;
 }
 
-.areaPaciente > input{
+.cpfInput{
   width: 30%;
 }
 
-.autocompleteNome{
-  width:65%;
-  padding: 0.5rem;
+.nomeInput{
+  width: 65%;
   margin-left: auto;
-  margin-bottom: 1rem;
-  background-color: #2babe255;
-  resize: none;
-  border-radius: 0.5rem;
-  border: solid #2babe2 1px;
-}
-.autocompleteNome > p{
-  margin-bottom: 0;
 }
 
 .formularioConclusao .textarea-popup {
   padding: 0.5rem;
-  margin: 1rem;
   background-color: #2babe255;
   resize: vertical;
   border-radius: 0.5rem;
   border: solid #2babe2 1px;
+  width: 100%
 }
 
 .formularioConclusao input,
@@ -175,12 +166,24 @@
 }
 
 .formularioConclusao label{
-  margin: 1rem;
   font-size: 1rem;
 }
 
 .formularioConclusao .pagamentos{
   display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.formularioConclusao button{
+  width: 100%;
+  border-radius: 0.5rem;
+  background-color: #2babe2;
+  border: none;
+  font-size: 2rem;
+  flex: 1;
+  text-align: center;
+  justify-content: center;
 }
 
 /* Media Queries para Responsividade */
@@ -224,6 +227,19 @@
   }
 
   .detalhes-compromissos .card-compromisso {
-    padding: 8px;
+    padding: 0.5rem;
+  }
+
+  .areaPaciente{
+    flex-direction: column;
+  }
+  
+  .cpfInput{
+    width: 100%;
+  }
+  
+  .nomeInput{
+    width: 100%;
+    margin-left: 0;
   }
 }

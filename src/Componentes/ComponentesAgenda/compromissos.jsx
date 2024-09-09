@@ -14,7 +14,7 @@ const gerarHorarios = () => {
   return horarios;
 };
 
-const Compromissos = ({ compromissos, dataSelecionada, horaSelecionada, onCliqueHora }) => {
+const Compromissos = ({ compromissos, dataSelecionada, horaSelecionada, onCliqueHora, onConclusaoCompromisso }) => {
   const [compromissoAtual, setCompromissoAtual] = useState(null);
   const [valorTotal, setValorTotal] = useState(0);
 
@@ -76,7 +76,7 @@ const Compromissos = ({ compromissos, dataSelecionada, horaSelecionada, onClique
 
       {compromissoAtual && (
         <Popup className='popupconcluir' titulo={`Atendimento com ${compromissoAtual.nomePaciente}`} onClose={fecharPopup}>
-          <ConclusaoCompromisso fecharPopup={fecharPopup}/>
+          <ConclusaoCompromisso fecharPopup={fecharPopup} onConclusaoCompromisso={onConclusaoCompromisso}/>
         </Popup>
       )}
     </div>

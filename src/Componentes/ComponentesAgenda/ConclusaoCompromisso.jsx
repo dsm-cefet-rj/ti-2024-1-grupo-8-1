@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const ConclusaoCompromisso = ({ fecharPopup }) => {
+const ConclusaoCompromisso = ({ fecharPopup, onConclusaoCompromisso }) => {
     const [valorTotal, setValorTotal] = useState(0);
     const [metodoPagamento, setMetodoPagamento] = useState('cartaoCredito');
     const [parcelas, setParcelas] = useState(1);
@@ -8,8 +8,8 @@ const ConclusaoCompromisso = ({ fecharPopup }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Lógica para processar a conclusão do compromisso pode ser adicionada aqui.
-        fecharPopup(); // Função passada como prop para fechar o popup
+        fecharPopup();
+        onConclusaoCompromisso(e);
     };
 
     return (
@@ -21,7 +21,7 @@ const ConclusaoCompromisso = ({ fecharPopup }) => {
                         type="number"
                         className='input-popup'
                         placeholder="Insira o valor total"
-                        onChange={(e) => setValorTotal(parseFloat(e.target.value) || 0)} 
+                        onChange={(e) => setValorTotal(parseFloat(e.target.value) || 0)}
                         required
                     />
                 </label>
@@ -58,7 +58,6 @@ const ConclusaoCompromisso = ({ fecharPopup }) => {
                 </label>
             </div>
 
-            {/* Observações adicionais */}
             <textarea
                 className='textarea-popup'
                 placeholder="Observações sobre o atendimento"
@@ -66,8 +65,9 @@ const ConclusaoCompromisso = ({ fecharPopup }) => {
                 onChange={(e) => setObservacoes(e.target.value)}
             ></textarea>
 
-            {/* Botão para concluir */}
-            <button type="submit">Concluir</button>
+            <div>
+                <button type="submit">Concluir</button>
+            </div>
         </form>
     );
 };

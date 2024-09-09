@@ -1,12 +1,11 @@
-
-.imagem{
+.imagem {
   justify-content: center;
   display: flex;
   align-items: center;
   margin-bottom: 5vh;
 }
 
-.inputLogin{
+.inputLogin {
   width: 35%;
   border: none;
   background-color: #2babe288;
@@ -15,14 +14,14 @@
   margin: 1vh 1vh 1vh 2vh;
 }
 
-.formLogin{
+.formLogin {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
 
-.buttonLogin{
+.buttonLogin {
   border-radius: 1vh;
   border: none;
   background-color: #2babe288;
@@ -31,4 +30,15 @@
   width: auto;
   height: auto;
   padding: 1vh 2vh 1vh 2vh;
+}
+
+
+
+@media (max-width: 480px) {
+  .imagem {
+    margin: 1rem;
+  }
+  .inputLogin{
+    width: 80%;
+  }
 }
