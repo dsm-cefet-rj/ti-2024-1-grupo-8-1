@@ -21,6 +21,7 @@ export const updateConsultaById = createAsyncThunk(
   'consulta/updateConsultaById',
   async ({ id, data }) => {
     const resposta = await consultaService.updateById(id, data);
+    console.log('Resposta do backend:', resposta);
     return resposta;
   }
 );
@@ -45,19 +46,16 @@ const consultaSlice = createSlice({
       state.consultas.push(action.payload);
     },
     removeConsulta: (state, action) => {
-      state.consultas = state.consultas.filter((consulta) => consulta.id !== action.payload);
+      state.consultas = state.consultas.filter((consulta) => consulta._id !== action.payload);
     },
     editConsulta: (state, action) => {
-
-      state.consultas = state.consultas.map(consulta => {
-        if (consulta.id === action.payload.id) {
-          return {
-            ...consulta,
-            ...action.payload.data
-          };
-        }
-        return consulta;
-      });
+      const index = state.consultas.findIndex((consulta) => consulta._id === action.payload._id);
+      if (index !== -1) {
+        state.consultas[index] = {
+          ...state.consultas[index],
+          ...action.payload.data,
+        };
+      }
     },
   },
   extraReducers: (builder) => {
@@ -65,14 +63,17 @@ const consultaSlice = createSlice({
       state.consultas = action.payload;
     });
     builder.addCase(deleteConsultaById.fulfilled, (state, action) => {
-      state.consultas = state.consultas.filter((consulta) => consulta.id !== action.payload);
+      state.consultas = state.consultas.filter((consulta) => consulta._id !== action.payload);
     });
     builder.addCase(updateConsultaById.fulfilled, (state, action) => {
       const updatedConsulta = action.payload;
-      const index = state.consultas.findIndex(consulta => consulta.id === updatedConsulta.id);
+      const index = state.consultas.findIndex(consulta => consulta._id === updatedConsulta._id);
+      
       if (index !== -1) {
         state.consultas[index] = updatedConsulta;
       }
+    
+      console.log('Consultas atualizadas:', JSON.parse(JSON.stringify(state.consultas)))
     });
     builder.addCase(createConsulta.fulfilled, (state, action) => {
       state.consultas.push(action.payload);

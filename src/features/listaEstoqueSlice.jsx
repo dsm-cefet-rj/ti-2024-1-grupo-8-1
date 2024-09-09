@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { estoqueService } from '../API/API_NODE/Services/estoqueService'; 
+import { estoqueService } from '../API/API_NODE/Services/estoqueService';
 
 export const fetchEstoque = createAsyncThunk(
   'estoque/fetchEstoque',
   async () => {
-    const resposta = await estoqueService.getAll(); 
+    const resposta = await estoqueService.getAll();
     return resposta;
   }
 );
@@ -12,7 +12,7 @@ export const fetchEstoque = createAsyncThunk(
 export const deleteItemById = createAsyncThunk(
   'estoque/deleteItemById',
   async (id) => {
-    await estoqueService.deleteById(id); 
+    await estoqueService.deleteById(id);
     return id;
   }
 );
@@ -20,7 +20,7 @@ export const deleteItemById = createAsyncThunk(
 export const updateItemById = createAsyncThunk(
   'estoque/updateItemById',
   async ({ id, data }) => {
-    const resposta = await estoqueService.updateById(id, data); 
+    const resposta = await estoqueService.updateById(id, data);
     return resposta;
   }
 );
@@ -28,7 +28,7 @@ export const updateItemById = createAsyncThunk(
 export const createItem = createAsyncThunk(
   'estoque/createItem',
   async (data) => {
-    const resposta = await estoqueService.create(data); 
+    const resposta = await estoqueService.create(data);
     return resposta;
   }
 );
@@ -47,16 +47,14 @@ const listaEstoqueSlice = createSlice({
     rmvItem: (state, action) => {
       state.estoque = state.estoque.filter((item) => item._id !== action.payload);
     },
-    editItem: (state, action) => {
-      state.estoque = state.estoque.map(item => {
-        if (item._id === action.payload._id) {
-          return {
-            ...item,
-            ...action.payload
-          };
-        }
-        return item;
-      });
+    editConsulta: (state, action) => {
+      const index = state.consultas.findIndex((consulta) => consulta.id === action.payload.id);
+      if (index !== -1) {
+        state.consultas[index] = {
+          ...state.consultas[index],
+          ...action.payload.data,
+        };
+      }
     },
   },
   extraReducers: (builder) => {

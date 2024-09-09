@@ -62,7 +62,7 @@ const Compromissos = ({ compromissosDoDia, dataSelecionada, horaSelecionada, onC
                         <div>
                           <h4>{pacienteCompromisso.nome}</h4>
                           <p>{compromisso.descricao}</p>
-                          <p>Status: {compromisso.observacoes ? ('Concluída') : ('Pendente')}</p>
+                          <p>Status: {!compromisso.observacoes ? ('Pendente') : ('Concluída')}</p>
                         </div>
                         <button
                           className="botao-concluir"
