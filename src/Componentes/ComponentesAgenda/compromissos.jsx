@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './stylesAgenda.css';
 import Popup from '../EDA/Popup';
 import ConclusaoCompromisso from './ConclusaoCompromisso';
-import { Placeholder } from 'react-bootstrap';
 
 const gerarHorarios = () => {
   const horarios = [];
@@ -46,7 +45,7 @@ const Compromissos = ({ compromissosDoDia, dataSelecionada, horaSelecionada, onC
             {gerarHorarios().map((hora) => {
               var compromissosHora = [];
               if (compromissosDoDia != null) {
-                compromissosHora = compromissosDoDia.filter((compromisso) => compromisso.hora == hora);
+                compromissosHora = compromissosDoDia.filter((compromisso) => compromisso.hora === hora);
               }
               return (
                 <li
@@ -56,21 +55,24 @@ const Compromissos = ({ compromissosDoDia, dataSelecionada, horaSelecionada, onC
                 >
                   <strong>{hora}:</strong>
                   {compromissosHora.length > 0 ? ` ${compromissosHora.length} compromisso(s)` : ' Nenhum compromisso'}
-                  {compromissosHora.map((compromisso, index) => (
-                    <div key={index} className="card-compromisso">
-                      <div>
-                        <h4>{ListaDePacientes.find((paciente) => paciente.cpf == compromisso.cpf)}</h4>
-                        <p>{compromisso.descricao}</p>
-                        <p>Status: {compromisso.observacoes ? ('Concluída') : ('Pendente')}</p>
+                  {compromissosHora.map((compromisso, index) => {
+                    var pacienteCompromisso= ListaDePacientes.find((paciente) => paciente.cpf == compromisso.cpfPaciente) 
+                    return (
+                      <div key={index} className="card-compromisso">
+                        <div>
+                          <h4>{pacienteCompromisso.nome}</h4>
+                          <p>{compromisso.descricao}</p>
+                          <p>Status: {compromisso.observacoes ? ('Concluída') : ('Pendente')}</p>
+                        </div>
+                        <button
+                          className="botao-concluir"
+                          onClick={() => handleConcluirCompromisso(compromisso)}
+                        >
+                          Concluir
+                        </button>
                       </div>
-                      <button
-                        className="botao-concluir"
-                        onClick={() => handleConcluirCompromisso(compromisso)}
-                      >
-                        Concluir
-                      </button>
-                    </div>
-                  ))}
+                    )
+                  })}
                 </li>
               )
             })}
@@ -81,8 +83,8 @@ const Compromissos = ({ compromissosDoDia, dataSelecionada, horaSelecionada, onC
 
       {
         compromissoAtual && (
-          <Popup className='popupconcluir' titulo={`Atendimento com ${compromissoAtual.nomePaciente}`} onClose={fecharPopup}>
-            <ConclusaoCompromisso fecharPopup={fecharPopup} onConclusaoCompromisso={onConclusaoCompromisso} />
+          <Popup className='popupconcluir' titulo={`Atendimento com ${ListaDePacientes.find((paciente) => paciente.cpf == compromissoAtual.cpfPaciente).nome}`} onClose={fecharPopup}>
+            <ConclusaoCompromisso fecharPopup={fecharPopup} onConclusaoCompromisso={onConclusaoCompromisso} compromissoAtual={compromissoAtual}/>
           </Popup>
         )
       }

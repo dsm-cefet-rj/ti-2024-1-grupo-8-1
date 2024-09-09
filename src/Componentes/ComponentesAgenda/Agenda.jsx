@@ -4,30 +4,42 @@ import Compromissos from './compromissos';
 import FormularioCompromisso from './FormularioCompromisso';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import createPagamento from '../../features/listaPagamentosSlice';
 import { fetchPacientes } from '../../features/listaPacientesSlice';
-import { fetchConsultas, createConsulta } from '../../features/listaConsultaSlice'
+import { fetchConsultas, createConsulta, updateConsultaById } from '../../features/listaConsultaSlice'
 import { useEffect } from 'react';
 import './stylesAgenda.css';
 
 function Agenda() {
   const [dataAtual, setDataAtual] = useState(new Date());
-  const [dataSelecionada, setDataSelecionada] = useState(new Date);
+  const [dataSelecionada, setDataSelecionada] = useState(new Date());
   const [horaSelecionada, setHoraSelecionada] = useState(null);
   const [compromissosDoDia, setcompromissosDoDia] = useState(null);
+
   const compromissos = useSelector((state) => state.listaConsulta.consultas);
   const ListaDePacientes = useSelector((state) => state.listaPacientes.Pacientes);
 
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(fetchPacientes());
     dispatch(fetchConsultas());
-  }, []);
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (dataSelecionada) {
+      setcompromissosDoDia(compromissos.filter((compromisso) => {
+        const dataCompromisso = new Date(compromisso.dia).toISOString().split('T')[0];
+        const dataSelecionadaFormatada = dataSelecionada.toISOString().split('T')[0];
+        return dataCompromisso === dataSelecionadaFormatada;
+      }));
+    }
+  }, [compromissos, dataSelecionada]);
 
   const handleCliqueData = (dia) => {
-    const data = new Date(dataAtual.getFullYear(), dataAtual.getMonth(), dia);
+    const data = new Date(dataAtual.getFullYear(), dataAtual.getMonth(), dia, 0);
     setDataSelecionada(data);
     setHoraSelecionada(null);
-    setcompromissosDoDia(compromissos.filter((compromisso) => compromisso.dia == data.toISOString()));
   };
 
   const handleCliqueHora = (hora) => {
@@ -38,7 +50,7 @@ function Agenda() {
     const formulario = e.target;
     const cpfPaciente = formulario.elements.cpfPaciente.value;
 
-    if(horaSelecionada == null){
+    if (horaSelecionada == null) {
       alert("Selecione uma hora para o compromisso");
       return 0;
     }
@@ -48,19 +60,37 @@ function Agenda() {
       dia: dataSelecionada,
       hora: horaSelecionada,
       descricao: formulario.elements.descricao.value,
-
-      idPagamento: null,
-      observacoes: null
+      observacoes: null,
     };
 
-    dispatch(createConsulta(novoCompromisso))
+    dispatch(createConsulta(novoCompromisso));
     formulario.reset();
     setHoraSelecionada(null);
   };
 
-  const onConclusaoCompromisso = (compromisso) => {
+  const onConclusaoCompromisso = (e, compromisso) => {
+    const formulario = e.target;
+    const novoPagamento = {
+      valorTotal: formulario.elements.valor.value,
+      parcela: formulario.elements.parcelas.value,
+      metodo: formulario.elements.metodo.value,
+      idConsulta: compromisso._id
+    };
 
-  }
+    const compromissoEditado = {
+      cpfPaciente: compromisso.cpfPaciente,
+      dia: compromisso.dia,
+      hora: compromisso.hora,
+      descricao: compromisso.descricao,
+
+      observacoes: formulario.elements.observacoes.value
+    };
+    console.log('vasco')
+    dispatch(createPagamento(novoPagamento));
+    console.log('vasco1')
+    dispatch(updateConsultaById({id: compromisso._id, compromissoEditado}));
+    console.log('vasco2')
+  };
 
   const alterarMes = (mes) => {
     setDataAtual((prev) => new Date(prev.setMonth(prev.getMonth() + mes)));

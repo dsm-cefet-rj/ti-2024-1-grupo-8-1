@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import Compromissos from "./compromissos";
 
-const ConclusaoCompromisso = ({ fecharPopup, onConclusaoCompromisso }) => {
+const ConclusaoCompromisso = ({ fecharPopup, onConclusaoCompromisso, compromissoAtual }) => {
     const [valorTotal, setValorTotal] = useState(0);
     const [metodoPagamento, setMetodoPagamento] = useState('cartaoCredito');
     const [parcelas, setParcelas] = useState(1);
@@ -9,7 +10,8 @@ const ConclusaoCompromisso = ({ fecharPopup, onConclusaoCompromisso }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         fecharPopup();
-        onConclusaoCompromisso(e);
+        console.log(e);
+        onConclusaoCompromisso(e, compromissoAtual);
     };
 
     return (
@@ -20,6 +22,7 @@ const ConclusaoCompromisso = ({ fecharPopup, onConclusaoCompromisso }) => {
                     <input
                         type="number"
                         className='input-popup'
+                        name="valor"
                         placeholder="Insira o valor total"
                         onChange={(e) => setValorTotal(parseFloat(e.target.value) || 0)}
                         required
@@ -30,6 +33,7 @@ const ConclusaoCompromisso = ({ fecharPopup, onConclusaoCompromisso }) => {
                     <select
                         className='select-popup'
                         value={metodoPagamento}
+                        name="metodo"
                         onChange={(e) => setMetodoPagamento(e.target.value)}
                     >
                         <option value="cartaoCredito">Cartão de Crédito</option>
@@ -43,6 +47,7 @@ const ConclusaoCompromisso = ({ fecharPopup, onConclusaoCompromisso }) => {
                     <select
                         className='select-popup'
                         value={parcelas}
+                        name="parcelas"
                         onChange={(e) => setParcelas(parseInt(e.target.value))}
                     >
                         {[...Array(12)].map((_, index) => {
@@ -61,6 +66,7 @@ const ConclusaoCompromisso = ({ fecharPopup, onConclusaoCompromisso }) => {
             <textarea
                 className='textarea-popup'
                 placeholder="Observações sobre o atendimento"
+                name="observacoes"
                 value={observacoes}
                 onChange={(e) => setObservacoes(e.target.value)}
             ></textarea>

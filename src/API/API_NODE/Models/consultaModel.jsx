@@ -6,7 +6,6 @@ const consultaSchema = new mongoose.Schema({
   hora: {type: String, required: true},
   descricao: {type: String, required: true},
 
-  idPagamento: {type: mongoose.Schema.Types.ObjectId, ref: 'Pagamento'},
   observacoes: {type: String}
 });
 
