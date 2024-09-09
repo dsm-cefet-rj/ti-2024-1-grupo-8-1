@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_BASE_URL = 'http://localhost:3006/api/consultas';
+const API_BASE_URL = 'http://localhost:3006/api/consulta';
 
 
 export const consultaService = {

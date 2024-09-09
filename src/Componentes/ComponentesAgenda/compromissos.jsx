@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './stylesAgenda.css';
 import Popup from '../EDA/Popup';
 import ConclusaoCompromisso from './ConclusaoCompromisso';
+import { Placeholder } from 'react-bootstrap';
 
 const gerarHorarios = () => {
   const horarios = [];
@@ -14,9 +15,8 @@ const gerarHorarios = () => {
   return horarios;
 };
 
-const Compromissos = ({ compromissos, dataSelecionada, horaSelecionada, onCliqueHora, onConclusaoCompromisso }) => {
+const Compromissos = ({ compromissosDoDia, dataSelecionada, horaSelecionada, onCliqueHora, onConclusaoCompromisso, ListaDePacientes }) => {
   const [compromissoAtual, setCompromissoAtual] = useState(null);
-  const [valorTotal, setValorTotal] = useState(0);
 
   const handleConcluirCompromisso = (compromisso) => {
     setCompromissoAtual(compromisso);
@@ -25,8 +25,6 @@ const Compromissos = ({ compromissos, dataSelecionada, horaSelecionada, onClique
   const fecharPopup = () => {
     setCompromissoAtual(null);
   };
-
-  const compromissosDoDia = compromissos[dataSelecionada] || {};
 
   return (
     <div className="compromissos">
@@ -45,41 +43,50 @@ const Compromissos = ({ compromissos, dataSelecionada, horaSelecionada, onClique
         <div className="lista-compromissos">
           <h3>Compromissos para {dataSelecionada.toDateString()}</h3>
           <ul>
-            {gerarHorarios().map((hora) => (
-              <li
-                key={hora}
-                className={`hora ${horaSelecionada === hora ? 'selecionado' : ''}`}
-                onClick={() => onCliqueHora(hora)}
-              >
-                <strong>{hora}:</strong>
-                {compromissosDoDia[hora] ? ` (${compromissosDoDia[hora].length}) compromisso(s)` : ' Nenhum compromisso'}
-                {compromissosDoDia[hora]?.map((compromisso, index) => (
-                  <div key={index} className="card-compromisso">
-                    <div>
-                      <h4>{compromisso.nomePaciente}</h4>
-                      <p>{compromisso.descricao}</p>
-                      {/* <p>Status: {compromisso.status}<p/> */}
+            {gerarHorarios().map((hora) => {
+              var compromissosHora = [];
+              if (compromissosDoDia != null) {
+                compromissosHora = compromissosDoDia.filter((compromisso) => compromisso.hora == hora);
+              }
+              return (
+                <li
+                  key={hora}
+                  className={`hora ${horaSelecionada === hora ? 'selecionado' : ''}`}
+                  onClick={() => onCliqueHora(hora)}
+                >
+                  <strong>{hora}:</strong>
+                  {compromissosHora.length > 0 ? ` ${compromissosHora.length} compromisso(s)` : ' Nenhum compromisso'}
+                  {compromissosHora.map((compromisso, index) => (
+                    <div key={index} className="card-compromisso">
+                      <div>
+                        <h4>{ListaDePacientes.find((paciente) => paciente.cpf == compromisso.cpf)}</h4>
+                        <p>{compromisso.descricao}</p>
+                        <p>Status: {compromisso.observacoes ? ('Concluída') : ('Pendente')}</p>
+                      </div>
+                      <button
+                        className="botao-concluir"
+                        onClick={() => handleConcluirCompromisso(compromisso)}
+                      >
+                        Concluir
+                      </button>
                     </div>
-                    <button
-                      className="botao-concluir"
-                      onClick={() => handleConcluirCompromisso(compromisso)}
-                    >
-                      Concluir
-                    </button>
-                  </div>
-                ))}
-              </li>
-            ))}
+                  ))}
+                </li>
+              )
+            })}
           </ul>
         </div>
-      )}
+      )
+      }
 
-      {compromissoAtual && (
-        <Popup className='popupconcluir' titulo={`Atendimento com ${compromissoAtual.nomePaciente}`} onClose={fecharPopup}>
-          <ConclusaoCompromisso fecharPopup={fecharPopup} onConclusaoCompromisso={onConclusaoCompromisso}/>
-        </Popup>
-      )}
-    </div>
+      {
+        compromissoAtual && (
+          <Popup className='popupconcluir' titulo={`Atendimento com ${compromissoAtual.nomePaciente}`} onClose={fecharPopup}>
+            <ConclusaoCompromisso fecharPopup={fecharPopup} onConclusaoCompromisso={onConclusaoCompromisso} />
+          </Popup>
+        )
+      }
+    </div >
   );
 };
 

@@ -1,36 +1,32 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { consultaService } from '../API/API_NODE/Services/consultaService';
 
-// Thunk para buscar compromissos
 export const fetchConsultas = createAsyncThunk(
-  'agenda/fetchConsultas',
+  'consulta/fetchConsultas',
   async () => {
     const resposta = await consultaService.getAll();
     return resposta;
   }
 );
 
-// Thunk para deletar compromisso por ID
 export const deleteConsultaById = createAsyncThunk(
-  'agenda/deleteConsultaById',
+  'consulta/deleteConsultaById',
   async (id) => {
     await consultaService.deleteById(id);
     return id;
   }
 );
 
-// Thunk para atualizar compromisso por ID
 export const updateConsultaById = createAsyncThunk(
-  'agenda/updateConsultaById',
+  'consulta/updateConsultaById',
   async ({ id, data }) => {
     const resposta = await consultaService.updateById(id, data);
     return resposta;
   }
 );
 
-// Thunk para criar um novo compromisso
 export const createConsulta = createAsyncThunk(
-  'agenda/createConsulta',
+  'consulta/createConsulta',
   async (data) => {
     const resposta = await consultaService.create(data);
     return resposta;
@@ -57,7 +53,7 @@ const consultaSlice = createSlice({
         if (consulta.id === action.payload.id) {
           return {
             ...consulta,
-            ...action.payload.data // Atualiza todas as propriedades que foram passadas
+            ...action.payload.data
           };
         }
         return consulta;

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const consultaSchema = new mongoose.Schema({
   cpfPaciente: {type: String, required: true},
-  dia: {type: mongoose.Schema.Types.Date, required: true},
+  dia: {type: String, required: true},
   hora: {type: String, required: true},
   descricao: {type: String, required: true},
 
