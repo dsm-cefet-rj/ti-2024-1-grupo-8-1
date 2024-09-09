@@ -41,7 +41,7 @@ function ListaEstoque({ handleCadastrarItem }, { handleListarItens }) {
       filtros: filtroAtualizado || item.filtros
     }
 
-    dispatch(updateItemById(item._id, data));
+    dispatch(updateItemById({id: item._id, data}));
     setNomeAtualizado('');
     setPrecoAtualizado('');
     setQuantidadeAtualizada('');

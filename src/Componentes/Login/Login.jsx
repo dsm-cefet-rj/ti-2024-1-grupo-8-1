@@ -1,13 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from '../Imagens/logo.png'
-import { useDispatch } from 'react-redux';
-import { login, loginUser } from '../../features/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { login, loginUser, fetchUsers } from '../../features/userSlice';
+
+
 import "./login.css"
 
 function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const dispatch = useDispatch();
+  
+
+
+  const ListaUsers = useSelector((state) => state.listaUser.users);
+  useEffect(() => {
+    dispatch(fetchUsers());
+  }, []);
+  
+  console.log(ListaUsers);
+  const logged = ListaUsers.find((user) => user.username == email);
+  console.log(logged)
+
+  if(logged){ 
+    logged = true; 
+    console.log("vasco")
+  }
+  else{;
+    console.log("vasco2")
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(loginUser({
@@ -15,10 +38,13 @@ function Login() {
       senha: senha,
       loggedIn: true,
     }));
+
+
+
+
+
     dispatch(login({
-      email: email,
-      senha: senha,
-      loggedIn: true,
+       logged
     }));
 
 

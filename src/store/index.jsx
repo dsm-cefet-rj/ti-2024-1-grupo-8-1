@@ -11,7 +11,7 @@ const store = configureStore({
         listaPacientes: listaPacientesReducer,
         listaEstoque: listaEstoqueReducer,
         listaConsulta: listaConsultaReducer,
-        user : userReducer
+        listaUser : userReducer
     }
 });
 

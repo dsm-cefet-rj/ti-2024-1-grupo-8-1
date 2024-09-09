@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_BASE_URL = 'http://localhost:3006/api/users';
+const API_BASE_URL = 'http://localhost:3006/api/user';
 
 
 export const userService = {
@@ -22,8 +22,8 @@ export const userService = {
   deleteById: async (id) => {
     await axios.delete(`${API_BASE_URL}/${id}`);
   },
-  login: async (id, data) => {
-    const response = axios.post(`${API_BASE_URL}/${id}`, data);
+  login: async (data) => {
+    const response = axios.post(`${API_BASE_URL}/login`, data);
     return response.data;
   }
 };

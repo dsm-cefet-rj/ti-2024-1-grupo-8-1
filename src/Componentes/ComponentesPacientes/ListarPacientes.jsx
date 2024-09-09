@@ -7,7 +7,7 @@ import { fetchPacientes } from '../../features/listaPacientesSlice';
 function ListarPacientes({ handleAdicionarPaciente, handleVisualizarPaciente }) {
   const [termoPesquisa, setTermoPesquisa] = useState('');
   const ListaDePacientes = useSelector((state) => state.listaPacientes.Pacientes);
-
+  console.log(ListaDePacientes)
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchPacientes());

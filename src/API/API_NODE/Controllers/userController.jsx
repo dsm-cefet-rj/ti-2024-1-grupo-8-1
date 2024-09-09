@@ -10,6 +10,16 @@ router.use(bodyParser.json());
 
 exports.corsAuth = (req, res) => {res.sendStatus(200);}
 
+exports.getUsers = async (req, res) => {
+    try {
+      const user = await User.find();
+      res.status(200).json(user);
+    } catch (error) {
+      console.error('Erro ao obter usuário:', error);
+      res.status(500).json({ mensagem: 'Erro ao obter usuário' });
+    }
+  };
+
 exports.signUp = (req, res, next)=>{
     User.register(new User({username: req.body.username}), req.body.password, 
     (err, user) => {
@@ -35,15 +45,4 @@ exports.login = (req, res) => {
     res.json({user: req.user._id, token: token, success: true})
 };
 
-exports.logout = (req, res) => {
-    if(req.session){
-        req.session.destroy();
-        res.clearCookie('session-id');
-        res.redirect('/');
-    }
-    else{
-        const err = new Error('You are not logged in!');
-        err.status = 403;
-        next(err);
-    }
-}
+
