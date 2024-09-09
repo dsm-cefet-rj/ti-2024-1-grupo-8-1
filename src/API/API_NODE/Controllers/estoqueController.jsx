@@ -27,7 +27,11 @@ exports.getEstoqueById = authenticate.verifyUser, async (req, res) => {
 };
 
 exports.createEstoque = authenticate.verifyUser, async (req, res) => {
-  const dadosEstoque = req.body;
+  console.log('Dados recebidos para criar:', req.body);
+
+  const dadosEstoque = { ...req.body };
+  delete dadosEstoque.id;
+
   try {
     const novoItemEstoque = new Estoque(dadosEstoque);
     await novoItemEstoque.save();
@@ -37,6 +41,7 @@ exports.createEstoque = authenticate.verifyUser, async (req, res) => {
     res.status(400).json({ mensagem: 'Erro ao criar item de estoque' });
   }
 };
+
 
 exports.updateEstoque = authenticate.verifyUser, async (req, res) => {
   const { id } = req.params;
