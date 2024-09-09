@@ -20,32 +20,29 @@ function Login() {
   }, []);
   
   console.log(ListaUsers);
-  const logged = ListaUsers.find((user) => user.username == email);
-  console.log(logged)
+  const logged = ListaUsers.find((user) => user.username === email);
+  const listaUsername = ListaUsers.map((user) => user.username);
+  console.log(listaUsername)
+ 
 
-  if(logged){ 
-    logged = true; 
-    console.log("vasco")
-  }
-  else{;
-    console.log("vasco2")
-  };
+  console.log(logged)
+  dispatch(loginUser({
+    email: email,
+    senha: senha,
+  }));
+ 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(loginUser({
-      email: email,
-      senha: senha,
-      loggedIn: true,
-    }));
-
-
-
-
-
-    dispatch(login({
-       logged
-    }));
+    if(logged){ 
+      dispatch(login({
+        logged
+     }));
+      console.log("vasco")
+    }
+    else{
+      console.log("vasco2")
+    };
 
 
   };

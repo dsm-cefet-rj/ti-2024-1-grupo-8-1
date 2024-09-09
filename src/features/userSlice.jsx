@@ -31,14 +31,7 @@ export const loginUser = createAsyncThunk(
 
 
 const initialState = {
-  users: [{
-    username: 'lucas@gmail',
-    senha: '123'
-  },
-  {
-    username: 'doutora@doutora',
-    senha: '1234'
-  }],
+  users: [],
   checkUser :null
 };
 
