@@ -52,7 +52,7 @@ function Agenda() {
 
     if (horaSelecionada == null) {
       alert("Selecione uma hora para o compromisso");
-      return 0;
+      return;
     }
 
     const novoCompromisso = {
@@ -76,10 +76,9 @@ function Agenda() {
       metodo: formulario.elements.metodo.value,
       idConsulta: compromisso._id
     };
-    console.log('Consultas no componente:', compromissos);
     dispatch(createPagamento(novoPagamento));
-    console.log('compromissos.filter((c) => c._id == compromisso._id resultou em:',compromissos.filter((c) => c._id == compromisso._id));
-    dispatch(updateConsultaById({id: compromisso._id, data: formulario.elements.observacoes.value}));  
+    console.log(formulario.elements.observacoes.value)
+    dispatch(updateConsultaById({id: compromisso._id, data: {observacoes: formulario.elements.observacoes.value}}));  
   };
 
   const alterarMes = (mes) => {

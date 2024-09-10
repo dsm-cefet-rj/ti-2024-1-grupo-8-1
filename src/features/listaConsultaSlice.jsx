@@ -21,7 +21,6 @@ export const updateConsultaById = createAsyncThunk(
   'consulta/updateConsultaById',
   async ({ id, data }) => {
     const resposta = await consultaService.updateById(id, data);
-    console.log('Resposta do backend:', resposta);
     return resposta;
   }
 );
@@ -72,8 +71,6 @@ const consultaSlice = createSlice({
       if (index !== -1) {
         state.consultas[index] = updatedConsulta;
       }
-    
-      console.log('Consultas atualizadas:', JSON.parse(JSON.stringify(state.consultas)))
     });
     builder.addCase(createConsulta.fulfilled, (state, action) => {
       state.consultas.push(action.payload);
