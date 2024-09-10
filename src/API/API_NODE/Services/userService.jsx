@@ -23,7 +23,7 @@ export const userService = {
     await axios.delete(`${API_BASE_URL}/${id}`);
   },
   login: async (data) => {
-    const response = axios.post(`${API_BASE_URL}/login`, data);
+    const response = await axios.post(`${API_BASE_URL}/${'login'}`, data);
     return response.data;
   }
 };

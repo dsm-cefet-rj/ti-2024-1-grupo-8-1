@@ -47,7 +47,6 @@ function AddPag({ handleConsultasConcluidas, consultaC }) {
       paciente: consultaPagamento.paciente,
     };
 
-    console.log(novoPagamento);
     dispatch(createPagamento(novoPagamento));
     handleConsultasConcluidas();
   };

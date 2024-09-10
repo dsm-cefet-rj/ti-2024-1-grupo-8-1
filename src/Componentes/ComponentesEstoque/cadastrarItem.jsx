@@ -30,7 +30,6 @@ function CadastrarItem({ handleListarItens }) {
             filtros: filtroSelecionado,
         };
         dispatch(createItem(dados));
-        console.log(dados);
     };
 
     const handleAddFiltro = (filtro) => {
