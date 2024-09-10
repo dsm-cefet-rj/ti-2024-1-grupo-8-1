@@ -23,13 +23,14 @@ function Login() {
   const logged = ListaUsers.find((user) => user.username === email);
   const listaUsername = ListaUsers.map((user) => user.username);
   console.log(listaUsername)
- 
+
+  const data = {
+    username: email,
+    password: senha
+  };
 
   console.log(logged)
-  dispatch(loginUser({
-    email: email,
-    senha: senha,
-  }));
+
  
 
   const handleSubmit = (e) => {
@@ -43,7 +44,7 @@ function Login() {
     else{
       console.log("vasco2")
     };
-
+    dispatch(loginUser(data));
 
   };
 
