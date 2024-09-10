@@ -36,8 +36,10 @@ function VisualizarPaciente({ handleInicioPaciente, paciente }) {
     }
 
     const handleMudanca = (e) => {
-        const { name, value } = e.target;
-        setNovoPaciente({ ...novoPaciente, [name]: value });
+        if (isEditing) {
+            const { name, value } = e.target;
+            setNovoPaciente({ ...novoPaciente, [name]: value });
+        }
     };
 
     const handleEditarPaciente = (e) => {
@@ -82,7 +84,6 @@ function VisualizarPaciente({ handleInicioPaciente, paciente }) {
                             name='nome'
                             value={novoPaciente.nome}
                             onChange={handleMudanca}
-                            disabled={!isEditing}
                         />
                     </div>
                     <div className='col-md-3'>
@@ -93,7 +94,6 @@ function VisualizarPaciente({ handleInicioPaciente, paciente }) {
                             name='telefone'
                             value={novoPaciente.telefone}
                             onChange={handleMudanca}
-                            disabled={!isEditing}
                         />
                     </div>
                     <div className='col-md-3'>
@@ -104,7 +104,6 @@ function VisualizarPaciente({ handleInicioPaciente, paciente }) {
                             name='cpf'
                             value={novoPaciente.cpf}
                             onChange={handleMudanca}
-                            disabled={!isEditing}
                         />
                     </div>
                     <div className='col-md-6'>
@@ -115,7 +114,6 @@ function VisualizarPaciente({ handleInicioPaciente, paciente }) {
                             name='endereco'
                             value={novoPaciente.endereco}
                             onChange={handleMudanca}
-                            disabled={!isEditing}
                         />
                     </div>
                     <div className='col-md-3'>
@@ -126,7 +124,6 @@ function VisualizarPaciente({ handleInicioPaciente, paciente }) {
                             name='cidade'
                             value={novoPaciente.cidade}
                             onChange={handleMudanca}
-                            disabled={!isEditing}
                         />
                     </div>
                     <div className='col-md-3'>
@@ -137,7 +134,6 @@ function VisualizarPaciente({ handleInicioPaciente, paciente }) {
                             name='responsavel'
                             value={novoPaciente.responsavel}
                             onChange={handleMudanca}
-                            disabled={!isEditing}
                         />
                     </div>
                     <div className='col-md-4'>
@@ -146,7 +142,6 @@ function VisualizarPaciente({ handleInicioPaciente, paciente }) {
                                 label="Alergias"
                                 itens={novoPaciente.alergias}
                                 setItens={(itens) => setNovoPaciente({ ...novoPaciente, alergias: itens })}
-                                disabled={!isEditing}
                             />) :
                             (<div>
                                 <label> Alergias:</label>
@@ -165,7 +160,6 @@ function VisualizarPaciente({ handleInicioPaciente, paciente }) {
                                 label="Medicações"
                                 itens={novoPaciente.medicacoes}
                                 setItens={(itens) => setNovoPaciente({ ...novoPaciente, medicacoes: itens })}
-                                disabled={!isEditing}
                             />) :
                             (<div>
                                 <label> Medicações</label>
@@ -183,7 +177,6 @@ function VisualizarPaciente({ handleInicioPaciente, paciente }) {
                                 label="Cirurgias"
                                 itens={novoPaciente.cirurgias}
                                 setItens={(itens) => setNovoPaciente({ ...novoPaciente, cirurgias: itens })}
-                                disabled={!isEditing}
                             />) :
                             (<div>
                                 <label> Cirurgias:</label>

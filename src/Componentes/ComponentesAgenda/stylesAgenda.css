@@ -130,19 +130,19 @@
   align-self: center;
 }
 
-.card-compromisso p{
+.card-compromisso p {
   margin-bottom: 0;
 }
 
-.areaPaciente{
+.areaPaciente {
   display: flex;
 }
 
-.cpfInput{
+.cpfInput {
   width: 30%;
 }
 
-.nomeInput{
+.nomeInput {
   width: 65%;
   margin-left: auto;
 }
@@ -163,19 +163,25 @@
   background-color: #2babe255;
   border-radius: 0.5rem;
   padding: 0.5rem 1rem 0.5rem 1rem;
+  margin-bottom: 1rem
 }
 
-.formularioConclusao label{
+.infoAgendamento .areaPaciente input {
+  margin-top: 0;
+}
+
+
+.formularioConclusao label {
   font-size: 1rem;
+  width: 100%;
 }
 
-.formularioConclusao .pagamentos{
+.formularioConclusao .pagamentos {
   display: flex;
   gap: 1rem;
-  margin-bottom: 1rem;
 }
 
-.formularioConclusao button{
+.formularioConclusao button {
   width: 100%;
   border-radius: 0.5rem;
   background-color: #2babe2;
@@ -186,7 +192,26 @@
   justify-content: center;
 }
 
-/* Media Queries para Responsividade */
+.controlePagamentos{
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.controlePagamentos label {
+  display: flex;
+  margin-right: auto;
+  width: fit-content;
+  align-content: center;
+  align-items: center;
+}
+
+.controlePagamentos label input {
+  width: fit-content;
+  margin: 0 1rem 0 0;
+  height: fit-content;
+
+}
+
 @media (max-width: 768px) {
   .topo {
     flex-direction: column;
@@ -205,6 +230,8 @@
     width: 100%;
   }
 }
+
+
 
 @media (max-width: 480px) {
   .calendario .cabecalho h2 {
@@ -230,15 +257,19 @@
     padding: 0.5rem;
   }
 
-  .areaPaciente{
+  .areaPaciente {
     flex-direction: column;
   }
-  
-  .cpfInput{
+
+  .cpfInput {
     width: 100%;
   }
-  
-  .nomeInput{
+
+  .formularioConclusao .pagamentos {
+    flex-direction: column;
+  }
+
+  .nomeInput {
     width: 100%;
     margin-left: 0;
   }

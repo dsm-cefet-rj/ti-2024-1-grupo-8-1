@@ -14,7 +14,7 @@ const gerarHorarios = () => {
   return horarios;
 };
 
-const Compromissos = ({ compromissosDoDia, dataSelecionada, horaSelecionada, onCliqueHora, onConclusaoCompromisso, ListaDePacientes }) => {
+const Compromissos = ({ compromissosDoDia, dataSelecionada, horaSelecionada, onCliqueHora, onConclusaoCompromisso, onDeleteCompromisso, ListaDePacientes }) => {
   const [compromissoAtual, setCompromissoAtual] = useState(null);
 
   const handleConcluirCompromisso = (compromisso) => {
@@ -68,7 +68,7 @@ const Compromissos = ({ compromissosDoDia, dataSelecionada, horaSelecionada, onC
                           className="botao-concluir"
                           onClick={() => handleConcluirCompromisso(compromisso)}
                         >
-                          Concluir
+                          Alterar
                         </button>
                       </div>
                     )
@@ -84,7 +84,7 @@ const Compromissos = ({ compromissosDoDia, dataSelecionada, horaSelecionada, onC
       {
         compromissoAtual && (
           <Popup className='popupconcluir' titulo={`Atendimento com ${ListaDePacientes.find((paciente) => paciente.cpf == compromissoAtual.cpfPaciente).nome}`} onClose={fecharPopup}>
-            <ConclusaoCompromisso fecharPopup={fecharPopup} onConclusaoCompromisso={onConclusaoCompromisso} compromissoAtual={compromissoAtual}/>
+            <ConclusaoCompromisso fecharPopup={fecharPopup} onConclusaoCompromisso={onConclusaoCompromisso} compromissoAtual={compromissoAtual} ListaDePacientes={ListaDePacientes} onDeleteCompromisso={onDeleteCompromisso}/>
           </Popup>
         )
       }
