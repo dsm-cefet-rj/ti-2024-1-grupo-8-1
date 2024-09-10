@@ -4,7 +4,7 @@ const cors = require ('../cors.jsx');
 
 exports.corsAuth = (req, res) => {res.sendStatus(200);}
 
-exports.getEstoque = authenticate.verifyUser, async (req, res) => {
+exports.getEstoque = async (req, res) => {
   try {
     const estoque = await Estoque.find();
     res.status(200).json(estoque);
@@ -14,7 +14,7 @@ exports.getEstoque = authenticate.verifyUser, async (req, res) => {
   }
 };
 
-exports.getEstoqueById = authenticate.verifyUser, async (req, res) => {
+exports.getEstoqueById = async (req, res) => {
   const { id } = req.params;
   try {
     const itemEstoque = await Estoque.findById(id);
@@ -26,7 +26,7 @@ exports.getEstoqueById = authenticate.verifyUser, async (req, res) => {
   }
 };
 
-exports.createEstoque = authenticate.verifyUser, async (req, res) => {
+exports.createEstoque = async (req, res) => {
   console.log('Dados recebidos para criar:', req.body);
 
   const dadosEstoque = { ...req.body };
@@ -43,7 +43,7 @@ exports.createEstoque = authenticate.verifyUser, async (req, res) => {
 };
 
 
-exports.updateEstoque = authenticate.verifyUser, async (req, res) => {
+exports.updateEstoque = async (req, res) => {
   const { id } = req.params;
   const dadosAtualizados = req.body;
   try {
@@ -56,7 +56,7 @@ exports.updateEstoque = authenticate.verifyUser, async (req, res) => {
   }
 };
 
-exports.deleteEstoque = authenticate.verifyUser, async (req, res) => {
+exports.deleteEstoque = async (req, res) => {
   const { id } = req.params;
   try {
     const itemEstoque = await Estoque.findByIdAndDelete(id);

@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, createEntityAdapter } from '@reduxjs/toolkit';
 import { userService } from '../API/API_NODE/Services/userService.jsx'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
@@ -24,7 +24,8 @@ export const signUpUser = createAsyncThunk(
 export const loginUser = createAsyncThunk(
   'users/loginUser',
   async (data) => {
-    const resposta = await userService.post(data);
+    console.log(data)
+    const resposta = await userService.login(data);
     return resposta;
   }
 );
@@ -35,6 +36,9 @@ const initialState = {
   users: [],
   checkUser :null
 };
+
+const userAdapter = createEntityAdapter();
+
 
 const userSlice = createSlice({
   name: 'users',
@@ -63,7 +67,6 @@ const userSlice = createSlice({
       state.users.push(action.payload);
     });
     builder.addCase(loginUser.fulfilled, (state, action) => {
-      state.status = "logged_in";
       state.users.push(action.payload);
     });
   },

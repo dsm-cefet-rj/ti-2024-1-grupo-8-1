@@ -19,33 +19,28 @@ function Login() {
     dispatch(fetchUsers());
   }, []);
   
-  console.log(ListaUsers);
   const logged = ListaUsers.find((user) => user.username === email);
-  const listaUsername = ListaUsers.map((user) => user.username);
-  console.log(listaUsername)
 
   const data = {
     username: email,
     password: senha
   };
+  
+  console.log(data)
+  
 
-  console.log(logged)
-
- 
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(loginUser(data));
     if(logged){ 
       dispatch(login({
         logged
      }));
-      console.log("vasco")
     }
     else{
-      console.log("vasco2")
+      console.log("Erro de Login")
     };
-    dispatch(loginUser(data));
-
   };
 
 

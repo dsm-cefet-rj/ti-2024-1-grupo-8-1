@@ -5,6 +5,7 @@ const pagamentoRoutes = require('./Routes/pagamentoRoutes.jsx');
 const estoqueRoutes = require('./Routes/estoqueRoutes.jsx');
 const consultaRoutes = require('./Routes/consultaRoutes.jsx');
 const userRoutes = require('./Routes/userRoutes.jsx');
+require ('./authenticate.jsx')
 
 router.use('/api/pacientes', pacienteRoutes);
 router.use('/api/pagamentos', pagamentoRoutes);
