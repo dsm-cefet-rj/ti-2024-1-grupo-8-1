@@ -1,0 +1,59 @@
+.controle-mes {
+    display: flex;
+    justify-content: center;
+}
+
+.controle-mes > h3{
+    font-size: 3rem;
+}
+
+.controle-mes button {
+    margin: auto;
+    border-radius: 0.5rem;
+    background-color: #2babe2;
+    border: none;
+    text-align: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.grid-pagamentos {
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    justify-items: center;
+    width: 70%;
+}
+
+
+.grid-pagamentos>.mini-recibo {
+    background-color: #2babe2;
+    list-style: none;
+    padding: 0.5rem;
+    width: fit-content;
+    margin-bottom: 1rem;
+    border-radius: 1rem;
+    width: 15rem;
+}
+
+.pesquisa-cpf{
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin: auto;
+    margin-bottom: 2rem;
+}
+
+.pesquisa-cpf input{
+    width: 15rem;
+    border: none;
+    background-color: #2babe288;
+    border-radius: 1rem;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    font-size: 1.2rem;
+}
+
+.pesquisa-cpf label{
+    text-align: center;
+}
